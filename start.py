@@ -232,8 +232,7 @@ def addcanteen(update, context):
 
 def main():
     global update_id
-  
-    # Welcome 1357264168:AAHSA6t5WsWkZ3pl4B8-z8CWcaneZUJpw-Q
+
     TOKEN = os.environ['TOKEN']
     updater = Updater(TOKEN, use_context=True)
     dp = updater.dispatcher
