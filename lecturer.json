@@ -1,0 +1,16 @@
+{
+    "lecturer": [{
+            "id": 1,
+            "name": "Florence Ma",
+            "rating": "★☆☆☆☆",
+            "comment": "Dllm 4 killer, hea dou pk, bad grade"
+        }, {
+            "id": 2,
+            "name": "Ricky Mak",
+            "rating": "★★★★☆",
+            "comment": "not bad"
+        }
+
+
+    ]
+}

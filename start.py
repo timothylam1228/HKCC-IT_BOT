@@ -3,15 +3,21 @@
 import logging
 import random
 import telegram
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackQueryHandler,StringCommandHandler
-from telegram import InlineQuery , ReplyKeyboardMarkup, ReplyKeyboardRemove, MessageEntity, ForceReply, InlineKeyboardButton,InlineKeyboardMarkup
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackQueryHandler,StringCommandHandler, InlineQueryHandler
+from telegram import InlineQuery , ReplyKeyboardMarkup, ReplyKeyboardRemove, MessageEntity, ForceReply, InlineKeyboardButton,InlineKeyboardMarkup,InlineQueryResultArticle, ParseMode, \
+    InputTextMessageContent
 from telegram.utils import helpers
+from telegram.utils.helpers import escape_markdown
 import datetime
 import os
 import psycopg2
+import json
+from uuid import uuid4
 
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
+FIRST, SECOND = range(2)
+
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -23,18 +29,33 @@ logger = logging.getLogger(__name__)
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('/source for Geting the source')
+    update.message.reply_text('/source for Geting the source\n/canteen to show canteen')
 
 def newmember(update, context):
     """Send a message when the command /help is issued."""
+    query = update.callback_query
     bot = context.bot
     url = helpers.create_deep_linked_url(bot.get_me().username, SO_COOL)
     text = "歡迎來到IT谷" 
     keyboard = InlineKeyboardMarkup.from_button(
         InlineKeyboardButton(text='Continue here!', url=url)
-    )
-    update.message.reply_text(text, reply_markup=keyboard)
+        )
+    ogg_url = 'https://github.com/timothylam1228/CodeDeployGitHubDemo/raw/master/source/plato.ogg'
+    for member in update.message.new_chat_members:
+        update.message.reply_text(text, reply_markup=keyboard)
+        context.bot.send_voice(chat_id = update.message.chat.id, voice = ogg_url)
+        new_members = update.message.new_chat_members
+        firstname = member.first_name
+        lastname = member.last_name
+        if("+852" in firstname) :
+            bot.kick_chat_member(chat_id=update.message.chat.id, user_id=update.message.from_user.id)
+            return
+        elif("+852" in lastname):
+            bot.kick_chat_member(chat_id=update.message.chat.id, user_id=update.message.from_user.id)
+            return
 
+    
+    
 def open_bot(update, context):
     x = update.message.from_user.id
     print(x)
@@ -67,14 +88,7 @@ def open_day(update, context):
     x = datetime.datetime.now()
     delta = datetime.datetime(2020, 9, 7) - datetime.datetime.now()
     count = (delta.total_seconds())
-    if(count<=0):
-        update.message.reply_text("開左學啦仲倒數 \n用 /endday 睇下幾時完SEM")
-    else:
-        days = int(count//86400)
-        hours = int((count-days*86400)//3600)
-        minutes = int((count-days*86400-hours*3600)//60)
-        seconds = int(count-days*86400-hours*3600-minutes*60)
-        update.message.reply_text("距離開學仲有"+str(days)+"日 "+str(hours)+"小時 "+str(minutes) +"分 " + str(seconds) + "秒")
+    update.message.reply_text("開左學啦仲倒數 \n用 /endday 睇下幾時完SEM",reply_markup = ReplyKeyboardRemove())
 
 def end_day(update, context):
     x = datetime.datetime.now()
@@ -107,7 +121,7 @@ def source(update, context):
                   [InlineKeyboardButton("Applied Computing", callback_data='Applied Computing'),
                  InlineKeyboardButton("Programming Final Reminder", callback_data='Programming Final Reminder')],
                   [InlineKeyboardButton("Stat", callback_data='Stat'),
-                 InlineKeyboardButton("CCT", callback_data='CCT')],
+                 InlineKeyboardButton("CCT", callback_data='CCT')],[InlineKeyboardButton("Linear Final Reminder",callback_data='Linear Final Reminder')]
                 ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -115,7 +129,8 @@ def source(update, context):
 
 def help_command(update, context):
     x = update.message.from_user.id
-    update.message.reply_text(x)
+    update.message.reply_text(x,)
+
 
 def dllmcount(update, context):
     message = (update.message.text).lower()
@@ -170,20 +185,26 @@ def listCanteen(update,context):
     dbCursor.execute(sqlSelect)
     rows = dbCursor.fetchall()
     menu_keyboard = []
+    menu_keyboard2 = []
     latitude=""
     longitude=""
     name=""
+    i = 0
     for row in rows:
+        i=i+1
         latitude = row[1]
         longitude = row[2]
         name = row[3]
         menu_keyboard.append([str(name)])
+        if(i%2==0):
+            menu_keyboard2.append(menu_keyboard)
+
     menu_markup = ReplyKeyboardMarkup(menu_keyboard, one_time_keyboard=True, resize_keyboard=True)
     update.message.reply_text(text = 'what canteen?',reply_markup=menu_markup)
     conn.commit()
     dbCursor.close()
     conn.close()
-    return ConversationHandler.END
+
 
 def showlocation(update,context):
     chat_id=update.message.chat.id
@@ -229,10 +250,47 @@ def addcanteen(update, context):
     dbCursor.close()
     conn.close()
 
+def pin9(update,context):
+    chat_id=update.message.chat.id
+    f = open("pin.txt", "r")
+    temp = f.read()
+    update.message.reply_text(text='INFO'+temp)
+    
+
+# def lecturer(update,context):
+#     f = open('lecturer.json',)
+#     data = json.load(f) 
+#     print(data)
+#     keyboard = []
+#     inlinekeyboard = []
+#     for i in data['lecturer']:
+#         keyboard.append([str(i['name'])])
+#     print(keyboard)
+#     reply_markup = ReplyKeyboardMarkup(keyboard,one_time_keyboard=True, resize_keyboard=True)
+#     update.message.reply_text('Please choose:', reply_markup=reply_markup)
+#     rating(update,context)
+
+# def rating(update,context,name):
+#     query = update.callback_query
+#     f = open('lecturer.json',)
+#     rate=""
+#     comment=""
+#     data = json.load(f) 
+#     query.answer()
+#     temp = query.data
+#     for i in data['lecturer']:
+#         if i['name']==temp:
+#             rate = i['rating']
+#             comment = i['comment']
+#             break
+#     print(comment)
+#     #query.edit_message_text(text="Selected option: {}".format(query.data))
+#     context.bot.sendMessage(chat_id=query.message.chat.id,text=temp+'\n rate :'+rate+'\ncomment :'+comment)
 
 def main():
     global update_id
-
+  
+    # Welcome 1357264168:AAHSA6t5WsWkZ3pl4B8-z8CWcaneZUJpw-Q
     TOKEN = os.environ['TOKEN']
     updater = Updater(TOKEN, use_context=True)
     dp = updater.dispatcher
@@ -244,19 +302,26 @@ def main():
     dp.add_handler(CommandHandler("openday",open_day))
     dp.add_handler(CommandHandler("endday",end_day))
     dp.add_handler(CommandHandler("gpaday",gpa_day))
-    updater.dispatcher.add_handler(CallbackQueryHandler(button))
+    #updater.dispatcher.add_handler(CallbackQueryHandler(button))
     dp.add_handler(CommandHandler("Source", source,filters=~Filters.group))
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
+    # dp.add_handler(CommandHandler("lecturer",lecturer,filters=~Filters.group))
+    #updater.dispatcher.add_handler(CallbackQueryHandler(rating))
+
+
     ############
     dp.add_handler(CommandHandler("help",help_command))
     dp.add_handler(CommandHandler("addcanteen",addcanteen,pass_args = True))
     dp.add_handler(CommandHandler("showdllmtimes",show))
-    dp.add_handler(CommandHandler("canteen",listCanteen))
-    dp.add_handler(MessageHandler(Filters.text & ~Filters.group & ~Filters.group, showlocation))
+    dp.add_handler(CommandHandler("canteen",listCanteen,filters=~Filters.group))
+    dp.add_handler(CommandHandler("pin9",pin9,filters=Filters.group))
+    dp.add_handler(MessageHandler(Filters.text & ~Filters.group, showlocation))
 
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
+    dp.add_handler(MessageHandler(Filters.text & Filters.group, dllmcount))
+
     #dp.add_handler(CommandHandler("donateToMe",donateToMe,pass_args = True))
-    
+
 
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
@@ -281,4 +346,5 @@ openday - remaining time b4 hell
 endday - remaining time to leave hell
 gpaday - most excited day
 showdllmtimes - count on dllm
+pin9 - show pin message
 '''
