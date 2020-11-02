@@ -210,7 +210,7 @@ def showlocation(update,context):
     chat_id=update.message.chat.id
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    dbCursor = conn.cursor();
+    dbCursor = conn.cursor()
     sqlSelect = "select * from canteen where name = '{}'".format(update.message.text);
     dbCursor.execute(sqlSelect)
     rows = dbCursor.fetchall()
@@ -289,8 +289,6 @@ def pin9(update,context):
 
 def main():
     global update_id
-  
-    # Welcome 1357264168:AAHSA6t5WsWkZ3pl4B8-z8CWcaneZUJpw-Q
     TOKEN = os.environ['TOKEN']
     updater = Updater(TOKEN, use_context=True)
     dp = updater.dispatcher
