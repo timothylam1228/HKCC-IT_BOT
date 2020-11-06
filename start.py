@@ -144,8 +144,8 @@ def dllmcount(update, context):
         sqlSelect = "select * from tg_user where user_id = {}".format(x);
         dbCursor.execute(sqlSelect)
         rows = dbCursor.fetchall()
-        first_name = update.message.from_user.firstname
-        last_name = update.message.from_user.last
+        first_name = update.message.from_user.first_name
+        last_name = update.message.from_user.last_name
         name = first_name + last_name
         sqlInsertTable = 1
         for row in rows:
