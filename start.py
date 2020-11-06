@@ -146,14 +146,18 @@ def dllmcount(update, context):
         sqlSelect = "select * from tg_user where user_id = {}".format(x);
         dbCursor.execute(sqlSelect)
         rows = dbCursor.fetchall()
+        first_name = update.message.from_user.firstname
+        last_name = update.message.from_user.last
+        name = first_name + last_name
         for row in rows:
            count = row[1]
         if (count == 0):
-            sqlInsertTable  = "INSERT INTO tg_user values({},1,NOW()::TIMESTAMP(0))".format(x);
+            sqlInsertTable  = "INSERT INTO tg_user values({},1,NOW()::TIMESTAMP(0),{})".format(x, name);
             print(sqlInsertTable)
         else:
             count = count + 1
-            sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0)  WHERE user_id = {}".format(count,x);
+            sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0),username={}}  WHERE user_id = {}".format(count,name,x);
+
         print(sqlInsertTable)
         dbCursor.execute(sqlInsertTable)
         conn.commit()
