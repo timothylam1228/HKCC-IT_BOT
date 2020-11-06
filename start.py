@@ -155,7 +155,7 @@ def dllmcount(update, context):
             print(sqlInsertTable)
         else:
             count = count + 1
-            sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0),username={}}  WHERE user_id = {}".format(count,name,x);
+            sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0),username={} WHERE user_id = {}".format(count,name,x);
 
         print(sqlInsertTable)
         dbCursor.execute(sqlInsertTable)
