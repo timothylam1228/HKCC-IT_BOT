@@ -13,8 +13,6 @@ import os
 import psycopg2
 import json
 from uuid import uuid4
-from telethon.sync import  
-from telethon import functions, types
 
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
