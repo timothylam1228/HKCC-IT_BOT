@@ -13,7 +13,7 @@ import os
 import psycopg2
 import json
 from uuid import uuid4
-from telethon.sync import TelegramClient
+from telethon.sync import  
 from telethon import functions, types
 
 PORT = int(os.environ.get('PORT', 5000))
@@ -233,7 +233,7 @@ def addcanteen(update, context):
     chat_id=update.message.chat.id
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    dbCursor = conn.cursor();
+    dbCursor = conn.cursor()
     print(context.args[0])
     try:
         name = context.args[0]
@@ -289,6 +289,13 @@ def pin9(update,context):
 #     #query.edit_message_text(text="Selected option: {}".format(query.data))
 #     context.bot.sendMessage(chat_id=query.message.chat.id,text=temp+'\n rate :'+rate+'\ncomment :'+comment)
 
+def username(update, context):
+    username = context.args[0]
+    chat_id=update.message.chat.id
+
+    context.bot.sendMessage(chat_id=chat_id,text =username)
+
+
 def main():
     global update_id
     TOKEN = os.environ['TOKEN']
@@ -312,6 +319,8 @@ def main():
     ############
     dp.add_handler(CommandHandler("help",help_command))
     dp.add_handler(CommandHandler("addcanteen",addcanteen,pass_args = True))
+    dp.add_handler(CommandHandler("username",username,pass_args = True))
+
     dp.add_handler(CommandHandler("showdllmtimes",show))
     dp.add_handler(CommandHandler("canteen",listCanteen,filters=~Filters.group))
     dp.add_handler(CommandHandler("pin9",pin9,filters=Filters.group))
