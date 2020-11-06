@@ -163,9 +163,9 @@ def show(update,context):
     time = ""
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    dbCursor = conn.cursor();
+    dbCursor = conn.cursor()
     x = update.message.from_user.id
-    sqlSelect = "select * from tg_user where user_id = {}".format(x);
+    sqlSelect = "select * from tg_user where user_id = {}".format(x)
     dbCursor.execute(sqlSelect)
     rows = dbCursor.fetchall()
     for row in rows:
