@@ -13,6 +13,8 @@ import os
 import psycopg2
 import json
 from uuid import uuid4
+from telethon.sync import TelegramClient
+from telethon import functions, types
 
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
@@ -139,7 +141,7 @@ def dllmcount(update, context):
     if "dllm"  in message:
         DATABASE_URL = os.environ['DATABASE_URL']
         conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-        dbCursor = conn.cursor();
+        dbCursor = conn.cursor()
         x = update.message.from_user.id
         sqlSelect = "select * from tg_user where user_id = {}".format(x);
         dbCursor.execute(sqlSelect)
@@ -180,8 +182,8 @@ def listCanteen(update,context):
     chat_id=update.message.chat.id
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    dbCursor = conn.cursor();
-    sqlSelect = "select * from canteen";
+    dbCursor = conn.cursor()
+    sqlSelect = "select * from canteen"
     dbCursor.execute(sqlSelect)
     rows = dbCursor.fetchall()
     menu_keyboard = []

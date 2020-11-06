@@ -153,7 +153,6 @@ def main():
     # Post version 12 this will no longer be necessary
     # Welcome 1357264168:AAHSA6t5WsWkZ3pl4B8-z8CWcaneZUJpw-Q
     #
-    updater = Updater("1357264168:AAHSA6t5WsWkZ3pl4B8-z8CWcaneZUJpw-Q", use_context=True)
  
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
