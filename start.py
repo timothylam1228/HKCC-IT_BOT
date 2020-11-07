@@ -163,7 +163,7 @@ def dllmcount(update, context):
                 array["name"]=name
             else:
                 data["user"].append(a_list)
-                
+                break
         if (count == 0):
             sqlInsertTable  = "INSERT INTO tg_user values({},1,NOW()::TIMESTAMP(0))".format(x);
             print(sqlInsertTable)
