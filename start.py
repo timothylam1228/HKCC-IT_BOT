@@ -147,7 +147,14 @@ def dllmcount(update, context):
         first_name = update.message.from_user.first_name
         last_name = update.message.from_user.last_name
         name = first_name + last_name
-        sqlInsertTable = 1
+        with open('username.json') as f:
+            data = json.load(f)
+        print(data)
+
+        # a_list = {'id':x,
+        # 'name':name
+        # }
+    
         for row in rows:
            count = row[1]
         if (count == 0):
