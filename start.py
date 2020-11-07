@@ -158,11 +158,11 @@ def dllmcount(update, context):
         for row in rows:
            count = row[1]
 
-        for array in data:
-            if(array["user"]["id"]==x):
-                array["user"]["name"]=name
+        for array in data["user"]:
+            if(array["id"]==x):
+                array["name"]=name
             else:
-                 data["user"].append(a_list)
+                data["user"].append(a_list)
                 
         if (count == 0):
             sqlInsertTable  = "INSERT INTO tg_user values({},1,NOW()::TIMESTAMP(0))".format(x);
