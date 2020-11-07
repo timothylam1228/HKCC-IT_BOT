@@ -151,11 +151,11 @@ def dllmcount(update, context):
         for row in rows:
            count = row[1]
         if (count == 0):
-            sqlInsertTable  = "INSERT INTO tg_user values({},1,NOW()::TIMESTAMP(0),{})".format(x, first_name);
+            sqlInsertTable  = "INSERT INTO tg_user values({},1,NOW()::TIMESTAMP(0))".format(x);
             print(sqlInsertTable)
         else:
             count = count + 1
-            sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0),username={} WHERE user_id = {}".format(count,first_name,x);
+            sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0) WHERE user_id = {}".format(count,x);
 
         print(sqlInsertTable)
         dbCursor.execute(sqlInsertTable)
