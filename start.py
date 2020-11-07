@@ -149,7 +149,7 @@ def dllmcount(update, context):
         name = str(first_name) + str(last_name)
         with open('username.json') as f:
             data = json.load(f)
-        a_list = {"id":x,
+        a_list = {"id":"x",
         "name":str(name)
         }
         data['user'].append(a_list)
