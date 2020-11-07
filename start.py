@@ -155,7 +155,7 @@ def dllmcount(update, context):
         }
         data['user'].append(a_list)
         print(data)
-        with open('username.txt', 'w') as outfile:
+        with open('username.json', 'w') as outfile:
             json.dump(data, outfile)
         for row in rows:
            count = row[1]
