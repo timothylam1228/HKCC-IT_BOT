@@ -146,7 +146,7 @@ def dllmcount(update, context):
         rows = dbCursor.fetchall()
         first_name = update.message.from_user.first_name
         last_name = update.message.from_user.last_name
-        name = first_name + last_name
+        name = str(first_name) + str(last_name)
         with open('username.json') as f:
             data = json.load(f)
         a_list = {"id":x,
