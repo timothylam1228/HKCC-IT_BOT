@@ -153,7 +153,7 @@ def dllmcount(update, context):
         "name":str(name)
         }
         data['user'].append(a_list)
-        print(data)
+        #print(data)
         for row in rows:
            count = row[1]
         if (count == 0):
