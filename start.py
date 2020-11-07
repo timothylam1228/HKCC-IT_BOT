@@ -153,7 +153,7 @@ def dllmcount(update, context):
         a_list = {'id':x,
         'name':name
         }
-        data.append(a_list)
+        data.update(a_list)
         print(data)
         for row in rows:
            count = row[1]
