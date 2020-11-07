@@ -147,10 +147,11 @@ def dllmcount(update, context):
         first_name = update.message.from_user.first_name
         last_name = update.message.from_user.last_name
         name = str(first_name) + str(last_name)
+        name = str(name)
         with open('username.json') as f:
             data = json.load(f)
-        a_list = {"id":"x",
-        "name":"str(name)"
+        a_list = {"id":x,
+        "name":name
         }
         data['user'].append(a_list)
         print(data)
