@@ -150,15 +150,20 @@ def dllmcount(update, context):
         name = str(name)
         with open('username.json') as f:
             data = json.load(f)
+
         a_list = {"id":x,
         "name":name
         }
-        data['user'].append(a_list)
         print(data)
-        with open('username.json', 'w') as outfile:
-            json.dump(data, outfile)
         for row in rows:
            count = row[1]
+
+        for array in data:
+            if(array["user"]["id"]==x):
+                array["user"]["name"]=name
+            else:
+                 data["user"].append(a_list)
+                
         if (count == 0):
             sqlInsertTable  = "INSERT INTO tg_user values({},1,NOW()::TIMESTAMP(0))".format(x);
             print(sqlInsertTable)
@@ -166,6 +171,8 @@ def dllmcount(update, context):
             count = count + 1
             sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0) WHERE user_id = {}".format(count,x);
 
+        with open('username.json', 'w') as outfile:
+            json.dump(data, outfile)
         print(sqlInsertTable)
         dbCursor.execute(sqlInsertTable)
         conn.commit()
