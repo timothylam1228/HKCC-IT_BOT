@@ -313,8 +313,8 @@ def exam(update,context):
     id = context.args[0]
     for row in csv.reader(file):
         if row[1] == id:
-            update.message.reply_text(text=row[2]+'既考試喺係'+row[3]+'既'+row[4])
-            break
+            update.message.reply_text(text=row[2]+'Group'+row[3]+'既考試喺係'+row[4]+'既'+row[5])
+            
 
 
 def username(update, context):
