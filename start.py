@@ -393,4 +393,5 @@ endday - remaining time to leave hell
 gpaday - most excited day
 showdllmtimes - count on dllm
 pin9 - show pin message
+exam - exam {code} show exam date time
 '''
