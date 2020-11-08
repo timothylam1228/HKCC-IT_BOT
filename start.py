@@ -92,7 +92,7 @@ def open_day(update, context):
 
 def end_day(update, context):
     x = datetime.datetime.now()
-    delta = datetime.datetime(2021, 1, 3) - datetime.datetime.now()
+    delta = datetime.datetime(2020, 12, 17,12,45) - datetime.datetime.now()
     count = (delta.total_seconds())
     days = int(count//86400)
     hours = int((count-days*86400)//3600)
