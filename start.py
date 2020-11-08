@@ -13,6 +13,7 @@ import os
 import psycopg2
 import json
 from uuid import uuid4
+import csv
 
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
@@ -307,6 +308,14 @@ def pin9(update,context):
 #     print(comment)
 #     #query.edit_message_text(text="Selected option: {}".format(query.data))
 #     context.bot.sendMessage(chat_id=query.message.chat.id,text=temp+'\n rate :'+rate+'\ncomment :'+comment)
+def exam(update,context):
+    file = open('Exam_timetable.csv', 'r')
+    id = context.args[0]
+    for row in csv.reader(file):
+        if row[1] == id:
+            update.message.reply_text(text=row[2]+'既考試喺係'+row[3]+'既'+row[4])
+            break
+
 
 def username(update, context):
     username = context.args[0]
@@ -343,6 +352,8 @@ def main():
     dp.add_handler(CommandHandler("showdllmtimes",show))
     dp.add_handler(CommandHandler("canteen",listCanteen,filters=~Filters.group))
     dp.add_handler(CommandHandler("pin9",pin9,filters=Filters.group))
+    dp.add_handler(CommandHandler("exam",exam,pass_args = True))
+
     dp.add_handler(MessageHandler(Filters.text & ~Filters.group, showlocation))
 
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
