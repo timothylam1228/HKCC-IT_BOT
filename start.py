@@ -310,13 +310,12 @@ def pin9(update,context):
 #     context.bot.sendMessage(chat_id=query.message.chat.id,text=temp+'\n rate :'+rate+'\ncomment :'+comment)
 def exam(update,context):
     found = 0
-    message = (update.message.text).lower()
     chat_id=update.message.chat.id
     text = ''
     text_old = ''
     file = open('Exam_timetable.csv', 'r')
     id = context.args[0]
-    if 'CCN' in message:
+    if 'CCN' in id.lower():
         text_old = '走啦死老野'
     for row in csv.reader(file):
         if row[1] == id and found == 1:
