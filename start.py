@@ -320,7 +320,11 @@ def exam(update,context):
         if row[1] == id and found == 0:
             text= text + str(row[2]+'\n既考試喺係*'+row[4]+'*\nGroup '+row[3]+' 既考試時間係'+row[5])
             found = 1
-    context.bot.sendMessage(chat_id=chat_id,text =text, parse_mode= 'Markdown')
+    if found == 0:
+        context.bot.sendMessage(chat_id=chat_id,text = '冇呢一科牙')
+    else:
+        context.bot.sendMessage(chat_id=chat_id,text =text, parse_mode= 'Markdown')
+
 
 
 
