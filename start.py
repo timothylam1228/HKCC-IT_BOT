@@ -309,12 +309,16 @@ def pin9(update,context):
 #     #query.edit_message_text(text="Selected option: {}".format(query.data))
 #     context.bot.sendMessage(chat_id=query.message.chat.id,text=temp+'\n rate :'+rate+'\ncomment :'+comment)
 def exam(update,context):
+    found = 0
     file = open('Exam_timetable.csv', 'r')
     id = context.args[0]
     for row in csv.reader(file):
+        if row[1] == id and found == 1:
+            text.append('Group'+row[3])
         if row[1] == id:
-            update.message.reply_text(text=row[2]+'Group'+row[3]+'既考試喺係\n'+row[4]+'既'+row[5])
-            
+            text= row[2]+'Group'+row[3]+'既考試喺係\n'+row[4]+'既'+row[5]
+            found = 1
+        
 
 
 def username(update, context):
