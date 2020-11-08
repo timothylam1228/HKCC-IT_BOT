@@ -316,9 +316,9 @@ def exam(update,context):
     id = context.args[0]
     for row in csv.reader(file):
         if row[1] == id and found == 1:
-            text = text + 'Group' + row[3]
+            text = text + 'Group' + str(row[3])
         if row[1] == id:
-            text= row[2]+'\nGroup'+row[3]+'\n既考試喺係\n'+row[4]+'既'+row[5]
+            text= text + str(row[2]+'\nGroup'+row[3]+'\n既考試喺係\n'+row[4]+'既'+row[5])
             found = 1
     context.bot.sendMessage(chat_id=chat_id,text =text)
 
