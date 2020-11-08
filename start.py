@@ -310,15 +310,18 @@ def pin9(update,context):
 #     context.bot.sendMessage(chat_id=query.message.chat.id,text=temp+'\n rate :'+rate+'\ncomment :'+comment)
 def exam(update,context):
     found = 0
+    chat_id=update.message.chat.id
+    text = ''
     file = open('Exam_timetable.csv', 'r')
     id = context.args[0]
     for row in csv.reader(file):
         if row[1] == id and found == 1:
-            text.append('Group'+row[3])
+            text = text + 'Group' + row[3]
         if row[1] == id:
             text= row[2]+'Group'+row[3]+'既考試喺係\n'+row[4]+'既'+row[5]
             found = 1
-        
+    context.bot.sendMessage(chat_id=chat_id,text =text)
+
 
 
 def username(update, context):
