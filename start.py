@@ -355,7 +355,7 @@ def blurPhoto(update, context):
     #imgD = cv2.imread("image.jpg")
     #context.bot.sendMessage(chat_id=chat_id,text =text)
     #blur = cv2.blur(imgD,(5,5))
-    file = client.download_file('telegram.bot.web', 'OBJECT_NAME', 'FILE_NAME')
+    file = client.download_file('telegram.bot.web', 'result.jpg', 'result.jpg')
     downloadedPhoto = 'https://s3.us-east-2.amazonaws.com/telegram.bot.web/result.jpg'
     context.bot.sendMessage(chat_id=chat_id,text =text) 
     context.bot.sendPhoto(chat_id=chat_id,photo=file)
@@ -384,7 +384,9 @@ def upload_file(file_name, bucket, object_name=None):
     # Upload the file
     try:
         response = client.upload_file(file_name, bucket, object_name)
+        print(file_name)
         print(object_name)
+
     except ClientError as e:
         logging.error(e)
         return False
