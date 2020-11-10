@@ -337,6 +337,7 @@ def blurPhoto(update, context):
     file = context.bot.getFile(update.message.photo[-1].file_id)
     file.download('image.jpg')
     sqlInsertTable  = "INSERT INTO image (image) values ({})".format(file);
+    print(sqlInsertTable)
     dbCursor.execute(sqlInsertTable)
     conn.commit()
     dbCursor.close()
