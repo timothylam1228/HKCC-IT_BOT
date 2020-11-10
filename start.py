@@ -360,7 +360,7 @@ def blurPhoto(update, context):
     downloadedPhoto = 'https://s3.us-east-2.amazonaws.com/telegram.bot.web/result.jpg'
     downloaded_obj = requests.get(downloadedPhoto)
     context.bot.sendMessage(chat_id=chat_id,text =text) 
-    context.bot.sendPhoto(chat_id=chat_id,photo=downloaded_obj)
+    context.bot.sendPhoto(chat_id=chat_id,photo=downloaded_obj.content)
 
 
 def username(update, context):
