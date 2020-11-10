@@ -24,7 +24,8 @@ import requests
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
-
+s3 =boto3.resource('s3')
+bucket = s3.Bucket('telegram.bot.web')
 client = boto3.client(
     's3',
     aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
@@ -341,7 +342,6 @@ def exam(update,context):
         context.bot.sendMessage(chat_id=chat_id,text =text, parse_mode= 'Markdown')
 
 def blurPhoto(update, context):
-    bucket = client.Bucket('telegram.bot.web')
     chat_id=update.message.chat.id
     file = context.bot.getFile(update.message.photo[-1].file_id)
     testing = file.download('image.jpg')
