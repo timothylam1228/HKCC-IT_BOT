@@ -336,14 +336,13 @@ def blurPhoto(update, context):
     chat_id=update.message.chat.id
     file = context.bot.getFile(update.message.photo[-1].file_id)
     file.download('image.jpg')
-    sqlInsertTable  = "INSERT INTO image (image) values ({},{},'{}')".format(file);
+    sqlInsertTable  = "INSERT INTO image (image) values ({})".format(file);
     dbCursor.execute(sqlInsertTable)
     conn.commit()
     dbCursor.close()
     conn.close()
-
     text = 'asddsa'
-    
+
     imgD = cv2.imread("image.jpg")
     #context.bot.sendMessage(chat_id=chat_id,text =text)
     #blur = cv2.blur(imgD,(5,5))
