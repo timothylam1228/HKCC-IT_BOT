@@ -355,7 +355,7 @@ def blurPhoto(update, context):
     #imgD = cv2.imread("image.jpg")
     #context.bot.sendMessage(chat_id=chat_id,text =text)
     #blur = cv2.blur(imgD,(5,5))
-    downloadedPhoto = client.download_file('telegram.bot.web', 'result.jpg', 'result.jpg')
+    downloadedPhoto = 'https://s3.us-east-2.amazonaws.com/telegram.bot.web/result.jpg'
     context.bot.sendMessage(chat_id=chat_id,text =text) 
 
     context.bot.sendPhoto(chat_id=chat_id,photo=downloadedPhoto)
