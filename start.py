@@ -417,7 +417,7 @@ def main():
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
     # dp.add_handler(CommandHandler("lecturer",lecturer,filters=~Filters.group))
     #updater.dispatcher.add_handler(CallbackQueryHandler(rating))
-    dp.add_handler(MessageHandler(Filters.photo,blurPhoto))
+    #dp.add_handler(MessageHandler(Filters.photo,blurPhoto))
 
     ############
     dp.add_handler(CommandHandler("help",help_command))
