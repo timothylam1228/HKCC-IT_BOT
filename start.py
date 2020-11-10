@@ -341,7 +341,7 @@ def exam(update,context):
         context.bot.sendMessage(chat_id=chat_id,text =text, parse_mode= 'Markdown')
 
 def blurPhoto(update, context):
-    
+    bucket = client.Bucket('telegram.bot.web')
     chat_id=update.message.chat.id
     file = context.bot.getFile(update.message.photo[-1].file_id)
     testing = file.download('image.jpg')
@@ -356,12 +356,15 @@ def blurPhoto(update, context):
     #imgD = cv2.imread("image.jpg")
     #context.bot.sendMessage(chat_id=chat_id,text =text)
     #blur = cv2.blur(imgD,(5,5))
-    file = client.download_file('telegram.bot.web', 'result.jpg', 'result.jpg')
-    downloadedPhoto = 'https://s3.us-east-2.amazonaws.com/telegram.bot.web/result.jpg'
-    send_text = 'https://api.telegram.org/bot' + str(os.environ['TOKEN']) + '/sendPhoto?chat_id='+str(chat_id)+'&photo='+str(downloadedPhoto)
-    response = requests.get(send_text)
-    print(send_text)
+    #file = client.download_file('telegram.bot.web', 'result.jpg', 'result.jpg')
+    #downloadedPhoto = 'https://s3.us-east-2.amazonaws.com/telegram.bot.web/result.jpg'
+    #send_text = 'https://api.telegram.org/bot' + str(os.environ['TOKEN']) + '/sendPhoto?chat_id='+str(chat_id)+'&photo='+str(downloadedPhoto)
+    #response = requests.get(send_text)
+    object = bucket.Object('result.jpg')
+    img_data = object.get().get('Body').read()
+    #print(send_text)
     context.bot.sendMessage(chat_id=chat_id,text =text) 
+    context.bot.sendPhoto(chat_id=chat_id,photo =img_data) 
 
 
 def username(update, context):
