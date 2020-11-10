@@ -358,7 +358,7 @@ def blurPhoto(update, context):
     #blur = cv2.blur(imgD,(5,5))
     file = client.download_file('telegram.bot.web', 'result.jpg', 'result.jpg')
     downloadedPhoto = 'https://s3.us-east-2.amazonaws.com/telegram.bot.web/result.jpg'
-    send_text = 'https://api.telegram.org/bot' + str(os.environ['TOKEN']) + '/sendPhoto?'+str(chat_id)+'&photo='+str(downloadedPhoto)
+    send_text = 'https://api.telegram.org/bot' + str(os.environ['TOKEN']) + '/sendPhoto?chat_id='+str(chat_id)+'&photo='+str(downloadedPhoto)
     response = requests.get(send_text)
     print(send_text)
     context.bot.sendMessage(chat_id=chat_id,text =text) 
