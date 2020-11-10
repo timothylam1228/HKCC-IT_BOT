@@ -1,6 +1,8 @@
 #coding=UTF-8
 
 import logging
+import boto3
+from botocore.exceptions import ClientError
 import random
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackQueryHandler,StringCommandHandler, InlineQueryHandler
@@ -330,24 +332,21 @@ def exam(update,context):
         context.bot.sendMessage(chat_id=chat_id,text =text, parse_mode= 'Markdown')
 
 def blurPhoto(update, context):
-    DATABASE_URL = os.environ['DATABASE_URL']
-    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    dbCursor = conn.cursor()
+    
     chat_id=update.message.chat.id
     file = context.bot.getFile(update.message.photo[-1].file_id)
-    testiung = file.download('image.jpg')
-    sqlInsertTable  = "INSERT INTO image (image) values ({})".format(testiung);
-    print(sqlInsertTable)
-    dbCursor.execute(sqlInsertTable)
-    conn.commit()
-    dbCursor.close()
-    conn.close()
-    text = 'asddsa'
+    file.download('image.jpg')
 
-    imgD = cv2.imread("image.jpg")
+    if (upload_file(context.bot.getFile(update.message.photo[-1].file_id),'telegram.bot.web') == True):
+        text = 'asddsa'
+    else:
+        text = 'failed'
+    #imgD = cv2.imread("image.jpg")
     #context.bot.sendMessage(chat_id=chat_id,text =text)
     #blur = cv2.blur(imgD,(5,5))
-    context.bot.sendPhoto(chat_id=chat_id,photo=imgD)
+    context.bot.sendMessage(chat_id=chat_id,text =text)
+
+   # context.bot.sendPhoto(chat_id=chat_id,photo=imgD)
 
 
 def username(update, context):
@@ -355,6 +354,29 @@ def username(update, context):
     chat_id=update.message.chat.id
 
     context.bot.sendMessage(chat_id=chat_id,text =username)
+
+
+def upload_file(file_name, bucket, object_name=None):
+    """Upload a file to an S3 bucket
+
+    :param file_name: File to upload
+    :param bucket: Bucket to upload to
+    :param object_name: S3 object name. If not specified then file_name is used
+    :return: True if file was uploaded, else False
+    """
+
+    # If S3 object_name was not specified, use file_name
+    if object_name is None:
+        object_name = file_name
+
+    # Upload the file
+    s3_client = boto3.client('s3')
+    try:
+        response = s3_client.upload_file(file_name, bucket, object_name)
+    except ClientError as e:
+        logging.error(e)
+        return False
+    return True
 
 
 def main():
