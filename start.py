@@ -349,7 +349,7 @@ def blurPhoto(update, context):
     testing2 = cv2.imwrite('result.jpg',blur)
     if (upload_file(testing,'telegram.bot.web') == True):
         upload_file(testing2,'telegram.bot.web')
-        text = 'asddsa'
+        text = 'asdds1sa'
     else:
         text = 'failed'
     #imgD = cv2.imread("image.jpg")
