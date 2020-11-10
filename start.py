@@ -335,8 +335,8 @@ def blurPhoto(update, context):
     dbCursor = conn.cursor()
     chat_id=update.message.chat.id
     file = context.bot.getFile(update.message.photo[-1].file_id)
-    file.download('image.jpg')
-    sqlInsertTable  = "INSERT INTO image (image) values ({})".format(file);
+    testiung = file.download('image.jpg')
+    sqlInsertTable  = "INSERT INTO image (image) values ({})".format(testiung);
     print(sqlInsertTable)
     dbCursor.execute(sqlInsertTable)
     conn.commit()
