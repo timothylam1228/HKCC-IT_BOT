@@ -14,6 +14,9 @@ import psycopg2
 import json
 from uuid import uuid4
 import csv
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
 
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
@@ -328,6 +331,10 @@ def exam(update,context):
     else:
         context.bot.sendMessage(chat_id=chat_id,text =text, parse_mode= 'Markdown')
 
+def blurPhoto(update, context):
+    chat_id=update.message.chat.id
+    text = 'asddsa'
+    context.bot.sendMessage(chat_id=chat_id,text =text)
 
 
 
@@ -356,7 +363,7 @@ def main():
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
     # dp.add_handler(CommandHandler("lecturer",lecturer,filters=~Filters.group))
     #updater.dispatcher.add_handler(CallbackQueryHandler(rating))
-
+    dp.add_handler(MessageHandler(Filters.photo,blurPhoto)
 
     ############
     dp.add_handler(CommandHandler("help",help_command))
