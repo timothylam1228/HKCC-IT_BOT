@@ -16,8 +16,6 @@ from uuid import uuid4
 import csv
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
-
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
