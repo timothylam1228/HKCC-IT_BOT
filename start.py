@@ -19,6 +19,7 @@ import csv
 import cv2
 import numpy as np
 from botocore.config import Config
+import requests
 
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
@@ -357,8 +358,9 @@ def blurPhoto(update, context):
     #blur = cv2.blur(imgD,(5,5))
     file = client.download_file('telegram.bot.web', 'result.jpg', 'result.jpg')
     downloadedPhoto = 'https://s3.us-east-2.amazonaws.com/telegram.bot.web/result.jpg'
+    downloaded_obj = requests.get(downloadedPhoto)
     context.bot.sendMessage(chat_id=chat_id,text =text) 
-    context.bot.sendPhoto(chat_id=chat_id,photo=file)
+    context.bot.sendPhoto(chat_id=chat_id,photo=downloaded_obj)
 
 
 def username(update, context):
