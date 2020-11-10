@@ -18,9 +18,17 @@ from uuid import uuid4
 import csv
 import cv2
 import numpy as np
+from botocore.config import Config
+
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
+
+client = boto3.client(
+    's3',
+    aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
+    aws_secret_access_key="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"
+)
 
 
 # Enable logging
@@ -335,16 +343,16 @@ def blurPhoto(update, context):
     
     chat_id=update.message.chat.id
     file = context.bot.getFile(update.message.photo[-1].file_id)
-    file.download('image.jpg')
+    testing = file.download('image.jpg')
 
-    if (upload_file(context.bot.getFile(update.message.photo[-1].file_id),'telegram.bot.web') == True):
+    if (upload_file(testing,'telegram.bot.web') == True):
         text = 'asddsa'
     else:
         text = 'failed'
     #imgD = cv2.imread("image.jpg")
     #context.bot.sendMessage(chat_id=chat_id,text =text)
     #blur = cv2.blur(imgD,(5,5))
-    context.bot.sendMessage(chat_id=chat_id,text =text)
+    context.bot.sendMessage(chat_id=chat_id,text =text) 
 
    # context.bot.sendPhoto(chat_id=chat_id,photo=imgD)
 
@@ -370,9 +378,8 @@ def upload_file(file_name, bucket, object_name=None):
         object_name = file_name
 
     # Upload the file
-    s3_client = boto3.client('s3')
     try:
-        response = s3_client.upload_file(file_name, bucket, object_name)
+        response = client.upload_file(file_name, bucket, object_name)
     except ClientError as e:
         logging.error(e)
         return False
