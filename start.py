@@ -364,11 +364,13 @@ def blurPhoto(update, context):
     #response = requests.get(send_text)
     #object = bucket.Object('result.jpg')
     obj = s3.Object(bucket, 'result.jpg')
+   
+
     ##img_data = object.get().get('Body').read()
     #print(send_text)
     context.bot.sendMessage(chat_id=chat_id,text =text)
     #context.bot.sendDocument(chat_id=chat_id,document='https://s3.us-east-2.amazonaws.com/telegram.bot.web/result.jpg') 
-    context.bot.sendPhoto(chat_id=chat_id,photo = obj) 
+    context.bot.sendPhoto(chat_id=chat_id,photo =  obj.get()['Body'].read()) 
 
 
 def username(update, context):
