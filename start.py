@@ -24,7 +24,9 @@ import requests
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
-s3 =boto3.resource('s3')
+s3 =boto3.resource('s3',
+ aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
+    aws_secret_access_key="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")
 bucket = s3.Bucket('telegram.bot.web')
 client = boto3.client(
     's3',
@@ -361,10 +363,12 @@ def blurPhoto(update, context):
     #send_text = 'https://api.telegram.org/bot' + str(os.environ['TOKEN']) + '/sendPhoto?chat_id='+str(chat_id)+'&photo='+str(downloadedPhoto)
     #response = requests.get(send_text)
     #object = bucket.Object('result.jpg')
+    #obj = s3.Object(bucket, 'result.jpg')
     #img_data = object.get().get('Body').read()
     #print(send_text)
-    context.bot.sendMessage(chat_id=chat_id,text =text) 
-    context.bot.sendPhoto(chat_id=chat_id,photo = update.message.photo[-1].file_id) 
+    context.bot.sendMessage(chat_id=chat_id,text =text)
+    context.bot.sendDocument(chat_id=chat_id,document='https://s3.us-east-2.amazonaws.com/telegram.bot.web/result.jpg') 
+    #context.bot.sendPhoto(chat_id=chat_id,photo = obj) 
 
 
 def username(update, context):
