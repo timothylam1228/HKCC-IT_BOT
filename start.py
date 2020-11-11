@@ -22,6 +22,7 @@ from botocore.config import Config
 import requests
 from io import BytesIO
 import tempfile
+from PIL import Image
 
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
@@ -352,11 +353,12 @@ def blurPhoto(update, context):
     imgD = cv2.imread("image.jpg",0)
     blur = cv2.blur(imgD,(5,5))
     cv2.imwrite('result.jpg',blur)
-    if (upload_file(testing,'telegram.bot.web') == True):
-        upload_file('result.jpg','telegram.bot.web')
-        text = 'asdds1sa'
-    else:
-        text = 'failed'
+    img = Image.open('result.jpg')
+   #if (upload_file(testing,'telegram.bot.web') == True):
+        #upload_file('result.jpg','telegram.bot.web')
+    text = 'asdds1sa'
+    #else:
+    #    text = 'failed'
     #imgD = cv2.imread("image.jpg")
     #context.bot.sendMessage(chat_id=chat_id,text =text)
     #blur = cv2.blur(imgD,(5,5))
@@ -367,7 +369,7 @@ def blurPhoto(update, context):
     #object = bucket.Object('result.jpg')
     obj = s3.Object(bucket, 'result.jpg')
     tmpfile = tempfile.TemporaryFile()
-    blur.save(tmpfile, blur.format, quality=80)
+    img.save(tmpfile, img.format, quality=80)
     ##img_data = object.get().get('Body').read()
     #print(send_text)
     context.bot.sendMessage(chat_id=chat_id,text =text)
