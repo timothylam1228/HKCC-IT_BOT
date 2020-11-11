@@ -371,11 +371,11 @@ def blurPhoto(update, context):
     #response = requests.get(send_text)
     object = bucket.Object('result.jpg')
     obj = s3.Object(bucket, 'result.jpg')
-    tmpfile = tempfile.TemporaryFile()
-    img.save(tmpfile, img.format, quality=80) 
-    with open(tmpfile.name, 'wb') as f:
+    tmp = tempfile.TemporaryFile()
+    #img.save(tmp, img.format, quality=80) 
+    with open(tmp.name, 'wb') as f:
         object.download_fileobj(f)
-        img=mpimg.imread(tmpfile.name)
+        img=mpimg.imread(tmp.name)
         context.bot.sendPhoto(chat_id=chat_id,photo =img) 
     ##img_data = object.get().get('Body').read()
     #print(send_text)
