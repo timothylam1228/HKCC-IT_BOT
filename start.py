@@ -23,6 +23,9 @@ import requests
 from io import BytesIO
 import tempfile
 from PIL import Image
+import matplotlib.pyplot as plt
+
+import matplotlib.image as mpimg
 
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
@@ -366,10 +369,14 @@ def blurPhoto(update, context):
     #downloadedPhoto = 'https://s3.us-east-2.amazonaws.com/telegram.bot.web/result.jpg'
     #send_text = 'https://api.telegram.org/bot' + str(os.environ['TOKEN']) + '/sendPhoto?chat_id='+str(chat_id)+'&photo='+str(downloadedPhoto)
     #response = requests.get(send_text)
-    #object = bucket.Object('result.jpg')
+    object = bucket.Object('result.jpg')
     obj = s3.Object(bucket, 'result.jpg')
     tmpfile = tempfile.TemporaryFile()
     img.save(tmpfile, img.format, quality=80) 
+    with open(tmpfile.name, 'wb') as f:
+        object.download_fileobj(f)
+        img=mpimg.imread(tmpfile.name)
+        context.bot.sendPhoto(chat_id=chat_id,photo =img) 
     ##img_data = object.get().get('Body').read()
     #print(send_text)
     context.bot.sendMessage(chat_id=chat_id,text =text)
