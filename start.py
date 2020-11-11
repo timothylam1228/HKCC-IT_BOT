@@ -20,6 +20,8 @@ import cv2
 import numpy as np
 from botocore.config import Config
 import requests
+from io import BytesIO
+import tempfile
 
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
@@ -364,13 +366,13 @@ def blurPhoto(update, context):
     #response = requests.get(send_text)
     #object = bucket.Object('result.jpg')
     obj = s3.Object(bucket, 'result.jpg')
-   
-
+    tmpfile = tempfile.TemporaryFile()
+    blur.save(tmpfile, blur.format, quality=80)
     ##img_data = object.get().get('Body').read()
     #print(send_text)
     context.bot.sendMessage(chat_id=chat_id,text =text)
     #context.bot.sendDocument(chat_id=chat_id,document='https://s3.us-east-2.amazonaws.com/telegram.bot.web/result.jpg') 
-    context.bot.sendPhoto(chat_id=chat_id,photo =  obj.get()['Body'].read()) 
+    context.bot.sendPhoto(chat_id=chat_id,photo =blur) 
 
 
 def username(update, context):
