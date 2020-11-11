@@ -4,3 +4,4 @@ opencv-contrib-python-headless
 boto3
 requests
 Pillow
+matplotlib
