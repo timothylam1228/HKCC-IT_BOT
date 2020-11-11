@@ -3,3 +3,4 @@ psycopg2-binary
 opencv-contrib-python-headless
 boto3
 requests
+Pillow
