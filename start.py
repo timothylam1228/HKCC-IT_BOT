@@ -364,7 +364,7 @@ def blurPhoto(update, context):
     #img_data = object.get().get('Body').read()
     #print(send_text)
     context.bot.sendMessage(chat_id=chat_id,text =text) 
-    context.bot.sendPhoto(chat_id=chat_id,photo =file) 
+    context.bot.sendPhoto(chat_id=chat_id,photo =update.message.photo[-1].file_id) 
 
 
 def username(update, context):
