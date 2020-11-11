@@ -369,7 +369,7 @@ def blurPhoto(update, context):
     #object = bucket.Object('result.jpg')
     obj = s3.Object(bucket, 'result.jpg')
     tmpfile = tempfile.TemporaryFile()
-    img.save(tmpfile, img.format, quality=80)
+    img.save(tmpfile, img.format, quality=80) 
     ##img_data = object.get().get('Body').read()
     #print(send_text)
     context.bot.sendMessage(chat_id=chat_id,text =text)
