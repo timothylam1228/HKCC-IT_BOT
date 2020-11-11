@@ -348,7 +348,7 @@ def blurPhoto(update, context):
     file = context.bot.getFile(update.message.photo[-1].file_id)
     testing = file.download('image.jpg')
     imgD = cv2.imread("image.jpg",0)
-    blur = cv2.blur(update.message.photo[-1],(5,5))
+    blur = cv2.blur(imgD,(5,5))
     cv2.imwrite('result.jpg',blur)
     if (upload_file(testing,'telegram.bot.web') == True):
         upload_file('result.jpg','telegram.bot.web')
