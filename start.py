@@ -364,7 +364,7 @@ def blurPhoto(update, context):
     img_data = object.get().get('Body').read()
     #print(send_text)
     context.bot.sendMessage(chat_id=chat_id,text =text) 
-    context.bot.sendPhoto(chat_id=chat_id,photo =img_data) 
+    context.bot.sendPhoto(chat_id=chat_id,photo ='result.jpg') 
 
 
 def username(update, context):
@@ -417,7 +417,7 @@ def main():
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
     # dp.add_handler(CommandHandler("lecturer",lecturer,filters=~Filters.group))
     #updater.dispatcher.add_handler(CallbackQueryHandler(rating))
-    #dp.add_handler(MessageHandler(Filters.photo,blurPhoto))
+    dp.add_handler(MessageHandler(Filters.photo,blurPhoto))
 
     ############
     dp.add_handler(CommandHandler("help",help_command))
