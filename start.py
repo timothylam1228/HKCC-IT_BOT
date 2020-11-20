@@ -210,10 +210,17 @@ def show(update,context):
     for row in rows:
         count = row[1]
         time = row[2]
+        target = row[3]
     if(count == 0):
         update.message.reply_text(text = '你仲未講過DLLM WO ')
     else:
         update.message.reply_text(text = 'You spoke '+str(count)+' times dllm. \nLast time you speak is '+str(time))
+    if(target == 0):
+        update.message.reply_text(text = '你仲未比人屌過WO')
+    else:
+        update.message.reply_text(text = 'You 比人屌左'+ str(target)+'次')
+
+    
 
 def listCanteen(update,context):
     chat_id=update.message.chat.id
