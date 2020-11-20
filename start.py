@@ -211,9 +211,10 @@ def show(update,context):
         count = row[1]
         time = row[2]
         target = row[3]
+    sqlSelect = "select * from tg_user where user_id = {}".format(x)
+
     if(count == 0):
         text1 ='你仲未講過DLLM WO'
-        
     else:
         text1 = 'You spoke '+str(count)+' times dllm. \nLast time you speak is '+str(time)
         #update.message.reply_text(text = 'You spoke '+str(count)+' times dllm. \nLast time you speak is '+str(time))
@@ -223,7 +224,7 @@ def show(update,context):
     else:
         text2 = 'You 比人屌左'+ str(target)+'次'
         #@update.message.reply_text(text = 'You 比人屌左'+ str(target)+'次')
-    update.message.reply_text(text = text1 +'\n\n'+text2)
+    #update.message.reply_text(text = text1 +'\n\n'+text2)
     
 
 def listCanteen(update,context):
