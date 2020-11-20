@@ -228,7 +228,7 @@ def show(update,context):
     else:
         text2 = 'You 比人屌左'+ str(target)+'次'
         #@update.message.reply_text(text = 'You 比人屌左'+ str(target)+'次')
-    update.message.reply_text(text "Broked no want fix ")
+    update.message.reply_text(text ="Broked no want fix ")
     
 
 def listCanteen(update,context):
