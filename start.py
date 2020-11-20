@@ -178,8 +178,8 @@ def dllmcount(update, context):
         print(sqlInsertTable)
         dbCursor.execute(sqlInsertTable)
         if target is not None:
-            sqlUpdate = "INSERT * from tg_user where user_id = {}".format(target)
-            dbCursor.execute(sqlSelect)
+            sqlUpdate = "select * from tg_user where user_id = {}".format(target)
+            dbCursor.execute(sqlUpdate)
             rows = dbCursor.fetchall()
             for row in rows:
                 id = row[0]
@@ -224,7 +224,7 @@ def show(update,context):
     else:
         text2 = 'You 比人屌左'+ str(target)+'次'
         #@update.message.reply_text(text = 'You 比人屌左'+ str(target)+'次')
-    #update.message.reply_text(text = text1 +'\n\n'+text2)
+    #@#update.message.reply_text(text = text1 +'\n\n'+text2)
     
 
 def listCanteen(update,context):
