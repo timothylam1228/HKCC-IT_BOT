@@ -183,7 +183,7 @@ def dllmcount(update, context):
             rows = dbCursor.fetchall()
             for row in rows:
                 id = row[0]
-                count = row[4]
+                count = row[3]
             if (id is None):
                 sqlInsertTable  = "INSERT INTO tg_user values({},0,NOW()::TIMESTAMP(0),1)".format(x)
             # elif(count == 0):
