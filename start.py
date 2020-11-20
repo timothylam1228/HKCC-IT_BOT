@@ -157,6 +157,7 @@ def help_command(update, context):
 def dllmcount(update, context):
     message = (update.message.text).lower()
     increaseTemp = 0
+    target = update.message.reply_to_message.from_user.id
     count = 0
     if "dllm"  in message:
         DATABASE_URL = os.environ['DATABASE_URL']
@@ -349,71 +350,12 @@ def exam(update,context):
     else:
         context.bot.sendMessage(chat_id=chat_id,text =text, parse_mode= 'Markdown')
 
-def blurPhoto(update, context):
-    chat_id=update.message.chat.id
-    file = context.bot.getFile(update.message.photo[-1].file_id)
-    testing = file.download('image.jpg')
-    imgD = cv2.imread("image.jpg",0)
-    blur = cv2.blur(imgD,(5,5))
-    cv2.imwrite('result.jpg',blur)
-    img = Image.open('result.jpg')
-   #if (upload_file(testing,'telegram.bot.web') == True):
-        #upload_file('result.jpg','telegram.bot.web')
-    text = 'asdds1sa'
-    #else:
-    #    text = 'failed'
-    #imgD = cv2.imread("image.jpg")
-    #context.bot.sendMessage(chat_id=chat_id,text =text)
-    #blur = cv2.blur(imgD,(5,5))
-    #file = client.download_file('telegram.bot.web', 'result.jpg', 'result.jpg')
-    #downloadedPhoto = 'https://s3.us-east-2.amazonaws.com/telegram.bot.web/result.jpg'
-    #send_text = 'https://api.telegram.org/bot' + str(os.environ['TOKEN']) + '/sendPhoto?chat_id='+str(chat_id)+'&photo='+str(downloadedPhoto)
-    #response = requests.get(send_text)
-    object = bucket.Object('result.jpg')
-    obj = s3.Object(bucket, 'result.jpg')
-    tmp = tempfile.TemporaryFile()
-    #img.save(tmp, img.format, quality=80) 
-    with open(tmp.name, 'wb') as f:
-        object.download_fileobj(f)
-        img=mpimg.imread(tmp.name)
-        context.bot.sendPhoto(chat_id=chat_id,photo =img) 
-    ##img_data = object.get().get('Body').read()
-    #print(send_text)
-    context.bot.sendMessage(chat_id=chat_id,text =text)
-    #context.bot.sendDocument(chat_id=chat_id,document='https://s3.us-east-2.amazonaws.com/telegram.bot.web/result.jpg') 
-    context.bot.sendPhoto(chat_id=chat_id,photo =blur) 
-
-
 def username(update, context):
     username = context.args[0]
     chat_id=update.message.chat.id
 
     context.bot.sendMessage(chat_id=chat_id,text =username)
 
-
-def upload_file(file_name, bucket, object_name=None):
-    """Upload a file to an S3 bucket
-
-    :param file_name: File to upload
-    :param bucket: Bucket to upload to
-    :param object_name: S3 object name. If not specified then file_name is used
-    :return: True if file was uploaded, else False
-    """
-
-    # If S3 object_name was not specified, use file_name
-    if object_name is None:
-        object_name = file_name
-
-    # Upload the file
-    try:
-        response = client.upload_file(file_name, bucket, object_name)
-        print(file_name)
-        print(object_name)
-
-    except ClientError as e:
-        logging.error(e)
-        return False
-    return True
 
 
 def main():
@@ -434,7 +376,6 @@ def main():
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
     # dp.add_handler(CommandHandler("lecturer",lecturer,filters=~Filters.group))
     #updater.dispatcher.add_handler(CallbackQueryHandler(rating))
-    #dp.add_handler(MessageHandler(Filters.photo,blurPhoto))
 
     ############
     dp.add_handler(CommandHandler("help",help_command))
