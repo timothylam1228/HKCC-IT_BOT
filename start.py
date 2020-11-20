@@ -190,7 +190,7 @@ def dllmcount(update, context):
             #     sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0),givediu = 0  WHERE user_id = {}".format(row[1],target)
             else:
                 count = count + 1
-                sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0),givediu ={} WHERE user_id = {}".format(row[1],count,target)
+                sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0),givediu2 ={} WHERE user_id = {}".format(row[1],count,target)
             print(sqlInsertTable)  
             dbCursor.execute(sqlInsertTable)
         conn.commit()
