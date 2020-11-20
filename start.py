@@ -212,14 +212,18 @@ def show(update,context):
         time = row[2]
         target = row[3]
     if(count == 0):
-        update.message.reply_text(text = '你仲未講過DLLM WO ')
+        text1 ='你仲未講過DLLM WO'
+        
     else:
-        update.message.reply_text(text = 'You spoke '+str(count)+' times dllm. \nLast time you speak is '+str(time))
+        text1 = 'You spoke '+str(count)+' times dllm. \nLast time you speak is '+str(time)
+        #update.message.reply_text(text = 'You spoke '+str(count)+' times dllm. \nLast time you speak is '+str(time))
     if(target == 0):
-        update.message.reply_text(text = '你仲未比人屌過WO')
+        text2 = '你仲未比人屌過WO'
+        #update.message.reply_text(text = '你仲未比人屌過WO')
     else:
-        update.message.reply_text(text = 'You 比人屌左'+ str(target)+'次')
-
+        text2 = 'You 比人屌左'+ str(target)+'次'
+        #@update.message.reply_text(text = 'You 比人屌左'+ str(target)+'次')
+    update.message.reply_text(text = text1 +'\n'+text2)
     
 
 def listCanteen(update,context):
