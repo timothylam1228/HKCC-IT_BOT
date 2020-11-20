@@ -186,6 +186,8 @@ def dllmcount(update, context):
                 count = row[4]
             if (id is None):
                 sqlInsertTable  = "INSERT INTO tg_user values({},0,NOW()::TIMESTAMP(0),1)".format(x)
+            elif(id is not None and count == 0):
+                sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0),givediu =0  WHERE user_id = {}".format(row[1],target)
             else:
                 count = count + 1
                 sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0),givediu ={} WHERE user_id = {}".format(row[1],count,target)
