@@ -223,7 +223,7 @@ def show(update,context):
     else:
         text2 = 'You 比人屌左'+ str(target)+'次'
         #@update.message.reply_text(text = 'You 比人屌左'+ str(target)+'次')
-    update.message.reply_text(text = text1 +'\n'+text2)
+    update.message.reply_text(text = text1 +'\n\n'+text2)
     
 
 def listCanteen(update,context):
