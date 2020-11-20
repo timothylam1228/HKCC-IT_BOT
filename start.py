@@ -157,7 +157,8 @@ def help_command(update, context):
 def dllmcount(update, context):
     message = (update.message.text).lower()
     increaseTemp = 0
-    target = update.message.reply_to_message.from_user.id
+    if(update.message.reply_to_message.from_user.id is not None):
+        target = update.message.reply_to_message.from_user.id
     count = 0
     if "dllm"  in message:
         DATABASE_URL = os.environ['DATABASE_URL']
