@@ -210,9 +210,12 @@ def show(update,context):
     for row in rows:
         count = row[1]
         time = row[2]
-        target = row[3]
+       
     sqlSelect = "select * from tg_user where user_id = {}".format(x)
-
+    dbCursor.execute(sqlSelect)
+    rows = dbCursor.fetchall()
+    for row in rows:
+        target = row[3]
     if(count == 0):
         text1 ='你仲未講過DLLM WO'
     else:
