@@ -164,40 +164,32 @@ def dllmcount(update, context):
         conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         dbCursor = conn.cursor()
         x = update.message.from_user.id
-        sqlSelect = "select * from tg_user where user_id = {}".format(x);
+        sqlSelect = "select * from tg_user where user_id = {}".format(x)
         dbCursor.execute(sqlSelect)
         rows = dbCursor.fetchall()
-        first_name = update.message.from_user.first_name
-        last_name = update.message.from_user.last_name
-        name = str(first_name) + str(last_name)
-        name = str(name)
-        with open('username.json') as f:
-            data = json.load(f)
-
-        a_list = {"id":x,
-        "name":name
-        }
-        print(data)
         for row in rows:
            count = row[1]
-
-        for array in data["user"]:
-            if(array["id"]==x):
-                array["name"]=name
-            else:
-                data["user"].append(a_list)
-                break
         if (count == 0):
-            sqlInsertTable  = "INSERT INTO tg_user values({},1,NOW()::TIMESTAMP(0))".format(x);
+            sqlInsertTable  = "INSERT INTO tg_user values({},1,NOW()::TIMESTAMP(0))".format(x)
             print(sqlInsertTable)
         else:
             count = count + 1
-            sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0) WHERE user_id = {}".format(count,x);
-
-        with open('username.json', 'w') as outfile:
-            json.dump(data, outfile)
+            sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0) WHERE user_id = {}".format(count,x)
         print(sqlInsertTable)
         dbCursor.execute(sqlInsertTable)
+        if target is not None:
+            sqlUpdate = "INSERT * from tg_user where user_id = {}".format(target)
+            dbCursor.execute(sqlSelect)
+            rows = dbCursor.fetchall()
+            for row in rows:
+                id = row[0]
+                count = row[4]
+            if (id is None):
+                sqlInsertTable  = "INSERT INTO tg_user values({},0,NOW()::TIMESTAMP(0),1)".format(x)
+            else:
+                count = count + 1
+                sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0),diuyou ={} WHERE user_id = {}".format(row[1],count,target)
+            dbCursor.execute(sqlInsertTable)
         conn.commit()
         dbCursor.close()
         conn.close()
