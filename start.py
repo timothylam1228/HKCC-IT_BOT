@@ -108,7 +108,7 @@ def button(update, context):
 
 def open_day(update, context):
     x = datetime.datetime.now()
-    delta = datetime.datetime(2020, 1, 25) - datetime.datetime.now()
+    delta = datetime.datetime(2021, 1, 25) - datetime.datetime.now()
     count = (delta.total_seconds())
     days = int(count//86400)
     hours = int((count-days*86400)//3600)
@@ -126,7 +126,7 @@ def end_day(update, context):
     minutes = int((count-days*86400-hours*3600)//60)
     seconds = int(count-days*86400-hours*3600-minutes*60)
     #update.message.reply_text("距離完SEM仲有"+str(days)+"日 "+str(hours)+"小時 "+str(minutes) +"分 " + str(seconds) + "秒")
-    update.message.reply_text("完左SEM啦仲倒數 \n用 /openday 睇下幾時完SEM",reply_markup = ReplyKeyboardRemove())
+    update.message.reply_text("完左SEM啦仲倒數 \n用 /openday 睇下幾時開SEM",reply_markup = ReplyKeyboardRemove())
 
 def gpa_day(update, context):
     x = datetime.datetime.now()
