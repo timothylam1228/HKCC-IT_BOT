@@ -379,7 +379,7 @@ def important_date(update, context):
     print(data)
     tmptext=''
     for i in data['ImportantDate']:
-        tmptext.append(i['date']+'\n'+i['descrition']+'\n\n')
+        tmptext = tmptext+i['date']+'\n'+i['descrition']+'\n\n'
     context.bot.sendMessage(chat_id=chat_id,text =tmptext)
 
 
