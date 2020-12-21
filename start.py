@@ -370,8 +370,16 @@ def exam(update,context):
 def username(update, context):
     username = context.args[0]
     chat_id=update.message.chat.id
-
     context.bot.sendMessage(chat_id=chat_id,text =username)
+
+def important_date(update, context):
+    chat_id=update.message.chat.id
+    f = open('date.json',)
+    data = json.load(f) 
+    print(data)
+    for i in data['ImportantDate']
+        print(i)
+    #context.bot.sendMessage(chat_id=chat_id,text =username)
 
 
 
@@ -388,6 +396,7 @@ def main():
     dp.add_handler(CommandHandler("openday",open_day))
     dp.add_handler(CommandHandler("endday",end_day))
     dp.add_handler(CommandHandler("gpaday",gpa_day))
+    dp.add_handler(CommandHandler("gpaday",important_date))
     #updater.dispatcher.add_handler(CallbackQueryHandler(button))
     dp.add_handler(CommandHandler("Source", source,filters=~Filters.group))
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
