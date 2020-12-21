@@ -377,9 +377,10 @@ def important_date(update, context):
     f = open('date.json',)
     data = json.load(f) 
     print(data)
+    tmptext=''
     for i in data['ImportantDate']:
-        print(i)
-    #context.bot.sendMessage(chat_id=chat_id,text =username)
+        tmptext.append(i['date']+'\n'+i['descrition']+'\n\n')
+    context.bot.sendMessage(chat_id=chat_id,text =tmptext)
 
 
 
