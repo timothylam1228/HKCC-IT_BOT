@@ -396,7 +396,7 @@ def main():
     dp.add_handler(CommandHandler("openday",open_day))
     dp.add_handler(CommandHandler("endday",end_day))
     dp.add_handler(CommandHandler("gpaday",gpa_day))
-    dp.add_handler(CommandHandler("gpaday",important_date))
+    dp.add_handler(CommandHandler("date",important_date))
     #updater.dispatcher.add_handler(CallbackQueryHandler(button))
     dp.add_handler(CommandHandler("Source", source,filters=~Filters.group))
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
