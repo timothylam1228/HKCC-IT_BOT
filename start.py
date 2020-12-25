@@ -316,37 +316,7 @@ def pin9(update,context):
     f = open("pin.txt", "r")
     temp = f.read()
     update.message.reply_text(text='INFO'+temp)
-    
 
-# def lecturer(update,context):
-#     f = open('lecturer.json',)
-#     data = json.load(f) 
-#     print(data)
-#     keyboard = []
-#     inlinekeyboard = []
-#     for i in data['lecturer']:
-#         keyboard.append([str(i['name'])])
-#     print(keyboard)
-#     reply_markup = ReplyKeyboardMarkup(keyboard,one_time_keyboard=True, resize_keyboard=True)
-#     update.message.reply_text('Please choose:', reply_markup=reply_markup)
-#     rating(update,context)
-
-# def rating(update,context,name):
-#     query = update.callback_query
-#     f = open('lecturer.json',)
-#     rate=""
-#     comment=""
-#     data = json.load(f) 
-#     query.answer()
-#     temp = query.data
-#     for i in data['lecturer']:
-#         if i['name']==temp:
-#             rate = i['rating']
-#             comment = i['comment']
-#             break
-#     print(comment)
-#     #query.edit_message_text(text="Selected option: {}".format(query.data))
-#     context.bot.sendMessage(chat_id=query.message.chat.id,text=temp+'\n rate :'+rate+'\ncomment :'+comment)
 def exam(update,context):
     found = 0
     chat_id=update.message.chat.id
@@ -409,13 +379,11 @@ def main():
     dp.add_handler(CommandHandler("addcanteen",addcanteen,pass_args = True))
     dp.add_handler(CommandHandler("username",username,pass_args = True))
 
-    dp.add_handler(CommandHandler("showdllmtimes",show))
+    #dp.add_handler(CommandHandler("showdllmtimes",show))
     dp.add_handler(CommandHandler("canteen",listCanteen,filters=~Filters.group))
     dp.add_handler(CommandHandler("pin9",pin9,filters=Filters.group))
     dp.add_handler(CommandHandler("exam",exam,pass_args = True))
-
     dp.add_handler(MessageHandler(Filters.text & ~Filters.group, showlocation))
-
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
     dp.add_handler(MessageHandler(Filters.text & Filters.group, dllmcount))
 
