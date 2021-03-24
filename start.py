@@ -389,7 +389,7 @@ def main():
     #dp.add_handler(CommandHandler("showdllmtimes",show))
     dp.add_handler(CommandHandler("canteen",listCanteen,filters=~Filters.group))
     dp.add_handler(CommandHandler("pin9",pin9,filters=Filters.group))
-    dp.add_handler(CommandHandler("week",pin9,filters=Filters.group))
+    dp.add_handler(CommandHandler("week",week,filters=Filters.group))
 
     dp.add_handler(CommandHandler("exam",exam,pass_args = True))
     dp.add_handler(MessageHandler(Filters.text & ~Filters.group, showlocation))
