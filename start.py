@@ -10,8 +10,9 @@ from telegram import InlineQuery , ReplyKeyboardMarkup, ReplyKeyboardRemove, Mes
     InputTextMessageContent
 from telegram.utils import helpers
 from telegram.utils.helpers import escape_markdown
-import datetime
+
 import os
+from datetime import date
 import psycopg2
 import json
 from uuid import uuid4
@@ -317,6 +318,12 @@ def pin9(update,context):
     temp = f.read()
     update.message.reply_text(text='INFO'+temp)
 
+def week(update,context):
+    chat_id=update.message.chat.id
+    today = datetime.today()
+    week_number = today.isocalendar()[1]
+    update.message.reply_text(text='INFO'+week_number)
+
 def exam(update,context):
     found = 0
     chat_id=update.message.chat.id
@@ -382,6 +389,8 @@ def main():
     #dp.add_handler(CommandHandler("showdllmtimes",show))
     dp.add_handler(CommandHandler("canteen",listCanteen,filters=~Filters.group))
     dp.add_handler(CommandHandler("pin9",pin9,filters=Filters.group))
+    dp.add_handler(CommandHandler("week",pin9,filters=Filters.group))
+
     dp.add_handler(CommandHandler("exam",exam,pass_args = True))
     dp.add_handler(MessageHandler(Filters.text & ~Filters.group, showlocation))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
@@ -415,4 +424,5 @@ gpaday - most excited day
 showdllmtimes - count on dllm
 pin9 - show pin message
 exam - exam {code} show exam date time
+week - new is week ?
 '''
