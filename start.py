@@ -12,7 +12,7 @@ from telegram.utils import helpers
 from telegram.utils.helpers import escape_markdown
 
 import os
-from datetime import date
+from datetime import datetime
 import psycopg2
 import json
 from uuid import uuid4
