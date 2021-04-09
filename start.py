@@ -10,7 +10,6 @@ from telegram import InlineQuery , ReplyKeyboardMarkup, ReplyKeyboardRemove, Mes
     InputTextMessageContent
 from telegram.utils import helpers
 from telegram.utils.helpers import escape_markdown
-
 import os
 from datetime import datetime
 import psycopg2
@@ -27,15 +26,15 @@ from PIL import Image
 PORT = int(os.environ.get('PORT', 8443))
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
-s3 =boto3.resource('s3',
- aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
-    aws_secret_access_key="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")
-bucket = s3.Bucket('telegram.bot.web')
-client = boto3.client(
-    's3',
-    aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
-    aws_secret_access_key="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"
-)
+# s3 =boto3.resource('s3',
+#  aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
+#     aws_secret_access_key="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")
+# bucket = s3.Bucket('telegram.bot.web')
+# client = boto3.client(
+#     's3',
+#     aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
+#     aws_secret_access_key="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"
+# )
 
 
 # Enable logging
