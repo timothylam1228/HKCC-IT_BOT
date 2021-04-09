@@ -4,6 +4,4 @@ opencv-contrib-python-headless
 boto3
 Pillow
 matplotlib
-requests
-requests-oauthlib
 defusedxml
