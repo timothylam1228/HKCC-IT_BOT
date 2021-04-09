@@ -391,6 +391,17 @@ def checkTemp(update, context):
                     update.message.reply_text('今日天氣溫度係' +y+'度')
 
 
+def payment(update, context):
+    chat_id=update.message.chat.id
+    title = "Donate"
+    description = "Donate"
+    payload = "Donate1228"
+    provider_token = "284685063:TEST:ZDIyMWM5NzgxZWE4"
+    start_parameter = "TEMP"
+    currency = "HKD"
+    prices = {"product price":123}
+    context.bot.sendInvoice(chat_id=chat_id,title=title,description="donate",payload=payload,provider_token=provider_token,start_parameter=start_parameter,currency=currency,prices=prices)
+
 
 def main():
     global update_id
@@ -418,7 +429,8 @@ def main():
     dp.add_handler(CommandHandler("addcanteen",addcanteen,pass_args = True))
     dp.add_handler(CommandHandler("username",username,pass_args = True))
 
-    #dp.add_handler(CommandHandler("showdllmtimes",show))
+
+    dp.add_handler(CommandHandler("donate",payment))
     dp.add_handler(CommandHandler("canteen",listCanteen,filters=~Filters.group))
     dp.add_handler(CommandHandler("pin9",pin9,filters=Filters.group))
     dp.add_handler(CommandHandler("week",week,filters=Filters.group))
