@@ -20,7 +20,6 @@ import csv
 import cv2
 import numpy as np
 from botocore.config import Config
-import requests
 from io import BytesIO
 import tempfile
 from PIL import Image
