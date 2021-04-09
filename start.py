@@ -25,7 +25,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
-PORT = int(os.environ.get('PORT', 8443))
+PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
 s3 =boto3.resource('s3',
@@ -398,8 +398,7 @@ def main():
 
 
     updater.start_webhook(listen="0.0.0.0",
-                          port=8443,
-#                          port=int(PORT),
+                          port=int(PORT),
                           url_path=TOKEN)
     updater.bot.setWebhook('https://serene-depths-59599.herokuapp.com/' + TOKEN)
 
