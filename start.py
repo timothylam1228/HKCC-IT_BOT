@@ -5,6 +5,8 @@ import boto3
 from botocore.exceptions import ClientError
 import random
 import telegram
+import requests
+from xml.etree import ElementTree
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackQueryHandler,StringCommandHandler, InlineQueryHandler
 from telegram import InlineQuery , ReplyKeyboardMarkup, ReplyKeyboardRemove, MessageEntity, ForceReply, InlineKeyboardButton,InlineKeyboardMarkup,InlineQueryResultArticle, ParseMode, \
     InputTextMessageContent
