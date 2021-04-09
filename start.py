@@ -38,7 +38,7 @@ s3 =boto3.resource('s3',
 bucket = s3.Bucket('telegram.bot.web')
 client = boto3.client(
     's3',
-    aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
+    aws_access_key_id='AKIAUVVDLOasdfsIF5VTRKBQH',
     aws_secret_access_key="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"
 )
 
