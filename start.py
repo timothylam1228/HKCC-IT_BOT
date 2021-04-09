@@ -22,12 +22,10 @@ import csv
 import cv2
 import numpy as np
 from botocore.config import Config
-import requests
 from io import BytesIO
 import tempfile
 from PIL import Image
 import matplotlib.pyplot as plt
-
 import matplotlib.image as mpimg
 
 PORT = int(os.environ.get('PORT', 5000))
