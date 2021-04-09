@@ -408,7 +408,8 @@ def payment(update, context):
     provider_token=provider_token,
     start_parameter=start_parameter,
     currency=currency,
-    prices=prices)
+    prices=prices
+    total_amount=100)
 
 
 def main():
