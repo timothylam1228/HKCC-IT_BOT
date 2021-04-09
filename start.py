@@ -10,10 +10,8 @@ from telegram import InlineQuery , ReplyKeyboardMarkup, ReplyKeyboardRemove, Mes
     InputTextMessageContent
 from telegram.utils import helpers
 from telegram.utils.helpers import escape_markdown
-
-
+import datetime
 import os
-from datetime import datetime
 import psycopg2
 import json
 from uuid import uuid4
@@ -38,7 +36,7 @@ s3 =boto3.resource('s3',
 bucket = s3.Bucket('telegram.bot.web')
 client = boto3.client(
     's3',
-    aws_access_key_id='AKIAUVVDLOasdfsIF5VTRKBQH',
+    aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
     aws_secret_access_key="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"
 )
 
@@ -319,24 +317,15 @@ def pin9(update,context):
     temp = f.read()
     update.message.reply_text(text='INFO'+temp)
 
-def week(update,context):
-    chat_id=update.message.chat.id
-    today = datetime.today()
-    week_number = today.isocalendar()[1]
-    week_number = week_number-4
-    update.message.reply_text(text='Now is Week '+str(week_number))
-
 def exam(update,context):
     found = 0
     chat_id=update.message.chat.id
     text = ''
     text_old = ''
-    file = open('Exam_timetable2.csv', 'r')
-    id = (context.args[0]).upper()
-
+    file = open('Exam_timetable.csv', 'r')
+    id = context.args[0]
     if 'ccn' in id.lower():
         text_old = '走啦死老野'
-
     for row in csv.reader(file):
         if row[1] == id and found == 1:
             text = text + '\nGroup ' + str(row[3]+' 既考試時間係 '+row[5])
@@ -393,8 +382,6 @@ def main():
     #dp.add_handler(CommandHandler("showdllmtimes",show))
     dp.add_handler(CommandHandler("canteen",listCanteen,filters=~Filters.group))
     dp.add_handler(CommandHandler("pin9",pin9,filters=Filters.group))
-    dp.add_handler(CommandHandler("week",week,filters=Filters.group))
-
     dp.add_handler(CommandHandler("exam",exam,pass_args = True))
     dp.add_handler(MessageHandler(Filters.text & ~Filters.group, showlocation))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
@@ -428,5 +415,4 @@ gpaday - most excited day
 showdllmtimes - count on dllm
 pin9 - show pin message
 exam - exam {code} show exam date time
-week - new is week ?
 '''

@@ -74,7 +74,7 @@ A: 過3就入到
 Q22: 有冇EXERICS可以做
 A: /openbot 可以搵佢拎
 
-Q23: Sem幾gpa最重要
+Q22: Sem幾gpa最重要
 A: Gpa重要比重 
 Sem1 35%
 Sem2 35%
