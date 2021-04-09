@@ -404,7 +404,7 @@ def payment(update, context):
     prices = json.dumps(a)
 
     #prices=['{"label": "donate", "amount": 300000},{"label": "donate2", "amount": 400000}']
-    context.bot.sendInvoice(chat_id=chat_id,title=title,description="donate",payload=payload,provider_token=provider_token,start_parameter=start_parameter,currency=currency,prices=prices)
+    context.bot.sendInvoice(chat_id=chat_id,title=title,description="donate",payload=payload,provider_token=provider_token,start_parameter=start_parameter,currency=currency,prices=[prices])
 
 
 def main():
