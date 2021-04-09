@@ -23,7 +23,6 @@ from io import BytesIO
 import tempfile
 from PIL import Image
 import matplotlib.pyplot as plt
-
 import matplotlib.image as mpimg
 
 PORT = int(os.environ.get('PORT', 8443))
