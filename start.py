@@ -406,6 +406,7 @@ def main():
     dp.add_handler(CommandHandler("endday",end_day))
     dp.add_handler(CommandHandler("gpaday",gpa_day))
     dp.add_handler(CommandHandler("date",important_date))
+    dp.add_handler(CommandHandler("checkTemp",important_date))
     #updater.dispatcher.add_handler(CallbackQueryHandler(button))
     dp.add_handler(CommandHandler("Source", source,filters=~Filters.group))
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
@@ -425,7 +426,7 @@ def main():
     dp.add_handler(CommandHandler("exam",exam,pass_args = True))
     dp.add_handler(MessageHandler(Filters.text & ~Filters.group, showlocation))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
-    #dp.add_handler(MessageHandler(Filters.text & Filters.group, dllmcount))
+    dp.add_handler(MessageHandler(Filters.text & Filters.group, dllmcount))
 
     #dp.add_handler(CommandHandler("donateToMe",donateToMe,pass_args = True))
 
