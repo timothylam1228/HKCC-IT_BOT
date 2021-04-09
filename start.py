@@ -330,7 +330,7 @@ def exam(update,context):
     chat_id=update.message.chat.id
     text = ''
     text_old = ''
-    file = open('Exam_timetable.csv', 'r')
+    file = open('Exam_timetable2.csv', 'r')
     id = context.args[0]
     if 'ccn' in id.lower():
         text_old = '走啦死老野'
