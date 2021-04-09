@@ -10,6 +10,7 @@ from telegram import InlineQuery , ReplyKeyboardMarkup, ReplyKeyboardRemove, Mes
     InputTextMessageContent
 from telegram.utils import helpers
 from telegram.utils.helpers import escape_markdown
+
 import os
 from datetime import datetime
 import psycopg2
@@ -19,11 +20,12 @@ import csv
 import cv2
 import numpy as np
 from botocore.config import Config
+import requests
 from io import BytesIO
 import tempfile
 from PIL import Image
 
-PORT = int(os.environ.get('PORT', 8443))
+PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
 # s3 =boto3.resource('s3',
@@ -355,11 +357,14 @@ def important_date(update, context):
         tmptext = tmptext+i['date']+'\n'+i['descrition']+'\n\n'
     context.bot.sendMessage(chat_id=chat_id,text =tmptext)
 
+
+
 def main():
     global update_id
     TOKEN = os.environ['TOKEN']
     updater = Updater(TOKEN, use_context=True)
     dp = updater.dispatcher
+
     #In source.py
     dp.add_handler(CommandHandler("Source", source,filters=~Filters.group))
     dp.add_handler(CommandHandler("start", start,filters=~Filters.group))
@@ -372,6 +377,7 @@ def main():
     dp.add_handler(CommandHandler("Source", source,filters=~Filters.group))
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
     # dp.add_handler(CommandHandler("lecturer",lecturer,filters=~Filters.group))
+    #updater.dispatcher.add_handler(CallbackQueryHandler(rating))
 
     ############
     dp.add_handler(CommandHandler("help",help_command))
