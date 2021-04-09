@@ -1,9 +1,0 @@
-version: 0.2
-
-phases:
-  pre_build:
-    commands:
-        - pip install python-telegram-bot==13.2
-  build:
-    commands:
-        - python -V
