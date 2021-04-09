@@ -28,7 +28,7 @@ import matplotlib.pyplot as plt
 
 import matplotlib.image as mpimg
 
-PORT = int(os.environ.get('PORT', 5000))
+PORT = int(os.environ.get('PORT', 80))
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
 s3 =boto3.resource('s3',
