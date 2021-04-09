@@ -399,10 +399,10 @@ def payment(update, context):
     provider_token = "284685063:TEST:ZDIyMWM5NzgxZWE4"
     start_parameter = "TEMP"
     currency = "HKD"
-    prices = [{
+    prices = {
 			"label": "Donation",
 			"amount": 123
-		}];
+		};
 
     context.bot.sendInvoice(chat_id=chat_id,title=title,description="donate",payload=payload,provider_token=provider_token,start_parameter=start_parameter,currency=currency,prices=prices)
 
