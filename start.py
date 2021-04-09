@@ -7,7 +7,7 @@ import random
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackQueryHandler,StringCommandHandler, InlineQueryHandler
 from telegram import InlineQuery , ReplyKeyboardMarkup, ReplyKeyboardRemove, MessageEntity, ForceReply, InlineKeyboardButton,InlineKeyboardMarkup,InlineQueryResultArticle, ParseMode, \
-    InputTextMessageContent
+    InputTextMessageContent, LabeledPrice
 from telegram.utils import helpers
 from telegram.utils.helpers import escape_markdown
 import requests
