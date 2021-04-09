@@ -2,8 +2,8 @@ python-telegram-bot
 psycopg2-binary
 opencv-contrib-python-headless
 boto3
-requests
-requests-oauthlib
-defusedxml
+requests==2.25.1
+requests-oauthlib==1.0.0
+defusedxml==0.7.1
 Pillow
 matplotlib
