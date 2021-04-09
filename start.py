@@ -379,7 +379,7 @@ def checkTemp(update, context):
     #context.bot.sendMessage(chat_id=update.message.chat.id, text=str("TEST1"))
     response = requests.get("https://rss.weather.gov.hk/rss/CurrentWeather.xml")
     #context.bot.sendMessage(chat_id=update.message.chat.id,text = str("TEST2"))
-    tree = ElementTree.fromstring(response.content);
+    tree = ElementTree.fromstring(response.content)
     #context.bot.sendMessage(chat_id=update.message.chat.id,text = str("TEST3"))
     textTem = tree[0][7][6].text
     arraytemp = textTem.split('\n')
@@ -425,7 +425,7 @@ def main():
     dp.add_handler(CommandHandler("exam",exam,pass_args = True))
     dp.add_handler(MessageHandler(Filters.text & ~Filters.group, showlocation))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
-    dp.add_handler(MessageHandler(Filters.text & Filters.group, dllmcount))
+    #dp.add_handler(MessageHandler(Filters.text & Filters.group, dllmcount))
 
     #dp.add_handler(CommandHandler("donateToMe",donateToMe,pass_args = True))
 
