@@ -10,7 +10,6 @@ from telegram import InlineQuery , ReplyKeyboardMarkup, ReplyKeyboardRemove, Mes
     InputTextMessageContent
 from telegram.utils import helpers
 from telegram.utils.helpers import escape_markdown
-
 import os
 from datetime import datetime
 import psycopg2
@@ -20,7 +19,6 @@ import csv
 import cv2
 import numpy as np
 from botocore.config import Config
-import requests
 from io import BytesIO
 import tempfile
 from PIL import Image
@@ -28,7 +26,7 @@ import matplotlib.pyplot as plt
 
 import matplotlib.image as mpimg
 
-PORT = int(os.environ.get('PORT', 5000))
+PORT = int(os.environ.get('PORT', 80))
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
 s3 =boto3.resource('s3',
@@ -37,7 +35,7 @@ s3 =boto3.resource('s3',
 bucket = s3.Bucket('telegram.bot.web')
 client = boto3.client(
     's3',
-    aws_access_key_id='AKIAUVVDLOasdfsIF5VTRKBQH',
+    aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
     aws_secret_access_key="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"
 )
 
@@ -399,10 +397,7 @@ def main():
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
     dp.add_handler(MessageHandler(Filters.text & Filters.group, dllmcount))
 
-    #dp.add_handler(CommandHandler("donateToMe",donateToMe,pass_args = True))
 
-
-    # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
                           url_path=TOKEN)
