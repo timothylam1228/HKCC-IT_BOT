@@ -28,7 +28,7 @@ import matplotlib.pyplot as plt
 
 import matplotlib.image as mpimg
 
-PORT = int(os.environ.get('PORT', 80))
+PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
 s3 =boto3.resource('s3',
@@ -331,9 +331,10 @@ def exam(update,context):
     text = ''
     text_old = ''
     file = open('Exam_timetable2.csv', 'r')
+    id = (context.args[0]).upper()
+
     if 'ccn' in id.lower():
         text_old = '走啦死老野'
-    id = (context.args[0]).upper()
 
     for row in csv.reader(file):
         if row[1] == id and found == 1:
