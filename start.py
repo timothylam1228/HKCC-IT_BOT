@@ -10,7 +10,10 @@ from telegram import InlineQuery , ReplyKeyboardMarkup, ReplyKeyboardRemove, Mes
     InputTextMessageContent
 from telegram.utils import helpers
 from telegram.utils.helpers import escape_markdown
+import requests
+from xml.etree import ElementTree
 import os
+from datetime import datetime
 import psycopg2
 import json
 from uuid import uuid4
@@ -21,21 +24,19 @@ from botocore.config import Config
 from io import BytesIO
 import tempfile
 from PIL import Image
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
-s3 =boto3.resource('s3',
- aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
-    aws_secret_access_key="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")
-bucket = s3.Bucket('telegram.bot.web')
-client = boto3.client(
-    's3',
-    aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
-    aws_secret_access_key="8wz4ipyGx+Hd+wJd0Fponmhxjc"
-)
+# s3 =boto3.resource('s3',
+#  aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
+#     aws_secret_access_key="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")
+# bucket = s3.Bucket('telegram.bot.web')
+# client = boto3.client(
+#     's3',
+#     aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
+#     aws_secret_access_key="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"
+# )
 
 
 # Enable logging
@@ -314,15 +315,23 @@ def pin9(update,context):
     temp = f.read()
     update.message.reply_text(text='INFO'+temp)
 
+def week(update,context):
+    chat_id=update.message.chat.id
+    today = datetime.today()
+    week_number = today.isocalendar()[1]
+    week_number = week_number-4
+    update.message.reply_text(text='Now is Week '+str(week_number))
+
 def exam(update,context):
     found = 0
     chat_id=update.message.chat.id
     text = ''
     text_old = ''
-    file = open('Exam_timetable.csv', 'r')
-    id = context.args[0]
+    file = open('Exam_timetable2.csv', 'r')
+
     if 'ccn' in id.lower():
         text_old = '走啦死老野'
+    id = (context.args[0]).upper()
     for row in csv.reader(file):
         if row[1] == id and found == 1:
             text = text + '\nGroup ' + str(row[3]+' 既考試時間係 '+row[5])
@@ -348,6 +357,38 @@ def important_date(update, context):
     for i in data['ImportantDate']:
         tmptext = tmptext+i['date']+'\n'+i['descrition']+'\n\n'
     context.bot.sendMessage(chat_id=chat_id,text =tmptext)
+
+    
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        pass
+
+    try:
+        import unicodedata
+        unicodedata.numeric(s)
+        return True
+    except (TypeError, ValueError):
+        pass
+
+    return False
+
+def checkTemp(update, context):
+    #context.bot.sendMessage(chat_id=update.message.chat.id, text=str("TEST1"))
+    response = requests.get("https://rss.weather.gov.hk/rss/CurrentWeather.xml")
+    #context.bot.sendMessage(chat_id=update.message.chat.id,text = str("TEST2"))
+    tree = ElementTree.fromstring(response.content);
+    #context.bot.sendMessage(chat_id=update.message.chat.id,text = str("TEST3"))
+    textTem = tree[0][7][6].text
+    arraytemp = textTem.split('\n')
+    for x in arraytemp:
+        if(x.find("Air temperature")>=0) :
+            realTemp = x.split()
+            for y in realTemp:
+                if(is_number(y)):
+                    update.message.reply_text('今日天氣溫度係' +y+'度')
 
 
 
@@ -379,12 +420,17 @@ def main():
     #dp.add_handler(CommandHandler("showdllmtimes",show))
     dp.add_handler(CommandHandler("canteen",listCanteen,filters=~Filters.group))
     dp.add_handler(CommandHandler("pin9",pin9,filters=Filters.group))
+    dp.add_handler(CommandHandler("week",week,filters=Filters.group))
+
     dp.add_handler(CommandHandler("exam",exam,pass_args = True))
     dp.add_handler(MessageHandler(Filters.text & ~Filters.group, showlocation))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
     dp.add_handler(MessageHandler(Filters.text & Filters.group, dllmcount))
 
+    #dp.add_handler(CommandHandler("donateToMe",donateToMe,pass_args = True))
 
+
+    # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
                           url_path=TOKEN)
