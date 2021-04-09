@@ -332,10 +332,9 @@ def exam(update,context):
     text = ''
     text_old = ''
     file = open('Exam_timetable2.csv', 'r')
-    id = (context.args[0]).upper()
-
     if 'ccn' in id.lower():
         text_old = '走啦死老野'
+    id = (context.args[0]).upper()
 
     for row in csv.reader(file):
         if row[1] == id and found == 1:
