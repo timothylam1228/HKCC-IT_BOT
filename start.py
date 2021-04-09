@@ -5,8 +5,6 @@ import boto3
 from botocore.exceptions import ClientError
 import random
 import telegram
-import requests
-from xml.etree import ElementTree
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackQueryHandler,StringCommandHandler, InlineQueryHandler
 from telegram import InlineQuery , ReplyKeyboardMarkup, ReplyKeyboardRemove, MessageEntity, ForceReply, InlineKeyboardButton,InlineKeyboardMarkup,InlineQueryResultArticle, ParseMode, \
     InputTextMessageContent
@@ -22,10 +20,12 @@ import csv
 import cv2
 import numpy as np
 from botocore.config import Config
+import requests
 from io import BytesIO
 import tempfile
 from PIL import Image
 import matplotlib.pyplot as plt
+
 import matplotlib.image as mpimg
 
 PORT = int(os.environ.get('PORT', 5000))
@@ -45,7 +45,7 @@ client = boto3.client(
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
-    
+
 logger = logging.getLogger(__name__)
 
 # Define a few command handlers. These usually take the two arguments update and
@@ -59,7 +59,7 @@ def newmember(update, context):
     query = update.callback_query
     bot = context.bot
     url = helpers.create_deep_linked_url(bot.get_me().username, SO_COOL)
-    text = "歡迎來到IT谷" 
+    text = "歡迎來到IT谷"
     keyboard = InlineKeyboardMarkup.from_button(
         InlineKeyboardButton(text='Continue here!', url=url)
         )
@@ -77,8 +77,8 @@ def newmember(update, context):
             bot.kick_chat_member(chat_id=update.message.chat.id, user_id=update.message.from_user.id)
             return
 
-    
-    
+
+
 def open_bot(update, context):
     x = update.message.from_user.id
     print(x)
@@ -199,7 +199,7 @@ def dllmcount(update, context):
             else:
                 count = count + 1
                 sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0),givediu2 ={} WHERE user_id = {}".format(row[1],count,target)
-            print(sqlInsertTable)  
+            print(sqlInsertTable)
             dbCursor.execute(sqlInsertTable)
         conn.commit()
         dbCursor.close()
@@ -218,7 +218,7 @@ def show(update,context):
     for row in rows:
         count = row[1]
         time = row[2]
-       
+
     sqlSelect = "select * from tg_user where user_id = {}".format(x)
     dbCursor.execute(sqlSelect)
     rows = dbCursor.fetchall()
@@ -236,7 +236,7 @@ def show(update,context):
         text2 = 'You 比人屌左'+ str(target)+'次'
         #@update.message.reply_text(text = 'You 比人屌左'+ str(target)+'次')
     update.message.reply_text(text ="Broked no want fix ")
-    
+
 
 def listCanteen(update,context):
     chat_id=update.message.chat.id
@@ -355,45 +355,12 @@ def username(update, context):
 def important_date(update, context):
     chat_id=update.message.chat.id
     f = open('date.json',)
-    data = json.load(f) 
+    data = json.load(f)
     print(data)
     tmptext=''
     for i in data['ImportantDate']:
         tmptext = tmptext+i['date']+'\n'+i['descrition']+'\n\n'
     context.bot.sendMessage(chat_id=chat_id,text =tmptext)
-
-
-def is_number(s):
-    try:
-        float(s)
-        return True
-    except ValueError:
-        pass
-
-    try:
-        import unicodedata
-        unicodedata.numeric(s)
-        return True
-    except (TypeError, ValueError):
-        pass
-
-    return False
-
-def checkTemp(update, context):
-    #context.bot.sendMessage(chat_id=update.message.chat.id, text=str("TEST1"))
-    response = requests.get("https://rss.weather.gov.hk/rss/CurrentWeather.xml")
-    #context.bot.sendMessage(chat_id=update.message.chat.id,text = str("TEST2"))
-    tree = ElementTree.fromstring(response.content);
-    #context.bot.sendMessage(chat_id=update.message.chat.id,text = str("TEST3"))
-    textTem = tree[0][7][6].text
-    arraytemp = textTem.split('\n')
-    for x in arraytemp:
-        if(x.find("Air temperature")>=0) :
-            realTemp = x.split()
-            for y in realTemp:
-                if(is_number(y)):
-                    update.message.reply_text('今日天氣溫度係' +y+'度')
-
 
 
 
@@ -411,7 +378,6 @@ def main():
     dp.add_handler(CommandHandler("endday",end_day))
     dp.add_handler(CommandHandler("gpaday",gpa_day))
     dp.add_handler(CommandHandler("date",important_date))
-    dp.add_handler(CommandHandler("checkTemp", checkTemp))
     #updater.dispatcher.add_handler(CallbackQueryHandler(button))
     dp.add_handler(CommandHandler("Source", source,filters=~Filters.group))
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
