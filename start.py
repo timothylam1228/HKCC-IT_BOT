@@ -10,7 +10,6 @@ from telegram import InlineQuery , ReplyKeyboardMarkup, ReplyKeyboardRemove, Mes
     InputTextMessageContent
 from telegram.utils import helpers
 from telegram.utils.helpers import escape_markdown
-import datetime
 import os
 import psycopg2
 import json
@@ -19,12 +18,10 @@ import csv
 import cv2
 import numpy as np
 from botocore.config import Config
-import requests
 from io import BytesIO
 import tempfile
 from PIL import Image
 import matplotlib.pyplot as plt
-
 import matplotlib.image as mpimg
 
 PORT = int(os.environ.get('PORT', 5000))
@@ -37,14 +34,14 @@ bucket = s3.Bucket('telegram.bot.web')
 client = boto3.client(
     's3',
     aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
-    aws_secret_access_key="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"
+    aws_secret_access_key="8wz4ipyGx+Hd+wJd0Fponmhxjc"
 )
 
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
-    
+
 logger = logging.getLogger(__name__)
 
 # Define a few command handlers. These usually take the two arguments update and
@@ -58,7 +55,7 @@ def newmember(update, context):
     query = update.callback_query
     bot = context.bot
     url = helpers.create_deep_linked_url(bot.get_me().username, SO_COOL)
-    text = "歡迎來到IT谷" 
+    text = "歡迎來到IT谷"
     keyboard = InlineKeyboardMarkup.from_button(
         InlineKeyboardButton(text='Continue here!', url=url)
         )
@@ -76,8 +73,8 @@ def newmember(update, context):
             bot.kick_chat_member(chat_id=update.message.chat.id, user_id=update.message.from_user.id)
             return
 
-    
-    
+
+
 def open_bot(update, context):
     x = update.message.from_user.id
     print(x)
@@ -198,7 +195,7 @@ def dllmcount(update, context):
             else:
                 count = count + 1
                 sqlInsertTable  = "UPDATE tg_user SET count = {},last_update=Now()::TIMESTAMP(0),givediu2 ={} WHERE user_id = {}".format(row[1],count,target)
-            print(sqlInsertTable)  
+            print(sqlInsertTable)
             dbCursor.execute(sqlInsertTable)
         conn.commit()
         dbCursor.close()
@@ -217,7 +214,7 @@ def show(update,context):
     for row in rows:
         count = row[1]
         time = row[2]
-       
+
     sqlSelect = "select * from tg_user where user_id = {}".format(x)
     dbCursor.execute(sqlSelect)
     rows = dbCursor.fetchall()
@@ -235,7 +232,7 @@ def show(update,context):
         text2 = 'You 比人屌左'+ str(target)+'次'
         #@update.message.reply_text(text = 'You 比人屌左'+ str(target)+'次')
     update.message.reply_text(text ="Broked no want fix ")
-    
+
 
 def listCanteen(update,context):
     chat_id=update.message.chat.id
@@ -345,7 +342,7 @@ def username(update, context):
 def important_date(update, context):
     chat_id=update.message.chat.id
     f = open('date.json',)
-    data = json.load(f) 
+    data = json.load(f)
     print(data)
     tmptext=''
     for i in data['ImportantDate']:
@@ -387,10 +384,7 @@ def main():
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
     dp.add_handler(MessageHandler(Filters.text & Filters.group, dllmcount))
 
-    #dp.add_handler(CommandHandler("donateToMe",donateToMe,pass_args = True))
 
-
-    # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
                           url_path=TOKEN)
@@ -415,4 +409,5 @@ gpaday - most excited day
 showdllmtimes - count on dllm
 pin9 - show pin message
 exam - exam {code} show exam date time
+week - new is week ?
 '''
