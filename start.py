@@ -399,7 +399,7 @@ def payment(update, context):
     provider_token = "284685063:TEST:ZDIyMWM5NzgxZWE4"
     start_parameter = "TEMP"
     currency = "HKD"
-    a = {"label":"donate", "amount": 200}
+    a = '{"label":"donate", "amount": 200}'
     b = {"label":"donate2", "amount": 100}
     c = [json.dumps(a), json.dumps(b)]
     prices = json.loads(a)
