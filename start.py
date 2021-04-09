@@ -21,6 +21,8 @@ import cv2
 import numpy as np
 from botocore.config import Config
 import requests
+from xml.etree import ElementTree
+
 from io import BytesIO
 import tempfile
 from PIL import Image
@@ -362,6 +364,36 @@ def important_date(update, context):
         tmptext = tmptext+i['date']+'\n'+i['descrition']+'\n\n'
     context.bot.sendMessage(chat_id=chat_id,text =tmptext)
 
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        pass
+
+    try:
+        import unicodedata
+        unicodedata.numeric(s)
+        return True
+    except (TypeError, ValueError):
+        pass
+
+    return False
+
+def checkTemp(update, context):
+    #context.bot.sendMessage(chat_id=update.message.chat.id, text=str("TEST1"))
+    response = requests.get("https://rss.weather.gov.hk/rss/CurrentWeather.xml")
+    #context.bot.sendMessage(chat_id=update.message.chat.id,text = str("TEST2"))
+    tree = ElementTree.fromstring(response.content);
+    #context.bot.sendMessage(chat_id=update.message.chat.id,text = str("TEST3"))
+    textTem = tree[0][7][6].text
+    arraytemp = textTem.split('\n')
+    for x in arraytemp:
+        if(x.find("Air temperature")>=0) :
+            realTemp = x.split()
+            for y in realTemp:
+                if(is_number(y)):
+                    update.message.reply_text('今日天氣溫度係' +y+'度')
 
 
 def main():
@@ -378,6 +410,7 @@ def main():
     dp.add_handler(CommandHandler("endday",end_day))
     dp.add_handler(CommandHandler("gpaday",gpa_day))
     dp.add_handler(CommandHandler("date",important_date))
+    dp.add_handler(CommandHandler("checkTemp", checkTemp))
     #updater.dispatcher.add_handler(CallbackQueryHandler(button))
     dp.add_handler(CommandHandler("Source", source,filters=~Filters.group))
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
