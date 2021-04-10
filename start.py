@@ -396,10 +396,10 @@ def payment(update, context):
     title = "Donate"
     description = "Donate"
     payload = "Donate1228"
-    provider_token = "284685063:TEST:ZDIyMWM5NzgxZWE4"
+    provider_token = "350862534:LIVE:YjYxZjNhMjNkNmY3"
     start_parameter = "TEMP"
     currency = "HKD"
-    prices = [LabeledPrice("Test", 10000)]
+    prices = [LabeledPrice("HKCC OCAMP 費用", 1000)]
     #prices=['{"label": "donate", "amount": 300000},{"label": "donate2", "amount": 400000}']
     context.bot.sendInvoice(chat_id=chat_id,
     title=title,
