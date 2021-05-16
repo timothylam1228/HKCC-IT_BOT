@@ -157,6 +157,8 @@ def help_command(update, context):
     x = update.message.from_user.id
     update.message.reply_text(x,)
 
+def dllm(update, context):
+    update.message.reply_text("Hello")
 
 def dllmcount(update, context):
     message = (update.message.text).lower()
@@ -446,7 +448,7 @@ def main():
     dp.add_handler(CommandHandler("exam",exam,pass_args = True))
     dp.add_handler(MessageHandler(Filters.text & ~Filters.group, showlocation))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
-    dp.add_handler(MessageHandler(Filters.text & Filters.group, dllmcount))
+    dp.add_handler(MessageHandler(Filters.text & Filters.group, dllm))
 
     #dp.add_handler(CommandHandler("donateToMe",donateToMe,pass_args = True))
 
