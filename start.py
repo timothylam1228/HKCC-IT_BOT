@@ -7,7 +7,7 @@ import random
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackQueryHandler,StringCommandHandler, InlineQueryHandler
 from telegram import InlineQuery , ReplyKeyboardMarkup, ReplyKeyboardRemove, MessageEntity, ForceReply, InlineKeyboardButton,InlineKeyboardMarkup,InlineQueryResultArticle, ParseMode, \
-    InputTextMessageContent
+    InputTextMessageContent, LabeledPrice
 from telegram.utils import helpers
 from telegram.utils.helpers import escape_markdown
 import requests
@@ -396,11 +396,19 @@ def payment(update, context):
     title = "Donate"
     description = "Donate"
     payload = "Donate1228"
-    provider_token = "284685063:TEST:ZDIyMWM5NzgxZWE4"
+    provider_token = "350862534:LIVE:YjYxZjNhMjNkNmY3"
     start_parameter = "TEMP"
     currency = "HKD"
-    prices = {123,45}
-    context.bot.sendInvoice(chat_id=chat_id,title=title,description="donate",payload=payload,provider_token=provider_token,start_parameter=start_parameter,currency=currency,prices=prices)
+    prices = [LabeledPrice("HKCC OCAMP 費用", 1000)]
+    #prices=['{"label": "donate", "amount": 300000},{"label": "donate2", "amount": 400000}']
+    context.bot.sendInvoice(chat_id=chat_id,
+    title=title,
+    description="donate",
+    payload=payload,
+    provider_token=provider_token,
+    start_parameter=start_parameter,
+    currency=currency,
+    prices=prices)
 
 
 def main():
