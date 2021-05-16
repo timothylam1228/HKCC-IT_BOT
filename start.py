@@ -204,11 +204,6 @@ def dllmcount(update, context):
         conn.close()
 
 def dllm(update, context):
-    message = (update.message.text).lower()
-    if(update.message.reply_to_message.from_user.id is not None):
-        target = update.message.reply_to_message.from_user.id
-        if "dllm"  in message:
-            update.message.reply_text(text = target)
     update.message.reply_text(text = "DLLM")
 
 
