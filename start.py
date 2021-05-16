@@ -392,7 +392,7 @@ def main():
     #updater.dispatcher.add_handler(CallbackQueryHandler(rating))
 
     ############
-    dp.add_handler(MessageHandler(Filters.text, dllm))
+    dp.add_handler(MessageHandler(Filters.text & ~Filters.group, dllm))
     dp.add_handler(CommandHandler("help",help_command))
     dp.add_handler(CommandHandler("addcanteen",addcanteen,pass_args = True))
     dp.add_handler(CommandHandler("username",username,pass_args = True))
