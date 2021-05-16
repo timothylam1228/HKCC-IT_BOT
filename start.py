@@ -203,6 +203,15 @@ def dllmcount(update, context):
         dbCursor.close()
         conn.close()
 
+def dllm(update, context):
+    message = (update.message.text).lower()
+    if(update.message.reply_to_message.from_user.id is not None):
+        target = update.message.reply_to_message.from_user.id
+        if "dllm"  in message:
+            update.message.reply_text(text = target)
+    update.message.reply_text(text = "DLLM")
+
+
 def show(update,context):
     count = 0
     time = ""
@@ -383,6 +392,7 @@ def main():
     #updater.dispatcher.add_handler(CallbackQueryHandler(rating))
 
     ############
+    dp.add_handler(MessageHandler(Filters.text, dllm))
     dp.add_handler(CommandHandler("help",help_command))
     dp.add_handler(CommandHandler("addcanteen",addcanteen,pass_args = True))
     dp.add_handler(CommandHandler("username",username,pass_args = True))
@@ -393,9 +403,11 @@ def main():
     dp.add_handler(CommandHandler("week",week,filters=Filters.group))
 
     dp.add_handler(CommandHandler("exam",exam,pass_args = True))
+    
     dp.add_handler(MessageHandler(Filters.text & ~Filters.group, showlocation))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
     dp.add_handler(MessageHandler(Filters.text & Filters.group, dllmcount))
+    
 
 
     updater.start_webhook(listen="0.0.0.0",
