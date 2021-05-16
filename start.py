@@ -448,7 +448,7 @@ def main():
     dp.add_handler(CommandHandler("exam",exam,pass_args = True))
     dp.add_handler(MessageHandler(Filters.text & ~Filters.group, showlocation))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
-    dp.add_handler(MessageHandler(Filters.text & Filters.group, dllm))
+    #dp.add_handler(MessageHandler(Filters.text & Filters.group, dllm))
 
     #dp.add_handler(CommandHandler("donateToMe",donateToMe,pass_args = True))
 
