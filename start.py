@@ -401,8 +401,7 @@ def samgor(update, context):
             return
         f = open('samgor.json',)
         data = json.load(f)
-        if(number1 != 0):
-            randomIngredient = random.sample(range(25), number1)
+        randomIngredient = random.sample(range(25), number1)
         randomSoupBase = random.sample(range(6), 1)
         randomSpiciness = random.sample(range(10), 1)
         randomAppetizers = random.sample(range(9), 1)
