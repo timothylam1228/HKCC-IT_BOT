@@ -396,14 +396,28 @@ def samgor(update, context):
     chat_id=update.message.chat.id
     f = open('samgor.json',)
     data = json.load(f)
-    print(data)
     randomIngredient = random.sample(range(25), 3)
-    tmptext=''
-    #for i in data['ImportantDate']:
-    tmptext='今日三哥食咩好\n'
-    tmptext = tmptext + '三餸:\n'
-    tmptext = tmptext + data['Ingredient'][randomIngredient[0]]['name'] + ' '+data['Ingredient'][randomIngredient[1]]['name'] + ' '+data['Ingredient'][randomIngredient[2]]['name'] + '\n'
-    context.bot.sendMessage(chat_id=chat_id,text =tmptext)
+    randomSoupBase = random.sample(range(6), 1)
+    randomSpiciness = random.sample(range(10), 1)
+    randomAppetizers = random.sample(range(9), 1)
+    randomSnacksForOne = random.sample(range(6), 1)
+    randomDrink = random.sample(range(15), 1)
+    eattext=''
+    eattext='今日三哥食咩好\n'
+    eattext = eattext + '三餸 : \n'
+    eattext = eattext + data['Ingredient'][randomIngredient[0]]['name'] + ' '+data['Ingredient'][randomIngredient[1]]['name'] + ' '+data['Ingredient'][randomIngredient[2]]['name'] + '\n'
+    eattext = eattext + '湯底 : \n'
+    eattext = eattext + data['Spiciness'][randomSoupBase[0]]['name'] + '\n'
+    eattext = eattext + '辣度 : \n'
+    if randomSoupBase == 4 or randomSoupBase == 5 :
+        eattext = eattext + '無辣比你揀呀 88 \n'
+    else :
+        eattext = eattext + data['Appetizers'][randomSpiciness[0]]['name'] + '\n'
+    eattext = eattext + '三哥小食 : \n'
+    eattext = eattext + data['SnacksForOne'][randomAppetizers[0]]['name'] + '\n'
+    eattext = eattext + '飲品 : \n'
+    eattext = eattext + data['Drink'][randomDrink[0]]['name'] + '\n'
+    context.bot.sendMessage(chat_id=chat_id,text =eattext)
 
 
 def payment(update, context):
