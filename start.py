@@ -397,9 +397,9 @@ def samgor(update, context):
     try:
         update.message.reply_text('請輸入範圍 1-25A')
         number1 = int(context.args[0])
-        update.message.reply_text('請輸入範圍 1-25')
+        update.message.reply_text('請輸入範圍 1-25B')
         if(number1>26 or number1<0):
-            update.message.reply_text('請輸入範圍 1-25')
+            update.message.reply_text('請輸入範圍 1-25C')
             return
         f = open('samgor.json',)
         data = json.load(f)
@@ -429,7 +429,7 @@ def samgor(update, context):
         eattext = eattext + data['Drink'][randomDrink[0]]['name'] + '\n'
         context.bot.sendMessage(chat_id=chat_id,text =eattext)
     except (IndexError, ValueError):
-        update.message.reply_text('There are not enough numbers')
+        update.message.reply_text('請輸入範圍 1-25')
 
 def payment(update, context):
     chat_id=update.message.chat.id
