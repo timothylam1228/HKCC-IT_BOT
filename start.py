@@ -392,6 +392,16 @@ def checkTemp(update, context):
                 if(is_number(y)):
                     update.message.reply_text('今日天氣溫度係' +y+'度')
 
+def samgor(update, context):
+    chat_id=update.message.chat.id
+    f = open('samgor.json',)
+    data = json.load(f)
+    print(data)
+    tmptext=''
+    for i in data['ImportantDate']:
+        tmptext = tmptext+i['name']
+    context.bot.sendMessage(chat_id=chat_id,text =tmptext)
+
 
 def payment(update, context):
     chat_id=update.message.chat.id
@@ -428,6 +438,7 @@ def main():
     dp.add_handler(CommandHandler("gpaday",gpa_day))
     dp.add_handler(CommandHandler("date",important_date))
     dp.add_handler(CommandHandler("checkTemp",checkTemp))
+    dp.add_handler(CommandHandler("samgor",samgor))
     #updater.dispatcher.add_handler(CallbackQueryHandler(button))
     dp.add_handler(CommandHandler("Source", source,filters=~Filters.group))
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
