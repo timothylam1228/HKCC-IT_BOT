@@ -408,12 +408,12 @@ def samgor(update, context):
         randomSnacksForOne = random.sample(range(6), 1)
         randomDrink = random.sample(range(15), 1)
         eattext=''
-        eattext='今日三哥食咩好\n'
+        eattext='今日三哥食咩好\n\n'
         if(number1 != 0):
             eattext = eattext + str(number1) + '餸 : \n'
             for i in range(number1) :
                 eattext = eattext + data['Ingredient'][randomIngredient[i]]['name']+' '
-            eattext = '\n'
+            eattext = eattext + '\n'
         eattext = eattext + '湯底 : \n'
         eattext = eattext + data['SoupBase'][randomSoupBase[0]]['name'] + '\n\n'
         eattext = eattext + '辣度 : \n'
