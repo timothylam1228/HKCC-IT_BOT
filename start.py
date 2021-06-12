@@ -414,10 +414,11 @@ def samgor(update, context):
         update.message.reply_text('請輸入範圍 1-25C')
         eattext=''
         eattext='今日三哥食咩好\n'
-        eattext = eattext + number1 + '餸 : \n'
+        eattext = eattext + str(number1) + '餸 : \n'
         update.message.reply_text('請輸入範圍 1-25G')
-        for i in number1 :
-            eattext = eattext + data['Ingredient'][randomIngredient[i]]['name']# + ' '+data['Ingredient'][randomIngredient[1]]['name'] + ' '+data['Ingredient'][randomIngredient[2]]['name'] + '\n\n'
+        if(number1 != 0):
+            for i in range(number1 - 1) :
+                eattext = eattext + data['Ingredient'][randomIngredient[i]]['name']# + ' '+data['Ingredient'][randomIngredient[1]]['name'] + ' '+data['Ingredient'][randomIngredient[2]]['name'] + '\n\n'
         update.message.reply_text('請輸入範圍 1-25F')
         eattext = eattext + '湯底 : \n'
         eattext = eattext + data['SoupBase'][randomSoupBase[0]]['name'] + '\n\n'
