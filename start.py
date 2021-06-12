@@ -417,7 +417,7 @@ def samgor(update, context):
         eattext = eattext + '湯底 : \n'
         eattext = eattext + data['SoupBase'][randomSoupBase[0]]['name'] + '\n\n'
         eattext = eattext + '辣度 : \n'
-        if randomSoupBase == 4 or randomSoupBase == 5 :
+        if randomSoupBase[0] == 4 or randomSoupBase[0] == 5 :
             eattext = eattext + '無辣比你揀呀 88 \n'
         else :
             eattext = eattext + data['Spiciness'][randomSpiciness[0]]['name'] + '\n\n'
