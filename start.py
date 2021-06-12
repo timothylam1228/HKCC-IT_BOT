@@ -398,28 +398,25 @@ def samgor(update, context):
         update.message.reply_text('請輸入範圍 1-25A')
         update.message.reply_text(context.args[0].strip())
         number1 = int(context.args[0].strip())
-        update.message.reply_text('請輸入範圍 1-25B')
-        #if(number1 > 26 or number1 < 0):
-        #    update.message.reply_text('請輸入範圍 1-25C')
-        #    return
+        if(number1 > 26 or number1 < 0):
+            update.message.reply_text('請輸入範圍 1-25')
+            return
         f = open('samgor.json',)
         data = json.load(f)
-        update.message.reply_text('請輸入範圍 1-25D')
-        randomIngredient = random.sample(range(25), number1)
+        if(number1 != 0):
+            randomIngredient = random.sample(range(25), number1)
         randomSoupBase = random.sample(range(6), 1)
         randomSpiciness = random.sample(range(10), 1)
         randomAppetizers = random.sample(range(9), 1)
         randomSnacksForOne = random.sample(range(6), 1)
         randomDrink = random.sample(range(15), 1)
-        update.message.reply_text('請輸入範圍 1-25C')
         eattext=''
         eattext='今日三哥食咩好\n'
         eattext = eattext + str(number1) + '餸 : \n'
-        update.message.reply_text('請輸入範圍 1-25G')
         if(number1 != 0):
-            for i in range(number1 - 1) :
-                eattext = eattext + data['Ingredient'][randomIngredient[i]]['name']# + ' '+data['Ingredient'][randomIngredient[1]]['name'] + ' '+data['Ingredient'][randomIngredient[2]]['name'] + '\n\n'
-        update.message.reply_text('請輸入範圍 1-25F')
+            for i in range(number1) :
+                eattext = eattext + data['Ingredient'][randomIngredient[i]]['name']+' '
+            eattext = '\n'
         eattext = eattext + '湯底 : \n'
         eattext = eattext + data['SoupBase'][randomSoupBase[0]]['name'] + '\n\n'
         eattext = eattext + '辣度 : \n'
@@ -428,7 +425,6 @@ def samgor(update, context):
         else :
             eattext = eattext + data['Spiciness'][randomSpiciness[0]]['name'] + '\n\n'
         eattext = eattext + '三哥小食 : \n'
-        update.message.reply_text('請輸入範圍 1-25E')
         eattext = eattext + data['Appetizers'][randomAppetizers[0]]['name'] + '\n\n'
         eattext = eattext + '一人小食 : \n'
         eattext = eattext + data['Spiciness'][randomSnacksForOne[0]]['name'] + '\n\n'
