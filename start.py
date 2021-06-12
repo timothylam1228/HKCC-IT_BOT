@@ -397,7 +397,7 @@ def samgor(update, context):
     try:
         update.message.reply_text('請輸入範圍 1-25A')
         number1 = int(context.args[1])
-        update.message.reply_text('請輸入範圍 1-25B')
+        update.message.reply_text(context.args[1])
         if(number1>26 or number1<0):
             update.message.reply_text('請輸入範圍 1-25C')
             return
