@@ -411,7 +411,7 @@ def samgor(update, context):
         eattext=''
         eattext='今日三哥食咩好\n'
         if(number1 != 0):
-        eattext = eattext + str(number1) + '餸 : \n'
+            eattext = eattext + str(number1) + '餸 : \n'
             for i in range(number1) :
                 eattext = eattext + data['Ingredient'][randomIngredient[i]]['name']+' '
             eattext = '\n'
