@@ -396,10 +396,10 @@ def samgor(update, context):
     chat_id=update.message.chat.id
     try:
         update.message.reply_text('請輸入範圍 1-25A')
-        update.message.reply_text(context.args[0])
-        number1 = int(context.args[0])
-        
-        if(number1>26 or number1<0):
+        update.message.reply_text(context.args[0].strip())
+        number1 = int(context.args[0].strip())
+        update.message.reply_text('請輸入範圍 1-25B')
+        if(number1 > 26 or number1 < 0):
             update.message.reply_text('請輸入範圍 1-25C')
             return
         f = open('samgor.json',)
