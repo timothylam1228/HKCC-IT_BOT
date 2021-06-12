@@ -424,7 +424,7 @@ def samgor(update, context):
         eattext = eattext + '三哥小食 : \n'
         eattext = eattext + data['Appetizers'][randomAppetizers[0]]['name'] + '\n\n'
         eattext = eattext + '一人小食 : \n'
-        eattext = eattext + data['Spiciness'][randomSnacksForOne[0]]['name'] + '\n\n'
+        eattext = eattext + data['SnacksForOne'][randomSnacksForOne[0]]['name'] + '\n\n'
         eattext = eattext + '飲品 : \n'
         eattext = eattext + data['Drink'][randomDrink[0]]['name'] + '\n'
         context.bot.sendMessage(chat_id=chat_id,text =eattext)
