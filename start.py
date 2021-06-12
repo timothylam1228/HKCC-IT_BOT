@@ -397,9 +397,12 @@ def samgor(update, context):
     f = open('samgor.json',)
     data = json.load(f)
     print(data)
+    randomIngredient = random.sample(range(25), 3)
     tmptext=''
     #for i in data['ImportantDate']:
-    tmptext = tmptext+data['Ingredient'][0]['name']
+    tmptext='今日三哥食咩好\n'
+    tmptext = tmptext + '三餸:\n'
+    tmptext = tmptext + data['Ingredient'][randomIngredient[0]]['name'] + ' '+data['Ingredient'][randomIngredient[1]]['name'] + ' '+data['Ingredient'][randomIngredient[2]]['name'] + '\n'
     context.bot.sendMessage(chat_id=chat_id,text =tmptext)
 
 
