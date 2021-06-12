@@ -399,7 +399,7 @@ def samgor(update, context):
     print(data)
     tmptext=''
     for i in data['Ingredient']:
-        tmptext = tmptext+i['name']
+        tmptext = data['Ingredient'].get(1)
     context.bot.sendMessage(chat_id=chat_id,text =tmptext)
 
 
