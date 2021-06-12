@@ -398,7 +398,7 @@ def samgor(update, context):
     data = json.load(f)
     print(data)
     tmptext=''
-    for i in data['ImportantDate']:
+    for i in data['Ingredient']:
         tmptext = tmptext+i['name']
     context.bot.sendMessage(chat_id=chat_id,text =tmptext)
 
