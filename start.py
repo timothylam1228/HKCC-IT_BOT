@@ -458,7 +458,6 @@ def payment(update, context):
         return
 # @run_async
 def precheckout_callback(update, context):
-    chat_id=update.message.chat.id
     query = update.pre_checkout_query
     context.bot.answerPreCheckoutQuery(update.pre_checkout_query.id,True);
 
