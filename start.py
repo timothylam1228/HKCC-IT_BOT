@@ -4,7 +4,7 @@ import logging
 import boto3
 from botocore.exceptions import ClientError
 import random
-import telegram
+import telegram 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters,CallbackQueryHandler,  PreCheckoutQueryHandler
 from telegram import  ReplyKeyboardMarkup, ReplyKeyboardRemove, InlineKeyboardButton,InlineKeyboardMarkup,LabeledPrice
 from telegram.utils import helpers
@@ -457,13 +457,10 @@ def payment(update, context):
         update.message.reply_markdown(error_string=error_string)
         return
 # @run_async
-def precheckout_callback(update, context) -> None:
+def precheckout_callback(update, context):
     chat_id=update.message.chat.id
     query = update.pre_checkout_query
-    if query.invoice_payload != '{}_{}'.format(chat_id, update.message.message_id):
-        query.answer(ok=False, error_message="Something went wrong...")
-    else:
-        query.answer(ok=True)
+    context.bot.answerPreCheckoutQuery(update.pre_checkout_query.id,True);
 
 def successful_payment_callback(bot, update):
     chat_id = update.message.chat_id
