@@ -5,9 +5,8 @@ import boto3
 from botocore.exceptions import ClientError
 import random
 import telegram
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackQueryHandler,StringCommandHandler, InlineQueryHandler
-from telegram import InlineQuery , ReplyKeyboardMarkup, ReplyKeyboardRemove, MessageEntity, ForceReply, InlineKeyboardButton,InlineKeyboardMarkup,InlineQueryResultArticle, ParseMode, \
-    InputTextMessageContent, LabeledPrice
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters,CallbackQueryHandler,  PreCheckoutQueryHandler
+from telegram import  ReplyKeyboardMarkup, ReplyKeyboardRemove, InlineKeyboardButton,InlineKeyboardMarkup,LabeledPrice
 from telegram.utils import helpers
 from telegram.utils.helpers import escape_markdown
 import requests
@@ -458,17 +457,19 @@ def payment(update, context):
         update.message.reply_markdown(error_string=error_string)
         return
 # @run_async
+def precheckout_callback(update, context) -> None:
+    chat_id=update.message.chat.id
+    query = update.pre_checkout_query
+    if query.invoice_payload != '{}_{}'.format(chat_id, update.message.message_id):
+        query.answer(ok=False, error_message="Something went wrong...")
+    else:
+        query.answer(ok=True)
 
 def successful_payment_callback(bot, update):
     chat_id = update.message.chat_id
     logger.info('[%d] successful payment', chat_id)
     # https://core.telegram.org/bots/api#successfulpayment
     amount = update.message.successful_payment.total_amount
-
-    invoice_payload = update.message.successful_payment.invoice_payload
-    telegram_payment_charge_id = update.message.successful_payment.telegram_payment_charge_id
-    provider_payment_charge_id = update.message.successful_payment.provider_payment_charge_id
-
 
     bot.send_message(chat_id,text = (amount))
 
@@ -505,7 +506,7 @@ def main():
 
     dp.add_handler(CommandHandler("donate",payment))
     dp.add_handler(MessageHandler(Filters.successful_payment, successful_payment_callback))
-
+    dp.add_handler(PreCheckoutQueryHandler(precheckout_callback))
     dp.add_handler(CommandHandler("canteen",listCanteen,filters=~Filters.group))
     dp.add_handler(CommandHandler("pin9",pin9,filters=Filters.group))
     dp.add_handler(CommandHandler("week",week,filters=Filters.group))
