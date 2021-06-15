@@ -6,7 +6,7 @@ from botocore.exceptions import ClientError
 import random
 import telegram 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters,CallbackQueryHandler,  PreCheckoutQueryHandler
-from telegram import  ReplyKeyboardMarkup, ReplyKeyboardRemove, InlineKeyboardButton,InlineKeyboardMarkup,LabeledPrice
+from telegram import  ReplyKeyboardMarkup, ReplyKeyboardRemove, InlineKeyboardButton,InlineKeyboardMarkup,LabeledPrice, ParseMode
 from telegram.utils import helpers
 from telegram.utils.helpers import escape_markdown
 import requests
@@ -315,7 +315,10 @@ def pin9(update,context):
     chat_id=update.message.chat.id
     f = open("pin.txt", "r")
     temp = f.read()
-    update.message.reply_text(text='INFO'+temp)
+    # update.message.reply_text(text='INFO'+temp)
+    context.bot.sendMessage(chat_id=chat_id,text=temp, parse_mode= 'Markdown')
+
+
 
 def week(update,context):
     chat_id=update.message.chat.id
