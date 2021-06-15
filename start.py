@@ -440,7 +440,6 @@ def payment(update, context):
     start_parameter = "TEMP"
     currency = "HKD"
     prices = [LabeledPrice("HKCC OCAMP 費用", 1000)]
-    #prices=['{"label": "donate", "amount": 300000},{"label": "donate2", "amount": 400000}']
     context.bot.sendInvoice(chat_id=chat_id,
     title=title,
     description="donate",
@@ -450,6 +449,18 @@ def payment(update, context):
     currency=currency,
     prices=prices)
 
+def successful_payment_callback(bot, update):
+    chat_id = update.message.chat_id
+    logger.info('[%d] successful payment', chat_id)
+    # https://core.telegram.org/bots/api#successfulpayment
+    amount = update.message.successful_payment.total_amount
+    
+    invoice_payload = update.message.successful_payment.invoice_payload
+    telegram_payment_charge_id = update.message.successful_payment.telegram_payment_charge_id
+    provider_payment_charge_id = update.message.successful_payment.provider_payment_charge_id
+
+
+    bot.send_message(chat_id, s.SUCCESSFULL_PAYMENT.format(amount=amount / 100))
 
 def main():
     global update_id
@@ -470,6 +481,10 @@ def main():
     #updater.dispatcher.add_handler(CallbackQueryHandler(button))
     dp.add_handler(CommandHandler("Source", source,filters=~Filters.group))
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
+
+        
+    dp.add_handler(MessageHandler(Filters.successful_payment, successful_payment_callback))
+
     # dp.add_handler(CommandHandler("lecturer",lecturer,filters=~Filters.group))
     #updater.dispatcher.add_handler(CallbackQueryHandler(rating))
 
