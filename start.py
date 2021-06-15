@@ -24,6 +24,7 @@ from botocore.config import Config
 from io import BytesIO
 import tempfile
 from PIL import Image
+from telegram.error import BadRequest
 
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
@@ -436,20 +437,28 @@ def payment(update, context):
     chat_id=update.message.chat.id
     title = "Donate"
     description = "Donate"
-    payload = "Donate1228"
+    payload = '{}_{}'.format(chat_id, update.message.message_id)
     provider_token = "350862534:LIVE:YjYxZjNhMjNkNmY3"
     start_parameter = "TEMP"
     currency = "HKD"
     prices = [LabeledPrice("HKCC OCAMP 費用", 1000)]
-    context.bot.sendInvoice(chat_id=chat_id,
-    title=title,
-    description="donate",
-    payload=payload,
-    provider_token=provider_token,
-    start_parameter=start_parameter,
-    currency=currency,
-    prices=prices)
+
+    try:
+        sent_invoice_message = context.bot.sendInvoice(chat_id=chat_id,
+        title=title,
+        description="donate",
+        payload=payload,
+        provider_token=provider_token,
+        start_parameter=payload,
+        currency=currency,
+        prices=prices)
+    except BadRequest as e:
+        error_string = str(e)
+        logger.info('[%d] sendInvoice exception: %s', chat_id, error_string, exc_info=True)
+        update.message.reply_markdown(error_string=error_string)
+        return
 # @run_async
+
 def successful_payment_callback(bot, update):
     chat_id = update.message.chat_id
     logger.info('[%d] successful payment', chat_id)
