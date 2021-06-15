@@ -431,6 +431,7 @@ def samgor(update, context):
     except (IndexError, ValueError):
         update.message.reply_text('請輸入範圍 1-25')
 
+# @run_async
 def payment(update, context):
     chat_id=update.message.chat.id
     title = "Donate"
@@ -448,19 +449,19 @@ def payment(update, context):
     start_parameter=start_parameter,
     currency=currency,
     prices=prices)
-
+# @run_async
 def successful_payment_callback(bot, update):
     chat_id = update.message.chat_id
     logger.info('[%d] successful payment', chat_id)
     # https://core.telegram.org/bots/api#successfulpayment
     amount = update.message.successful_payment.total_amount
-    
+
     invoice_payload = update.message.successful_payment.invoice_payload
     telegram_payment_charge_id = update.message.successful_payment.telegram_payment_charge_id
     provider_payment_charge_id = update.message.successful_payment.provider_payment_charge_id
 
 
-    bot.send_message(chat_id, s.SUCCESSFULL_PAYMENT.format(amount=amount / 100))
+    bot.send_message(chat_id,text = (amount))
 
 def main():
     global update_id
@@ -483,7 +484,6 @@ def main():
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
 
         
-    dp.add_handler(MessageHandler(Filters.successful_payment, successful_payment_callback))
 
     # dp.add_handler(CommandHandler("lecturer",lecturer,filters=~Filters.group))
     #updater.dispatcher.add_handler(CallbackQueryHandler(rating))
@@ -495,6 +495,8 @@ def main():
 
 
     dp.add_handler(CommandHandler("donate",payment))
+    dp.add_handler(MessageHandler(Filters.successful_payment, successful_payment_callback))
+
     dp.add_handler(CommandHandler("canteen",listCanteen,filters=~Filters.group))
     dp.add_handler(CommandHandler("pin9",pin9,filters=Filters.group))
     dp.add_handler(CommandHandler("week",week,filters=Filters.group))
