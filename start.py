@@ -466,7 +466,7 @@ def payment(update, context):
             logger.info('[%d] sendInvoice exception: %s', chat_id, error_string, exc_info=True)
             update.message.reply_markdown(error_string=error_string)
             return
-    except (IndexError, ValueError) as error:
+    except Exception as error:
         update.message.reply_text(repr(error))
 
 
