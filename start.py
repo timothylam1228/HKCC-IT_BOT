@@ -432,32 +432,39 @@ def samgor(update, context):
 
 # @run_async
 def payment(update, context):
-    priceFromUser = int(context.args[0])
-    if(priceFromUser is None):
-        priceFromUser = 10
-    chat_id=update.message.chat.id
-    title = "Donate"
-    description = "Donate"
-    payload = '{}_{}'.format(chat_id, update.message.message_id)
-    provider_token = "350862534:LIVE:YjYxZjNhMjNkNmY3"
-    start_parameter = "TEMP"
-    currency = "HKD"
-    prices = [LabeledPrice("HKCC OCAMP 費用", priceFromUser*100)]
-
     try:
-        sent_invoice_message = context.bot.sendInvoice(chat_id=chat_id,
-        title=title,
-        description="donate",
-        payload=payload,
-        provider_token=provider_token,
-        start_parameter=payload,
-        currency=currency,
-        prices=prices)
-    except BadRequest as e:
-        error_string = str(e)
-        logger.info('[%d] sendInvoice exception: %s', chat_id, error_string, exc_info=True)
-        update.message.reply_markdown(error_string=error_string)
-        return
+        priceFromUser = int(context.args[0])
+        chat_id=update.message.chat.id
+        title = "Donate"
+        description = "Donate"
+        payload = '{}_{}'.format(chat_id, update.message.message_id)
+        provider_token = "350862534:LIVE:YjYxZjNhMjNkNmY3"
+        start_parameter = "TEMP"
+        currency = "HKD"
+        prices = [LabeledPrice("HKCC OCAMP 費用", priceFromUser*100)]
+
+        try:
+            sent_invoice_message = context.bot.sendInvoice(chat_id=chat_id,
+            title=title,
+            description="donate",
+            payload=payload,
+            provider_token=provider_token,
+            start_parameter=payload,
+            currency=currency,
+            prices=prices)
+        except BadRequest as e:
+            error_string = str(e)
+            logger.info('[%d] sendInvoice exception: %s', chat_id, error_string, exc_info=True)
+            update.message.reply_markdown(error_string=error_string)
+            return
+    except (IndexError, ValueError):
+        update.message.reply_text('請輸入DONATE金額')
+
+
+
+
+
+
 # @run_async
 def precheckout_callback(update, context):
     query = update.pre_checkout_query
