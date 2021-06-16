@@ -435,7 +435,7 @@ def payment(update, context):
     try:
         priceFromUser = float(context.args[0])
         if priceFromUser < 0:
-            raise IndexError;
+            raise IndexError('QQ');
         if priceFromUser < 8:
             update.message.reply_text('咁少唔撚要')
             return 
@@ -467,9 +467,11 @@ def payment(update, context):
             update.message.reply_markdown(error_string=error_string)
             return
     except (ValueError):
-        update.message.reply_text('請輸入範圍 1-25')
-    except IndexError:
         update.message.reply_text('咪玩野')
+
+    except IndexError:
+        update.message.reply_text('請輸入範圍 1-25')
+
 
 
 
