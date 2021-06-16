@@ -434,6 +434,15 @@ def samgor(update, context):
 def payment(update, context):
     try:
         priceFromUser = int(context.args[0])
+        if priceFromUser < 0:
+            raise ValueError('咪玩野')
+        if priceFromUser < 8:
+            update.message.reply_text('咁少唔撚要')
+            return 
+        elif priceFromUser > 70000:
+            update.message.reply_text('咁多比唔到')
+            return
+
         chat_id=update.message.chat.id
         title = "Donate"
         description = "Donate"
@@ -457,8 +466,8 @@ def payment(update, context):
             logger.info('[%d] sendInvoice exception: %s', chat_id, error_string, exc_info=True)
             update.message.reply_markdown(error_string=error_string)
             return
-    except (IndexError, ValueError):
-        update.message.reply_text('請輸入DONATE金額')
+    except (IndexError, ValueError) as error:
+        update.message.reply_text(repr(error))
 
 
 
