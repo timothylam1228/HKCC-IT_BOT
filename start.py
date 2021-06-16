@@ -433,7 +433,7 @@ def samgor(update, context):
 # @run_async
 def payment(update, context):
     try:
-        priceFromUser = float(context.args[0])
+        priceFromUser = int(context.args[0])
         if priceFromUser < 0:
             raise IndexError('QQ');
         if priceFromUser < 8:
