@@ -433,6 +433,8 @@ def samgor(update, context):
 # @run_async
 def payment(update, context):
     priceFromUser = int(context.args[0])
+    if(priceFromUser is None):
+        priceFromUser = 10
     chat_id=update.message.chat.id
     title = "Donate"
     description = "Donate"
