@@ -433,9 +433,9 @@ def samgor(update, context):
 # @run_async
 def payment(update, context):
     try:
-        priceFromUser = int(context.args[0])
+        priceFromUser = float(context.args[0])
         if priceFromUser < 0:
-            raise ValueError('咪玩野')
+            raise '咪玩野';
         if priceFromUser < 8:
             update.message.reply_text('咁少唔撚要')
             return 
@@ -467,7 +467,7 @@ def payment(update, context):
             update.message.reply_markdown(error_string=error_string)
             return
     except Exception as error:
-        update.message.reply_text(repr(error))
+        update.message.reply_text(error)
 
 
 
