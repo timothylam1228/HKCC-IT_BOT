@@ -17,12 +17,8 @@ import psycopg2
 import json
 from uuid import uuid4
 import csv
-import cv2
-import numpy as np
 from botocore.config import Config
-from io import BytesIO
-import tempfile
-from PIL import Image
+
 from telegram.error import BadRequest
 
 PORT = int(os.environ.get('PORT', 5000))
@@ -436,6 +432,7 @@ def samgor(update, context):
 
 # @run_async
 def payment(update, context):
+    priceFromUser = context.args[0]
     chat_id=update.message.chat.id
     title = "Donate"
     description = "Donate"
@@ -443,7 +440,7 @@ def payment(update, context):
     provider_token = "350862534:LIVE:YjYxZjNhMjNkNmY3"
     start_parameter = "TEMP"
     currency = "HKD"
-    prices = [LabeledPrice("HKCC OCAMP 費用", 1000)]
+    prices = [LabeledPrice("HKCC OCAMP 費用", priceFromUser*100)]
 
     try:
         sent_invoice_message = context.bot.sendInvoice(chat_id=chat_id,
@@ -503,7 +500,7 @@ def main():
     dp.add_handler(CommandHandler("username",username,pass_args = True))
 
 
-    dp.add_handler(CommandHandler("donate",payment))
+    dp.add_handler(CommandHandler("donate",payment,pass_args = True))
     dp.add_handler(MessageHandler(Filters.successful_payment, successful_payment_callback))
     dp.add_handler(PreCheckoutQueryHandler(precheckout_callback))
     dp.add_handler(CommandHandler("canteen",listCanteen,filters=~Filters.group))
