@@ -435,7 +435,7 @@ def payment(update, context):
     try:
         priceFromUser = float(context.args[0])
         if priceFromUser < 0:
-            raise '咪玩野';
+            raise IndexError;
         if priceFromUser < 8:
             update.message.reply_text('咁少唔撚要')
             return 
@@ -466,8 +466,10 @@ def payment(update, context):
             logger.info('[%d] sendInvoice exception: %s', chat_id, error_string, exc_info=True)
             update.message.reply_markdown(error_string=error_string)
             return
-    except Exception as error:
-        update.message.reply_text(error)
+    except (ValueError):
+        update.message.reply_text('請輸入範圍 1-25')
+    except IndexError:
+        update.message.reply_text('咪玩野')
 
 
 
