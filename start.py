@@ -12,7 +12,7 @@ from telegram.utils.helpers import escape_markdown
 import requests
 from xml.etree import ElementTree
 import os
-from datetime import datetime
+import datetime
 import psycopg2
 import json
 from uuid import uuid4
@@ -318,7 +318,7 @@ def pin9(update,context):
 
 def week(update,context):
     chat_id=update.message.chat.id
-    today = datetime.today()
+    today = datetime.datetime.today()
     week_number = today.isocalendar()[1]
     week_number = week_number-4
     update.message.reply_text(text='Now is Week '+str(week_number))
