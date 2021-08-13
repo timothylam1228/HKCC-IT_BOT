@@ -102,7 +102,7 @@ def button(update, context):
 
 def open_day(update, context):
     x = datetime.datetime.now()
-    delta = datetime.datetime(2021, 1, 25) - datetime.datetime.now()
+    delta = datetime.datetime(2021, 8, 30) - datetime.datetime.now()
     count = (delta.total_seconds())
     days = int(count//86400)
     hours = int((count-days*86400)//3600)
@@ -113,7 +113,7 @@ def open_day(update, context):
 
 def end_day(update, context):
     x = datetime.datetime.now()
-    delta = datetime.datetime(2020, 12, 17,12,45) - datetime.datetime.now()
+    delta = datetime.datetime(2021, 11, 27) - datetime.datetime.now()
     count = (delta.total_seconds())
     days = int(count//86400)
     hours = int((count-days*86400)//3600)
@@ -124,7 +124,7 @@ def end_day(update, context):
 
 def gpa_day(update, context):
     x = datetime.datetime.now()
-    delta = datetime.datetime(2021, 1, 19) - datetime.datetime.now()
+    delta = datetime.datetime(2022, 1, 1) - datetime.datetime.now()
     count = (delta.total_seconds())
     days = int(count//86400)
     hours = int((count-days*86400)//3600)
