@@ -1,69 +1,24 @@
 {
-    "ImportantDate": [{
-            "date": "2021-1-20 - 2021-2-2",
-            "descrition": "Add/Drop Period for Sem 2"
-            
-        },{
-            "date": "2021-2-11",
-            "descrition": "Lunar New Year's Eve (all evening classes suspended)"
-            
-        },
-        {
-            "date": "2021-2-12 - 2021-2-20",
-            "descrition": " Lunar New Year Holidays"
-            
-        },
-        {
-            "date": "2021-4-2",
-            "descrition": "Good Friday"
-            
-        },
-        {
-            "date": "2021-4-3",
-            "descrition": "The day following Good Friday"
-            
-        },
-        {
-            "date": "2021-4-5",
-            "descrition": "The day following Ching Ming Festival"
-            
-        },
-        {
-            "date": "2021-4-6",
-            "descrition": "The day following Easter Monday"
-            
-        },
-        {
-            "date": "2021-4-30",
-            "descrition": "Sem 2 teaching ends"
-            
-        },
-        {
-            "date": "2021-5-1",
-            "descrition": "Labour Day"
-            
-        },
-        {
-            "date": "2021-5-3 - 2021-5-7",
-            "descrition": "Revision Period for Sem 2"
-            
-        },
-        {
-            "date": "2021-5-8 - 2021-5-29",
-            "descrition": "Examination Period for Sem 2"
-            
-        },
-        {
-            "date": "2021-5-19",
-            "descrition": "The Buddha's Birthday "
-            
-        },
-       
-        {
-            "date": "2021-6-15",
-            "descrition": "Announcement of Sem 2 assessment results"
-            
-        }
-
-    ]
+  "ImportantDate": [
+    {
+      "date": "2021-8-30 - 2021-9-11",
+      "descrition": "Add/Drop Period for Sem 1"
+    },
+    {
+      "date": "2021-9-21",
+      "descrition": "Mid-Autumn Festival (all evening classes suspended)"
+    },
+    {
+      "date": "2021-9-10",
+      "descrition": "PolyU Undergraduate Info Day 2021 (all day-time and evening classes suspended)"
+    },
+    {
+      "date": "2021-11-6 - 2021-11-28",
+      "descrition": "Twenty-seventh Congregation"
+    },
+    {
+      "date": "2021-12-2 - 2012-12-12",
+      "descrition": "Examination Period for Sem. 1"
+    }
+  ]
 }
