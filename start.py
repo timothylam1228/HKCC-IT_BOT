@@ -433,16 +433,16 @@ def samgor(update, context):
 # @run_async
 def payment(update, context):
     try:
-        priceFromUser = int(context.args[0])
+        # priceFromUser = int(context.args[0])
    
-        if priceFromUser < 0:
-            raise IndexError('QQ')
-        if priceFromUser < 8:
-            update.message.reply_text('咁少唔撚要')
-            return 
-        elif priceFromUser > 70000:
-            update.message.reply_text('咁多比唔到')
-            return
+        # if priceFromUser < 0:
+        #     raise IndexError('QQ')
+        # if priceFromUser < 8:
+        #     update.message.reply_text('咁少唔撚要')
+        #     return 
+        # elif priceFromUser > 70000:
+        #     update.message.reply_text('咁多比唔到')
+        #     return
 
         chat_id=update.message.chat.id
         title = "HKCC OCAMP 費用"
@@ -457,7 +457,7 @@ def payment(update, context):
         try:
             sent_invoice_message = context.bot.sendInvoice(chat_id=chat_id,
             title=title,
-            description="donate",
+            description="HKCC OCAMP 費用",
             payload=payload,
             provider_token=provider_token,
             start_parameter=payload,
@@ -471,8 +471,8 @@ def payment(update, context):
     except (ValueError):
         update.message.reply_text('咪玩野')
 
-    except IndexError:
-        update.message.reply_text('請輸入範圍 1-25')
+    # except IndexError:
+    #     update.message.reply_text('請輸入範圍 1-25')
 
 
 
