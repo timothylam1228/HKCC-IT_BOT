@@ -102,7 +102,7 @@ def button(update, context):
 
 def open_day(update, context):
     x = datetime.datetime.now()
-    delta = datetime.datetime(2021, 8, 30) - datetime.datetime.now()
+    delta = datetime.datetime(2021, 9, 6) - datetime.datetime.now()
     count = (delta.total_seconds())
     days = int(count//86400)
     hours = int((count-days*86400)//3600)
