@@ -436,7 +436,7 @@ def payment(update, context):
         priceFromUser = int(context.args[0])
    
         if priceFromUser < 0:
-            raise IndexError('QQ');
+            raise IndexError('QQ')
         if priceFromUser < 8:
             update.message.reply_text('咁少唔撚要')
             return 
@@ -445,13 +445,14 @@ def payment(update, context):
             return
 
         chat_id=update.message.chat.id
-        title = "Donate"
-        description = "Donate"
+        title = "HKCC OCAMP 費用"
+        description = "HKCC OCAMP 費用"
         payload = '{}_{}'.format(chat_id, update.message.message_id)
         provider_token = "350862534:LIVE:YjYxZjNhMjNkNmY3"
         start_parameter = "TEMP"
         currency = "HKD"
-        prices = [LabeledPrice("HKCC OCAMP 費用", priceFromUser*100)]
+        # prices = [LabeledPrice("HKCC OCAMP 費用", priceFromUser*100)]
+        prices = [LabeledPrice("HKCC OCAMP 費用", 10000)]
 
         try:
             sent_invoice_message = context.bot.sendInvoice(chat_id=chat_id,
@@ -523,7 +524,7 @@ def main():
     dp.add_handler(CommandHandler("username",username,pass_args = True))
 
 
-    dp.add_handler(CommandHandler("donate",payment,pass_args = True))
+    dp.add_handler(CommandHandler("ocampfee",payment,pass_args = True))
     dp.add_handler(MessageHandler(Filters.successful_payment, successful_payment_callback))
     dp.add_handler(PreCheckoutQueryHandler(precheckout_callback))
     dp.add_handler(CommandHandler("canteen",listCanteen,filters=~Filters.group))
