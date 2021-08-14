@@ -474,7 +474,12 @@ def payment(update, context):
     # except IndexError:
     #     update.message.reply_text('請輸入範圍 1-25')
 
-
+def ocampdetail(update, context):
+    chat_id=update.message.chat.id
+    f = open("ocamp.txt", "r")
+    temp = f.read()
+    # update.message.reply_text(text='INFO'+temp)
+    context.bot.sendMessage(chat_id=chat_id,text = temp, parse_mode= 'HTML')
 
 
 
@@ -529,6 +534,8 @@ def main():
     dp.add_handler(PreCheckoutQueryHandler(precheckout_callback))
     dp.add_handler(CommandHandler("canteen",listCanteen,filters=~Filters.group))
     dp.add_handler(CommandHandler("pin9",pin9,filters=Filters.group))
+    dp.add_handler(CommandHandler("ocamp_details",ocampdetail,filters=Filters.group))
+
     dp.add_handler(CommandHandler("week",week,filters=Filters.group))
 
     dp.add_handler(CommandHandler("exam",exam,pass_args = True))
