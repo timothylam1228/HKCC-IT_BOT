@@ -484,7 +484,7 @@ def ocampdetail(update, context):
 
 def chinglist(update,context):
     chat_id=update.message.chat.id
-    temp="1. 我是毒L 不要9搞 @NgGDimSuen"
+    temp="1. 我是毒L 不要9搞 @No9touch"
     context.bot.sendMessage(chat_id=chat_id,text = temp)
 
 
