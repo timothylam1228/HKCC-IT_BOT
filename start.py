@@ -482,11 +482,6 @@ def ocampdetail(update, context):
     context.bot.sendMessage(chat_id=chat_id,text = temp, parse_mode= 'HTML')
 
 
-def chinglist(update,context):
-    chat_id=update.message.chat.id
-    temp="1. 我是毒L 不要9搞 @No9touch"
-    context.bot.sendMessage(chat_id=chat_id,text = temp)
-
 
 
 
@@ -532,7 +527,6 @@ def main():
     dp.add_handler(CommandHandler("help",help_command))
     dp.add_handler(CommandHandler("addcanteen",addcanteen,pass_args = True))
     dp.add_handler(CommandHandler("username",username,pass_args = True))
-    dp.add_handler(CommandHandler("getchinglist",chinglist,filters=Filters.chat_type.groups))
 
 
     dp.add_handler(CommandHandler("ocampfee",payment,pass_args = True))
