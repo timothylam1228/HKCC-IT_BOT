@@ -532,7 +532,7 @@ def main():
     dp.add_handler(CommandHandler("help",help_command))
     dp.add_handler(CommandHandler("addcanteen",addcanteen,pass_args = True))
     dp.add_handler(CommandHandler("username",username,pass_args = True))
-    dp.add_handler(CommandHandler("師兄List",chinglist,filters=Filters.chat_type.groups))
+    dp.add_handler(CommandHandler("ChingList",chinglist,filters=Filters.chat_type.groups))
 
 
     dp.add_handler(CommandHandler("ocampfee",payment,pass_args = True))
