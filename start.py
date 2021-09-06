@@ -45,7 +45,7 @@ logger = logging.getLogger(__name__)
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('/source for Geting the source\n/canteen to show canteen')
+    update.message.reply_text('/source for Geting the source\n/canteen to show canteen', u'\U000026C4')
 
 def newmember(update, context):
     """Send a message when the command /help is issued."""
