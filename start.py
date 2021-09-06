@@ -18,7 +18,7 @@ import json
 from uuid import uuid4
 import csv
 from botocore.config import Config
-
+import html.entities
 from telegram.error import BadRequest
 
 PORT = int(os.environ.get('PORT', 5000))
@@ -45,7 +45,7 @@ logger = logging.getLogger(__name__)
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('/source for Geting the source\n/canteen to show canteen \U0001F916')
+    update.message.reply_text('/source for Geting the source\n/canteen to show canteen ',html.entities.name2codepoint('&#9825'))
 
 def newmember(update, context):
     """Send a message when the command /help is issued."""
