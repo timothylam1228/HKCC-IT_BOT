@@ -505,7 +505,7 @@ def successful_payment_callback(bot, update):
 def random_cat(update, context) :
     response = requests.get("https://api.thecatapi.com/v1/images/search")
     data = response.json()
-    context.bot.sendMessage(chat_id=update.message.chat_id,text =str(data['url']))
+    context.bot.sendMessage(chat_id=update.message.chat_id,text =str(data))
     context.bot.send_photo(chat_id=update.message.chat.id, photo=data['url'])
 
 
