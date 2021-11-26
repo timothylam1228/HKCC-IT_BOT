@@ -340,9 +340,9 @@ def exam(update,context):
         text_old = '走啦死老野'
     for row in csv.reader(file):
         if row[0] == id and found == 1:
-            text = str(row[1] + row[2]+ row[3] + row[4])
+            text = str(row[1] + '\n日期 : ' +row[2]+ '(' + row[3] +') \n時間 : '+ row[4])
         if row[0] == id and found == 0:
-            text= str(row[1]+ row[2]+ row[3])
+            text = str(row[1] + '\n日期 : ' +row[2]+ '(' + row[3] +') \n時間 : '+ row[4])
             found = 1
     if found == 0:
         context.bot.sendMessage(chat_id=chat_id,text = '冇呢一科牙 ' + text_old)
