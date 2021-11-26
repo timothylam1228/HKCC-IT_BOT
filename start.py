@@ -108,23 +108,28 @@ def open_day(update, context):
     hours = int((count-days*86400)//3600)
     minutes = int((count-days*86400-hours*3600)//60)
     seconds = int(count-days*86400-hours*3600-minutes*60)
-    #update.message.reply_text("開左學啦仲倒數 \n用 /endday 睇下幾時完SEM",reply_markup = ReplyKeyboardRemove())
-    update.message.reply_text("距離開SEM仲有"+str(days)+"日 "+str(hours)+"小時 "+str(minutes) +"分 " + str(seconds) + "秒")
+    if days >= 0 :
+        update.message.reply_text("距離開SEM仲有"+str(days)+"日 "+str(hours)+"小時 "+str(minutes) +"分 " + str(seconds) + "秒")
+    else :
+        update.message.reply_text("開左學啦仲倒數 \n用 /endday 睇下幾時完SEM",reply_markup = ReplyKeyboardRemove())
+    
 
 def end_day(update, context):
     x = datetime.datetime.now()
-    delta = datetime.datetime(2021, 11, 27) - datetime.datetime.now()
+    delta = datetime.datetime(2021, 12, 31) - datetime.datetime.now()
     count = (delta.total_seconds())
     days = int(count//86400)
     hours = int((count-days*86400)//3600)
     minutes = int((count-days*86400-hours*3600)//60)
     seconds = int(count-days*86400-hours*3600-minutes*60)
-    #update.message.reply_text("距離完SEM仲有"+str(days)+"日 "+str(hours)+"小時 "+str(minutes) +"分 " + str(seconds) + "秒")
-    update.message.reply_text("完左SEM啦仲倒數 \n用 /openday 睇下幾時開SEM",reply_markup = ReplyKeyboardRemove())
+    if days >= 0 :
+        update.message.reply_text("距離完SEM仲有"+str(days)+"日 "+str(hours)+"小時 "+str(minutes) +"分 " + str(seconds) + "秒")
+    else :
+        update.message.reply_text("完左SEM啦仲倒數 \n用 /openday 睇下幾時開SEM",reply_markup = ReplyKeyboardRemove())
 
 def gpa_day(update, context):
     x = datetime.datetime.now()
-    delta = datetime.datetime(2022, 1, 1) - datetime.datetime.now()
+    delta = datetime.datetime(2022, 1, 18) - datetime.datetime.now()
     count = (delta.total_seconds())
     days = int(count//86400)
     hours = int((count-days*86400)//3600)
@@ -335,7 +340,7 @@ def exam(update,context):
         text_old = '走啦死老野'
     for row in csv.reader(file):
         if row[0] == id and found == 1:
-            text = str(row[1] + row[2]+ row[3])
+            text = str(row[1] + row[2]+ row[3] + row[4])
         if row[0] == id and found == 0:
             text= str(row[1]+ row[2]+ row[3])
             found = 1
