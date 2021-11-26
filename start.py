@@ -319,8 +319,6 @@ def pin9(update,context):
     # update.message.reply_text(text='INFO'+temp)
     context.bot.sendMessage(chat_id=chat_id,text = temp, parse_mode= 'HTML')
 
-
-
 def week(update,context):
     chat_id=update.message.chat.id
     today = datetime.datetime.today()
@@ -503,6 +501,13 @@ def successful_payment_callback(bot, update):
 
     bot.send_message(chat_id,text = (amount))
 
+#random cat
+def random_cat(update, context) :
+    response = requests.get("https://api.thecatapi.com/v1/images/search")
+    data = json.load(response)
+    context.bot.sendPhoto(chat_id=update.message.chat.id, photo=data['url'])
+
+
 def main():
     global update_id
     TOKEN = os.environ['TOKEN']
@@ -518,6 +523,7 @@ def main():
     dp.add_handler(CommandHandler("gpaday",gpa_day))
     dp.add_handler(CommandHandler("date",important_date))
     dp.add_handler(CommandHandler("checkTemp",checkTemp))
+    dp.add_handler(CommandHandler("wantCat",random_cat))
     dp.add_handler(CommandHandler("samgor", samgor, pass_args = True))
     #updater.dispatcher.add_handler(CallbackQueryHandler(button))
     dp.add_handler(CommandHandler("Source", source,filters=~Filters.group))
