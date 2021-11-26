@@ -335,9 +335,9 @@ def exam(update,context):
         text_old = '走啦死老野'
     for row in csv.reader(file):
         if row[0] == id and found == 1:
-            text = text + '\nGroup ' + str(row[1]+' 既考試時間係 '+row[2] +' '+ '(' + row[3] + ')')
+            text = str(row[1])
         if row[0] == id and found == 0:
-            text= text + str(row[1]+'\n既考試喺係*'+row[2]+', 考試時間係')
+            text = str(row[1])
             found = 1
     if found == 0:
         context.bot.sendMessage(chat_id=chat_id,text = '冇呢一科牙 ' + text_old)
