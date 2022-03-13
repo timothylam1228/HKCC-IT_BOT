@@ -99,23 +99,28 @@ def open_day(update, context):
     hours = int((count-days*86400)//3600)
     minutes = int((count-days*86400-hours*3600)//60)
     seconds = int(count-days*86400-hours*3600-minutes*60)
-    #update.message.reply_text("開左學啦仲倒數 \n用 /endday 睇下幾時完SEM",reply_markup = ReplyKeyboardRemove())
-    update.message.reply_text("距離開SEM仲有"+str(days)+"日 "+str(hours)+"小時 "+str(minutes) +"分 " + str(seconds) + "秒")
+    if days >= 0 :
+        update.message.reply_text("距離開SEM仲有"+str(days)+"日 "+str(hours)+"小時 "+str(minutes) +"分 " + str(seconds) + "秒")
+    else :
+        update.message.reply_text("開左學啦仲倒數 \n用 /endday 睇下幾時完SEM",reply_markup = ReplyKeyboardRemove())
+    
 
 def end_day(update, context):
     x = datetime.datetime.now()
-    delta = datetime.datetime(2021, 11, 27) - datetime.datetime.now()
+    delta = datetime.datetime(2021, 12, 31) - datetime.datetime.now()
     count = (delta.total_seconds())
     days = int(count//86400)
     hours = int((count-days*86400)//3600)
     minutes = int((count-days*86400-hours*3600)//60)
     seconds = int(count-days*86400-hours*3600-minutes*60)
-    #update.message.reply_text("距離完SEM仲有"+str(days)+"日 "+str(hours)+"小時 "+str(minutes) +"分 " + str(seconds) + "秒")
-    update.message.reply_text("完左SEM啦仲倒數 \n用 /openday 睇下幾時開SEM",reply_markup = ReplyKeyboardRemove())
+    if days >= 0 :
+        update.message.reply_text("距離完SEM仲有"+str(days)+"日 "+str(hours)+"小時 "+str(minutes) +"分 " + str(seconds) + "秒")
+    else :
+        update.message.reply_text("完左SEM啦仲倒數 \n用 /openday 睇下幾時開SEM",reply_markup = ReplyKeyboardRemove())
 
 def gpa_day(update, context):
     x = datetime.datetime.now()
-    delta = datetime.datetime(2022, 1, 1) - datetime.datetime.now()
+    delta = datetime.datetime(2022, 1, 18) - datetime.datetime.now()
     count = (delta.total_seconds())
     days = int(count//86400)
     hours = int((count-days*86400)//3600)
@@ -303,8 +308,6 @@ def pin9(update,context):
     # update.message.reply_text(text='INFO'+temp)
     context.bot.sendMessage(chat_id=chat_id,text = temp, parse_mode= 'HTML')
 
-
-
 def week(update,context):
     chat_id=update.message.chat.id
     today = datetime.datetime.today()
@@ -323,10 +326,10 @@ def exam(update,context):
     if 'ccn' in id.lower():
         text_old = '走啦死老野'
     for row in csv.reader(file):
-        if row[1] == id and found == 1:
-            text = text + '\nGroup ' + str(row[3]+' 既考試時間係 '+row[5])
-        if row[1] == id and found == 0:
-            text= text + str(row[2]+'\n既考試喺係*'+row[4]+'*\nGroup '+row[3]+' 既考試時間係'+row[5])
+        if row[0] == id and found == 1:
+            text = str(row[1] + '\n日期 : ' +row[2]+ '(' + row[3] +') \n時間 : '+ row[4])
+        if row[0] == id and found == 0:
+            text = str(row[1] + '\n日期 : ' +row[2]+ '(' + row[3] +') \n時間 : '+ row[4])
             found = 1
     if found == 0:
         context.bot.sendMessage(chat_id=chat_id,text = '冇呢一科牙 ' + text_old)
@@ -487,6 +490,13 @@ def successful_payment_callback(bot, update):
 
     bot.send_message(chat_id,text = (amount))
 
+#random cat
+def random_cat(update, context) :
+    response = requests.get("https://api.thecatapi.com/v1/images/search")
+    data = response.json()
+    context.bot.send_photo(chat_id=update.message.chat.id, photo=data[0]['url'])
+
+
 def main():
     global update_id
     TOKEN = os.environ['TOKEN']
@@ -502,6 +512,7 @@ def main():
     dp.add_handler(CommandHandler("gpaday",gpa_day))
     dp.add_handler(CommandHandler("date",important_date))
     dp.add_handler(CommandHandler("checkTemp",checkTemp))
+    dp.add_handler(CommandHandler("wantCat",random_cat))
     dp.add_handler(CommandHandler("samgor", samgor, pass_args = True))
     #updater.dispatcher.add_handler(CallbackQueryHandler(button))
     dp.add_handler(CommandHandler("Source", source,filters=~Filters.group))
