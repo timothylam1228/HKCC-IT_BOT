@@ -24,15 +24,6 @@ from telegram.error import BadRequest
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
-# s3 =boto3.resource('s3',
-#  aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
-#     aws_secret_access_key="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")
-# bucket = s3.Bucket('telegram.bot.web')
-# client = boto3.client(
-#     's3',
-#     aws_access_key_id='AKIAUVVDLOIF5VTRKBQH',
-#     aws_secret_access_key="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"
-# )
 
 
 # Enable logging
@@ -234,7 +225,6 @@ def show(update,context):
 
 
 def listCanteen(update,context):
-    chat_id=update.message.chat.id
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     dbCursor = conn.cursor()
@@ -243,8 +233,7 @@ def listCanteen(update,context):
     rows = dbCursor.fetchall()
     menu_keyboard = []
     menu_keyboard2 = []
-    latitude=""
-    longitude=""
+
     name=""
     i = 0
     for row in rows:
