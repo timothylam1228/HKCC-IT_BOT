@@ -181,7 +181,7 @@ def main():
                           port=int(PORT),
                           url_path=TOKEN)
     updater.bot.setWebhook(
-        'https://serene-depths-59599.herokuapp.com/' + TOKEN)
+        'https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
