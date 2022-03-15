@@ -17,7 +17,8 @@ import html.entities as entity
 from commands.init import *
 
 load_dotenv()
-PORT = int(os.environ.get('PORT', 5000))
+PORT = int(os.environ.get('PORT', 8443))
+
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
 
@@ -175,7 +176,6 @@ def main():
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
     # Start the Bot
-<<<<<<< HEAD
     # updater.start_webhook(listen="0.0.0.0",
     #                       port=5000,
     #                       url_path=TOKEN,
