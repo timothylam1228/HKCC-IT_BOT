@@ -18,7 +18,7 @@ import html.entities as entity
 from commands.init import *
 
 load_dotenv()
-PORT = int(os.environ.get('PORT', 5000))
+PORT = int(os.environ.get('PORT', 80))
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
 
@@ -178,7 +178,7 @@ def main():
 
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
-                          port=int(PORT),
+                          port=80,
                           url_path=TOKEN,
                           webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
     # updater.bot.setWebhook(
@@ -188,7 +188,7 @@ def main():
     # SIGTERM or SIGABRT. This should be used most of the time, since
     # start_polling() is non-blocking and will stop the bot gracefully.
 
-    updater.start_polling()
+    # updater.start_polling()
     updater.idle()
 
 
