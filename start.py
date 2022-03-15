@@ -149,20 +149,23 @@ def main():
     dp.add_handler(CommandHandler("exam", exam, pass_args=True))
     dp.add_handler(MessageHandler(Filters.text & ~Filters.group, showlocation))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
+    webhook_url = 'https:/hkcc-it-bot.herokuapp.com/' + TOKEN
 
+    print(webhook_url)
     if os.environ['APP_ENV'] == 'LOCAL':
         print('======================Starting with local port'+  str(PORT) + '====================== ')
 
         updater.start_webhook(listen="0.0.0.0",
                               port=80,
                               url_path=TOKEN,
-                              webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
+                              webhook_url=webhook_url)
     else:
         print('======================Starting with port '+ str(PORT) + '====================== ')
         updater.start_webhook(listen="0.0.0.0",
                               port=80,
                               url_path=TOKEN,
-                              webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
+                              webhook_url=webhook_url)
+
 
     
     updater.start_polling()
