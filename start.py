@@ -100,29 +100,6 @@ def showlocation(update, context):
                                  longitude=longitude, reply_markup=ReplyKeyboardRemove())
 
 
-def addcanteen(update, context):
-    chat_id = update.message.chat.id
-    DATABASE_URL = os.environ['DATABASE_URL']
-    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    dbCursor = conn.cursor()
-    print(context.args[0])
-    try:
-        name = context.args[0]
-        latitude = context.args[1]
-        longitude = context.args[2]
-        print(name)
-        print(latitude)
-        print(longitude)
-    except:
-        print("Error")
-
-    sqlInsertTable = "INSERT INTO canteen (lat,long,name) values ({},{},'{}')".format(
-        latitude, longitude, name)
-    print(sqlInsertTable)
-    dbCursor.execute(sqlInsertTable)
-    conn.commit()
-    dbCursor.close()
-    conn.close()
 
 
 def username(update, context):
@@ -156,7 +133,6 @@ def main():
     # updater.dispatcher.add_handler(CallbackQueryHandler(rating))
 
     ############
-    dp.add_handler(CommandHandler("addcanteen", addcanteen, pass_args=True))
     dp.add_handler(CommandHandler("username", username, pass_args=True))
 
     dp.add_handler(CommandHandler("ocampfee", payment, pass_args=True))
@@ -175,39 +151,21 @@ def main():
     dp.add_handler(MessageHandler(Filters.text & ~Filters.group, showlocation))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
-    # Start the Bot
-    # updater.start_webhook(listen="0.0.0.0",
-    #                       port=5000,
-    #                       url_path=TOKEN,
-    #                       webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
-
     if os.environ['APP_ENV'] == 'LOCAL':
         print('======================Starting with local port', PORT, '====================== ')
 
         updater.start_webhook(listen="0.0.0.0",
                               port=5000,
                               url_path=TOKEN,
-                              webhook_url='http://localhost.com/')
+                              webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
     else:
         print('======================Starting with port', PORT, '====================== ')
         updater.start_webhook(listen="0.0.0.0",
                               port=5000,
                               url_path=TOKEN,
                               webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
-=======
-    updater.start_webhook(listen="0.0.0.0",
-                          port=80,
-                          url_path=TOKEN,
-                          webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
->>>>>>> parent of cd8a8d1 (change bport)
-    # updater.bot.setWebhook(
-    #     'https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
 
-    # Run the bot until you press Ctrl-C or the process receives SIGINT,
-    # SIGTERM or SIGABRT. This should be used most of the time, since
-    # start_polling() is non-blocking and will stop the bot gracefully.
 
-    # updater.start_polling()
     updater.idle()
 
 
