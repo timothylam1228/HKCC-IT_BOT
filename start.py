@@ -132,15 +132,12 @@ def username(update, context):
 
 def main():
     global update_id
-    # if(os.environ.get('LOCAL') == 'LOCAL'):
-    #     TOKEN = os.environ.get('TOKEN')
-    # else:
-    TOKEN = os.environ['TOKEN']
-    print(TOKEN)
-
+    TOKEN = os.environ.get('TOKEN')
     updater = Updater(TOKEN, use_context=True)
     dp = updater.dispatcher
     # In source.py
+    print('======================Starting with port',PORT,'====================== ')
+
     dp.add_handler(CommandHandler("Source", source, filters=~Filters.group))
     dp.add_handler(CommandHandler("start", start, filters=~Filters.group))
     dp.add_handler(CommandHandler("openbot", open_bot, filters=Filters.group))
@@ -189,6 +186,8 @@ def main():
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
     # start_polling() is non-blocking and will stop the bot gracefully.
+
+    updater.start_polling()
     updater.idle()
 
 
