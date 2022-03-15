@@ -1,3 +1,6 @@
+import csv
+
+
 def exam(update, context):
     found = 0
     chat_id = update.message.chat.id
