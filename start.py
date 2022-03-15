@@ -17,7 +17,7 @@ import html.entities as entity
 from commands.init import *
 
 load_dotenv()
-PORT = int(os.environ.get('PORT', 80))
+PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
 
@@ -135,7 +135,6 @@ def main():
     updater = Updater(TOKEN, use_context=True)
     dp = updater.dispatcher
     # In source.py
-    print('======================Starting with port',PORT,'====================== ')
 
     dp.add_handler(CommandHandler("Source", source, filters=~Filters.group))
     dp.add_handler(CommandHandler("start", start, filters=~Filters.group))
@@ -176,10 +175,24 @@ def main():
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
     # Start the Bot
-    updater.start_webhook(listen="0.0.0.0",
-                          port=5000,
-                          url_path=TOKEN,
-                          webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
+    # updater.start_webhook(listen="0.0.0.0",
+    #                       port=5000,
+    #                       url_path=TOKEN,
+    #                       webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
+
+    if os.environ['APP_ENV'] == 'LOCAL':
+        print('======================Starting with local port', PORT, '====================== ')
+
+        updater.start_webhook(listen="0.0.0.0",
+                              port=5000,
+                              url_path=TOKEN,
+                              webhook_url='http://localhost.com/')
+    else:
+        print('======================Starting with port', PORT, '====================== ')
+        updater.start_webhook(listen="0.0.0.0",
+                              port=5000,
+                              url_path=TOKEN,
+                              webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
     # updater.bot.setWebhook(
     #     'https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
 
