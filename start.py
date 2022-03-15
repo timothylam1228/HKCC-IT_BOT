@@ -175,6 +175,7 @@ def main():
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
     # Start the Bot
+<<<<<<< HEAD
     # updater.start_webhook(listen="0.0.0.0",
     #                       port=5000,
     #                       url_path=TOKEN,
@@ -193,6 +194,12 @@ def main():
                               port=5000,
                               url_path=TOKEN,
                               webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
+=======
+    updater.start_webhook(listen="0.0.0.0",
+                          port=80,
+                          url_path=TOKEN,
+                          webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
+>>>>>>> parent of cd8a8d1 (change bport)
     # updater.bot.setWebhook(
     #     'https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
 
