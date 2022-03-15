@@ -10,4 +10,4 @@ from commands.list_canteen import *
 from commands.check_temp import *
 from commands.payment import *
 from commands.date.gpa_day import *
-
+from commands.date.exam import *
