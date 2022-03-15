@@ -132,10 +132,10 @@ def username(update, context):
 
 def main():
     global update_id
-    if(os.environ.get('LOCAL') == 'LOCAL'):
-        TOKEN = os.environ.get('TOKEN')
-    else:
-        TOKEN = os.environ['TOKEN']
+    # if(os.environ.get('LOCAL') == 'LOCAL'):
+    #     TOKEN = os.environ.get('TOKEN')
+    # else:
+    TOKEN = os.environ['TOKEN']
     print(TOKEN)
 
     updater = Updater(TOKEN, use_context=True)
