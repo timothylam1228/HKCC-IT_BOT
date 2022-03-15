@@ -154,13 +154,13 @@ def main():
         print('======================Starting with local port'+  str(PORT) + '====================== ')
 
         updater.start_webhook(listen="0.0.0.0",
-                              port=8443,
+                              port=80,
                               url_path=TOKEN,
                               webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
     else:
         print('======================Starting with port '+ str(PORT) + '====================== ')
         updater.start_webhook(listen="0.0.0.0",
-                              port=8443,
+                              port=80,
                               url_path=TOKEN,
                               webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
 
