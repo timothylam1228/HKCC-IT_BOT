@@ -157,15 +157,16 @@ def main():
 
         updater.start_webhook(listen="0.0.0.0",
                               port=80,
-                              url_path=TOKEN,
-                              webhook_url=webhook_url)
+                              url_path=TOKEN)
+                            #   webhook_url=webhook_url)
     else:
         print('======================Starting with port '+ str(PORT) + '====================== ')
         updater.start_webhook(listen="0.0.0.0",
                               port=80,
-                              url_path=TOKEN,
-                              webhook_url=webhook_url)
+                              url_path=TOKEN)
+                            #   webhook_url=webhook_url)
 
+    updater.bot.setWebhook('https://serene-depths-59599.herokuapp.com/' + TOKEN)
 
     
     updater.start_polling()
