@@ -7,3 +7,4 @@ matplotlib
 requests
 requests-oauthlib
 defusedxml
+python-dotenv

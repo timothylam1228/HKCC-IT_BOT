@@ -7,16 +7,17 @@ from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, InlineKeyboardBut
 from telegram.utils import helpers
 from telegram.utils.helpers import escape_markdown
 import os
+from dotenv import load_dotenv
+
+
 import psycopg2
-import json
 from uuid import uuid4
-import csv
 from botocore.config import Config
 import html.entities as entity
 
 from commands.init import *
 
-
+load_dotenv()
 PORT = int(os.environ.get('PORT', 5000))
 SO_COOL = 'hkcc-it'
 FIRST, SECOND = range(2)
@@ -129,29 +130,16 @@ def username(update, context):
     chat_id = update.message.chat.id
     context.bot.sendMessage(chat_id=chat_id, text=username)
 
-
-def important_date(update, context):
-    chat_id = update.message.chat.id
-    f = open('date.json',)
-    data = json.load(f)
-    print(data)
-    tmptext = ''
-    for i in data['ImportantDate']:
-        tmptext = tmptext+i['date']+'\n'+i['descrition']+'\n\n'
-    context.bot.sendMessage(chat_id=chat_id, text=tmptext)
-
-
-# @run_async
-
-# random cat
-
-
 def main():
     global update_id
-    TOKEN = os.environ['TOKEN']
+    if(os.environ.get('LOCAL') == 'LOCAL'):
+        TOKEN = os.environ.get('TOKEN')
+    else:
+        TOKEN = os.environ['TOKEN']
+    print(TOKEN)
+
     updater = Updater(TOKEN, use_context=True)
     dp = updater.dispatcher
-
     # In source.py
     dp.add_handler(CommandHandler("Source", source, filters=~Filters.group))
     dp.add_handler(CommandHandler("start", start, filters=~Filters.group))
