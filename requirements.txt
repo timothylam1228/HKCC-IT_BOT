@@ -1,4 +1,7 @@
 python-telegram-bot==13.2
 psycopg2-binary
+boto3
 requests
+requests-oauthlib
+defusedxml
 python-dotenv
