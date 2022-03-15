@@ -17,10 +17,6 @@ import html.entities as entity
 from commands.init import *
 
 load_dotenv()
-PORT = int(os.environ.get('PORT', 8443))
-
-SO_COOL = 'hkcc-it'
-FIRST, SECOND = range(2)
 
 
 # Enable logging
@@ -109,7 +105,10 @@ def username(update, context):
 
 def main():
     global update_id
+    PORT = int(os.environ.get('PORT', 8443))
+
     TOKEN = os.environ.get('TOKEN')
+    print(TOKEN)
     updater = Updater(TOKEN, use_context=True)
     dp = updater.dispatcher
     # In source.py
@@ -152,19 +151,21 @@ def main():
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
     if os.environ['APP_ENV'] == 'LOCAL':
-        print('======================Starting with local port', PORT, '====================== ')
+        print('======================Starting with local port'+  str(PORT) + '====================== ')
 
         updater.start_webhook(listen="0.0.0.0",
                               port=8443,
                               url_path=TOKEN,
                               webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
     else:
-        print('======================Starting with port', PORT, '====================== ')
+        print('======================Starting with port '+ str(PORT) + '====================== ')
         updater.start_webhook(listen="0.0.0.0",
                               port=8443,
                               url_path=TOKEN,
                               webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
 
+    
+    updater.start_polling()
 
     updater.idle()
 
