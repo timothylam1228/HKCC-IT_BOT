@@ -12,7 +12,6 @@ from dotenv import load_dotenv
 
 import psycopg2
 from uuid import uuid4
-from botocore.config import Config
 import html.entities as entity
 
 from commands.init import *
