@@ -177,7 +177,7 @@ def main():
 
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
-                          port=80,
+                          port=5000,
                           url_path=TOKEN,
                           webhook_url='https:/hkcc-it-bot.herokuapp.com/' + TOKEN)
     # updater.bot.setWebhook(
