@@ -17,6 +17,7 @@ def main():
         TOKEN = os.environ.get('LOCAL_TOKEN')
     else:
         TOKEN = os.environ.get('TOKEN')
+    print(TOKEN,PORT)
     updater = Updater(TOKEN, use_context=True)
     dp = updater.dispatcher
 
