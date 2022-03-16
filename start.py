@@ -11,13 +11,12 @@ load_dotenv()
 
 def main():
     global update_id
-    PORT =8443
+    PORT = int(os.environ.get('PORT', 8443))
 
     if os.environ['APP_ENV'] == 'LOCAL':
         TOKEN = os.environ.get('LOCAL_TOKEN')
     else:
         TOKEN = os.environ.get('TOKEN')
-    print(TOKEN,PORT)
     updater = Updater(TOKEN, use_context=True)
     dp = updater.dispatcher
 
@@ -76,7 +75,7 @@ def main():
     else:
         print('======================Starting with port '+ str(PORT) + '====================== ')
         updater.start_webhook(listen="0.0.0.0",
-                              port=8443,
+                              port=PORT,
                               url_path=TOKEN,
                               webhook_url=webhook_url)
 
