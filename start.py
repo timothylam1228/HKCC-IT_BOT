@@ -11,7 +11,7 @@ load_dotenv()
 
 def main():
     global update_id
-    PORT = int(os.environ.get('PORT', 8443))
+    PORT =8443
 
     if os.environ['APP_ENV'] == 'LOCAL':
         TOKEN = os.environ.get('LOCAL_TOKEN')
