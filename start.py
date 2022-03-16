@@ -60,7 +60,7 @@ def main():
 
 
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
-    webhook_url = 'https:/hkcc-it-bot.herokuapp.com/' + TOKEN
+    webhook_url = 'https://hkcc-it-bot.herokuapp.com/' + TOKEN
 
     if os.environ['APP_ENV'] == 'LOCAL':
         print('======================Starting with local port'+  str(PORT) + '====================== ')
