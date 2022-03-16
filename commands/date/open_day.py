@@ -1,10 +1,14 @@
-import datetime
+from datetime import datetime
 from telegram import ReplyKeyboardRemove
+import json
+
 
 
 def open_day(update, context):
-    x = datetime.datetime.now()
-    delta = datetime.datetime(2021, 9, 6) - datetime.datetime.now()
+    f = open('commands/date/important_date.json')
+    data = json.load(f)
+    x = datetime.now()
+    delta = datetime(data['open_date']) - datetime.now()
     count = (delta.total_seconds())
     days = int(count//86400)
     hours = int((count-days*86400)//3600)

@@ -1,8 +1,8 @@
 import os
 import psycopg2
 
-
 def dllmcount(update, context):
+   
     message = (update.message.text).lower()
     increaseTemp = 0
     if(update.message.reply_to_message.from_user.id is not None):
@@ -17,7 +17,7 @@ def dllmcount(update, context):
         dbCursor.execute(sqlSelect)
         rows = dbCursor.fetchall()
         for row in rows:
-            count = row[1]
+            count = row[3]
         if (count == 0):
             sqlInsertTable = "INSERT INTO tg_user values({},1,NOW()::TIMESTAMP(0))".format(
                 x)

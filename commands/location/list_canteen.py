@@ -1,11 +1,11 @@
 import psycopg2
 from telegram import ReplyKeyboardMarkup
+import os
 
+import utils.database 
 def listCanteen(update, context):
-    DATABASE_URL = os.environ['DATABASE_URL']
-    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    dbCursor = conn.cursor()
-    sqlSelect = "select * from canteen"
+    dbCursor = connect()
+    sqlSelect = "select * from tg_user"
     dbCursor.execute(sqlSelect)
     rows = dbCursor.fetchall()
     menu_keyboard = []

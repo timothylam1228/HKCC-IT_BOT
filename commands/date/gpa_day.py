@@ -4,7 +4,7 @@ import json
 
 def gpa_day(update, context):
     x = datetime.now()
-    f = open('../important_date.json',)
+    f = open('commands/date/important_date.json')
     data = json.load(f)
     delta = datetime.fromisoformat(data['gpa_date']) - datetime.now()
     count = (delta.total_seconds())
