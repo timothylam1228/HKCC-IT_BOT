@@ -19,6 +19,7 @@ from commands.bot.newmember import *
 from commands.bot.pin9 import *
 from commands.bot.open_bot import *
 from commands.bot.start import *
+from commands.bot.ban import *
 
 # Location (Useless)
 from commands.location.list_canteen import *
