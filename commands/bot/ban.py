@@ -37,7 +37,7 @@ def ban(update, context):
                 count = count[0] + 1
                 if ban_user_list is None:
                     ban_user_list
-                    ban_user_list[0] = from_user_id
+                    ban_user_list = [from_user_id]
                 else :
                     ban_user_list.append(from_user_id)
                 sqlInsertCount = "UPDATE tg_user SET ban_count = %d, ban_users = ARRAY%s , last_update=Now()::TIMESTAMP(0) WHERE user_id = %d" %(count, ban_user_list, to_user_id)
