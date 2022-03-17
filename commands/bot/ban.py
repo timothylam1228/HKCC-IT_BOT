@@ -1,6 +1,5 @@
 
 import os
-from numpy import array
 import psycopg2
 
 SO_COOL = 'hkcc-it'
