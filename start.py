@@ -100,4 +100,5 @@ week - now is week ?
 show_marks - show your marks
 check_temp - check today temperature
 samgor - today eat wt ho
+bam - ban message user when 5 users use this command 
 '''

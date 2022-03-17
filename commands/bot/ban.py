@@ -50,9 +50,10 @@ def ban(update, context):
 
                 ban_count = ban_count[0]
             
-                if ban_count >=5 :
-                    update.message.reply_text(reply_to_message_id=message_id, text=str(text))
-                    context.bot.banChatMember(chat_id=chat_id,user_id=to_user_id)
+                if ban_count >= 5 :
+                    ban_text = "你比人警告左" + str(ban_count) + "次\nBye"
+                    update.message.reply_text(reply_to_message_id=message_id, text=str(ban_text))
+                    context.bot.ban_chat_member(chat_id=chat_id,user_id=to_user_id)
                 else:
                     text = "你比人警告左" + str(ban_count) + "次\n5次警告會BAMMMMMMMM"
                     update.message.reply_text(reply_to_message_id=message_id, text=str(text))
