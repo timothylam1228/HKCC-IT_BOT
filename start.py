@@ -36,7 +36,7 @@ def main():
 
 
     #Source
-    dp.add_handler(CommandHandler("Source", source, filters=~Filters.chat_type.groups))
+    dp.add_handler(CommandHandler("source", source, filters=~Filters.chat_type.groups))
     dp.add_handler(CommandHandler("start", start, filters=~Filters.chat_type.groups))
     dp.add_handler(CommandHandler("openbot", open_bot, filters=Filters.chat_type.groups))
 
@@ -53,6 +53,8 @@ def main():
     dp.add_handler(MessageHandler(Filters.text, message_count))
 
     #Useless
+    updater.dispatcher.add_handler(CallbackQueryHandler(button))
+
     # dp.add_handler(CommandHandler("ocampfee", payment, pass_args=True))
     # dp.add_handler(MessageHandler(
     #     Filters.successful_payment, successful_payment_callback))
@@ -61,7 +63,6 @@ def main():
     #     "canteen", listCanteen, filters=~Filters.chat_type.groups))
 
 
-    updater.dispatcher.add_handler(CallbackQueryHandler(button))
     webhook_url = 'https://hkcc-it-bot.herokuapp.com/' + TOKEN
 
     if os.environ['APP_ENV'] == 'LOCAL':

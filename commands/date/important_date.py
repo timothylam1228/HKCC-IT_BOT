@@ -3,7 +3,7 @@ import json
 
 def important_date(update, context):
     chat_id = update.message.chat.id
-    f = open('date.json',)
+    f = open('public/date.json',)
     data = json.load(f)
     print(data)
     tmptext = ''

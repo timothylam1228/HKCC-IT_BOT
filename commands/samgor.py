@@ -9,7 +9,7 @@ def samgor(update, context):
         if(number1 > 26 or number1 < 0):
             update.message.reply_text('請輸入範圍 1-25')
             return
-        f = open('samgor.json',)
+        f = open('public/samgor.json',)
         data = json.load(f)
         randomIngredient = random.sample(range(25), number1)
         randomSoupBase = random.sample(range(6), 1)

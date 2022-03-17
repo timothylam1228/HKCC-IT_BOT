@@ -1,9 +1,20 @@
 
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+import os
+
 
 
 def source(update, context):
+
+    list_keyboard = []
+    directory = os.fsencode('public/source')
+    for file in os.listdir(directory):
+        filename = os.fsdecode(file)
+        filename = os.path.splitext(filename)[0]
+        data = [InlineKeyboardButton(filename,callback_data=filename)]
+        list_keyboard.append(data)
+ 
     keyboard = [
         [InlineKeyboardButton("Calculus Final Reminder",
                               callback_data='Calculus Final Reminder')],
@@ -23,6 +34,6 @@ def source(update, context):
          InlineKeyboardButton("CCT", callback_data='CCT')], [InlineKeyboardButton("Linear Final Reminder", callback_data='Linear Final Reminder')]
     ]
 
-    reply_markup = InlineKeyboardMarkup(keyboard)
+    reply_markup = InlineKeyboardMarkup(list_keyboard)
     update.message.reply_text('Please choose:', reply_markup=reply_markup)
 
