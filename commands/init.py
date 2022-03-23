@@ -20,6 +20,8 @@ from commands.bot.pin9 import *
 from commands.bot.open_bot import *
 from commands.bot.start import *
 from commands.bot.ban import *
+from commands.bot.unban import *
+from commands.bot.ban_show import *
 
 # Location (Useless)
 from commands.location.list_canteen import *
