@@ -6,7 +6,7 @@ def button(update, context):
     # Some clients may have trouble otherwise. See https://core.telegram.org/bots/api#callbackquery
     query.answer()
     query.edit_message_text(text="Selected option: {}".format(query.data))
-    path = "https://github.com/timothylam1228/HKCC-IT_BOT/raw/master/source/"
+    path = "https://raw.githubusercontent.com/timothylam1228/HKCC-IT_BOT/master/public/source/"
     file = str(query.data)
     pdf = ".pdf"
     jpg = ".jpg"
@@ -14,7 +14,7 @@ def button(update, context):
         chat_id=query.message.chat.id, document=path+file+pdf)
     if(file == "Maths Diagnostic Test"):
         context.bot.sendPhoto(chat_id=query.message.chat.id,
-                              photo='https://github.com/timothylam1228/HKCC-IT_BOT/raw/master/source/maths_diagonositc_test_changed.jpg')
+                              photo='https://raw.githubusercontent.com/timothylam1228/HKCC-IT_BOT/master/public/source/maths_diagonositc_test_changed.jpg')
         context.bot.sendMessage(
             chat_id=query.message.chat.id, text=" Q7.6 has update Please be careful")
 
