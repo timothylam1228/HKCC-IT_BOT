@@ -17,10 +17,10 @@ def checkUserExist(dbCursor, id):
 def ban(update, context):
     """Send a message when the command /help is issued."""
     chat_id = update.message.chat.id
-    message_id = update.message.message_id
+    message_id = update.message.reply_to_message.message_id
     from_user = update.message.from_user
     from_user_id = from_user['id']
-    user = update.message.from_user
+    user = update.message.reply_to_message.from_user
     to_user_id = user['id'] #block ppl
     DATABASE_URL = os.environ['DATABASE_URL']
     BOT_ID = int(os.environ['BOT_ID'])
