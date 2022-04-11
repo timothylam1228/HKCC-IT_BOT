@@ -31,7 +31,7 @@ def ban(update, context):
 
     if from_user_id == to_user_id:
         update.message.reply_text('?')
-    else:            update.message.reply_text(reply_to_message_id=message_id, text=str("HI2"))
+    else:
         checkDuplicateBanUser = "select 1 from tg_user_bam_relationship where user_id = {} AND block_user_id = {}".format(to_user_id, from_user_id)
         dbCursor.execute(checkDuplicateBanUser)
         ban_user_list = dbCursor.fetchone()
