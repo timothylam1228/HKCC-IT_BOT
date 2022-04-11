@@ -15,6 +15,7 @@ def checkUserExist(dbCursor, id):
     return True
 
 def ban(update, context):
+    print('咪bam bot3')
     """Send a message when the command /help is issued."""
     chat_id = update.message.chat.id
     message_id = update.message.reply_to_message.message_id
@@ -23,7 +24,7 @@ def ban(update, context):
     user = update.message.reply_to_message.from_user
     to_user_id = user['id'] #block ppl
     DATABASE_URL = os.environ['DATABASE_URL']
-    
+    print('咪bam bot2')
     BOT_ID = int(os.environ['BOT_ID'])
     if to_user_id == BOT_ID:
         print('咪bam bot')
