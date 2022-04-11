@@ -24,11 +24,12 @@ def unban(update, context):
         existBan = "Select 1 from tg_user_bam_relationship WHERE user_id = {} AND block_user_id = {}".format(to_user_id, from_user_id)
         dbCursor.execute(existBan)
         exist = dbCursor.fetchone()
-        if exist[0] == 1:
-            deleteBan = "DELETE FROM tg_user_bam_relationship WHERE user_id = {} AND block_user_id = {}".format(to_user_id, from_user_id)    
-            dbCursor.execute(deleteBan)
-            text = "你比人unbam左了"
-            update.message.reply_text(reply_to_message_id=message_id, text=str(text))
+        if exist is not None:
+            if exist[0] == 1:
+                deleteBan = "DELETE FROM tg_user_bam_relationship WHERE user_id = {} AND block_user_id = {}".format(to_user_id, from_user_id)    
+                dbCursor.execute(deleteBan)
+                text = "你比人unbam左了"
+                update.message.reply_text(reply_to_message_id=message_id, text=str(text))
 
 
     else:
