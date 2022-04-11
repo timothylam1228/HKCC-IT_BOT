@@ -15,19 +15,16 @@ def checkUserExist(dbCursor, id):
     return True
 
 def ban(update, context):
-    print('咪bam bot3')
     """Send a message when the command /help is issued."""
     chat_id = update.message.chat.id
-    message_id = update.message.reply_to_message.message_id
+    message_id = update.message.message_id
     from_user = update.message.from_user
     from_user_id = from_user['id']
-    user = update.message.reply_to_message.from_user
+    user = update.message.from_user
     to_user_id = user['id'] #block ppl
     DATABASE_URL = os.environ['DATABASE_URL']
-    print('咪bam bot2')
     BOT_ID = int(os.environ['BOT_ID'])
     if to_user_id == BOT_ID:
-        print('咪bam bot')
         update.message.reply_text('咪bam bot')
         return
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
