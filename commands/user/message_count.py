@@ -12,9 +12,9 @@ def message_count(update, context):
     sqlSelect = "select * from tg_user where user_id = {}".format(user_id)
     dbCursor.execute(sqlSelect)
     user = dbCursor.fetchone()
-    print('user',user)
+    #print('user',user)
     if not user:
-        print('empty user')
+        #print('empty user')
         sqlInsertTable = "INSERT INTO tg_user values({},0,NOW()::TIMESTAMP(0),1)".format(user_id)
     else:
         sqlSelect = "select marks from tg_user where user_id = {}".format(user_id)
@@ -22,7 +22,7 @@ def message_count(update, context):
         mark = dbCursor.fetchone()
         if mark is not None:
             mark = mark[0]
-        print('mark',mark)
+        #print('mark',mark)
         mark = mark + 1
         sqlInsertTable = "UPDATE tg_user SET marks = {} , last_update=Now()::TIMESTAMP(0) WHERE user_id = {}".format(mark, user_id)
     dbCursor.execute(sqlInsertTable)
