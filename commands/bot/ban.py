@@ -1,5 +1,6 @@
 
 import os
+import re
 import psycopg2
 
 SO_COOL = 'hkcc-it'
@@ -22,12 +23,18 @@ def ban(update, context):
     user = update.message.reply_to_message.from_user
     to_user_id = user['id'] #block ppl
     DATABASE_URL = os.environ['DATABASE_URL']
-
+    
+    BOT_ID = int(os.environ['BOT_ID'])
+    if to_user_id == BOT_ID:
+        update.message.reply_text('咪bam bot')
+        return
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     conn.autocommit = True
     dbCursor = conn.cursor()
     checkUserExist(dbCursor, from_user_id)
     checkUserExist(dbCursor, to_user_id)
+    print(from_user_id)
+    print(to_user_id)
 
     if from_user_id == to_user_id:
         update.message.reply_text('?')
