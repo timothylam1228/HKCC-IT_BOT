@@ -26,6 +26,7 @@ def ban(update, context):
     
     BOT_ID = int(os.environ['BOT_ID'])
     if to_user_id == BOT_ID:
+        print('咪bam bot')
         update.message.reply_text('咪bam bot')
         return
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
