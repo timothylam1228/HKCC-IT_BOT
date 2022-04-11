@@ -2,7 +2,7 @@
 
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
-from telegram import  InlineKeyboardButton
+from telegram import InlineKeyboardButton
 import os
 from dotenv import load_dotenv
 from commands.init import *
