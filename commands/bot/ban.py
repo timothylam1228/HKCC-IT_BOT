@@ -42,7 +42,7 @@ def ban(update, context):
         dbCursor.execute(checkDuplicateBanUser)
         ban_user_list = dbCursor.fetchone()
         if ban_user_list is not None:
-            if ban_user_list == 1:
+            if ban_user_list[0] == 1:
                 update.message.reply_text('You already bamed')
         else:
             insert_sql = "INSERT INTO tg_user_bam_relationship (user_id, block_user_id) VALUES ({},{})".format(to_user_id, from_user_id)
