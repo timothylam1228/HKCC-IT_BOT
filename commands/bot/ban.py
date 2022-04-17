@@ -20,6 +20,7 @@ def ban(update, context):
     message_id = update.message.reply_to_message.message_id
     from_user = update.message.from_user
     from_user_id = from_user['id']
+    print(update.message)
     user = update.message.reply_to_message.from_user
     to_user_id = user['id'] #block ppl
     DATABASE_URL = os.environ['DATABASE_URL']
