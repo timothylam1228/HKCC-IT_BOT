@@ -1,5 +1,6 @@
 
 import os
+import re
 import psycopg2
 
 SO_COOL = 'hkcc-it'
@@ -22,21 +23,26 @@ def ban(update, context):
     user = update.message.reply_to_message.from_user
     to_user_id = user['id'] #block ppl
     DATABASE_URL = os.environ['DATABASE_URL']
-
+    BOT_ID = int(os.environ['BOT_ID'])
+    if to_user_id == BOT_ID:
+        update.message.reply_text('咪bam bot')
+        return
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     conn.autocommit = True
     dbCursor = conn.cursor()
     checkUserExist(dbCursor, from_user_id)
     checkUserExist(dbCursor, to_user_id)
+    print(from_user_id)
+    print(to_user_id)
 
     if from_user_id == to_user_id:
         update.message.reply_text('?')
-    else:            update.message.reply_text(reply_to_message_id=message_id, text=str("HI2"))
+    else:
         checkDuplicateBanUser = "select 1 from tg_user_bam_relationship where user_id = {} AND block_user_id = {}".format(to_user_id, from_user_id)
         dbCursor.execute(checkDuplicateBanUser)
         ban_user_list = dbCursor.fetchone()
         if ban_user_list is not None:
-            if ban_user_list == 1:
+            if ban_user_list[0] == 1:
                 update.message.reply_text('You already bamed')
         else:
             insert_sql = "INSERT INTO tg_user_bam_relationship (user_id, block_user_id) VALUES ({},{})".format(to_user_id, from_user_id)

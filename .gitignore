@@ -11,3 +11,5 @@ venv.bak/
 *.pyc
 .vs/ProjectSettings.json
 .vs/slnx.sqlite
+.vs/Testingbot-testing/v16/.suo
+.vs/VSWorkspaceState.json
