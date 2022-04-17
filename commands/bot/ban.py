@@ -32,6 +32,7 @@ def ban(update, context):
     dbCursor = conn.cursor()
     checkUserExist(dbCursor, from_user_id)
     checkUserExist(dbCursor, to_user_id)
+    conn.commit()
     print(from_user_id)
     print(to_user_id)
 

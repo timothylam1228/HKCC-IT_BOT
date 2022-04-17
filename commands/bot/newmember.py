@@ -30,7 +30,6 @@ def newmember(update, context):
         sqlInsert = "INSERT INTO tg_user (user_id, last_update) VALUES (%d, Now()::TIMESTAMP(0))" % (user_id)
         dbCursor.execute(sqlInsert)
 
-     
         if("+852" in firstname):
             bot.kick_chat_member(chat_id=update.message.chat.id,
                                  user_id=update.message.from_user.id)
