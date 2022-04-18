@@ -22,12 +22,13 @@ def newmember(update, context):
     for member in update.message.new_chat_members:
         update.message.reply_text(text, reply_markup=keyboard)
         context.bot.send_voice(chat_id=update.message.chat.id, voice=ogg_url)
-        new_members = update.message.new_chat_members
         firstname = member.first_name
         lastname = member.last_name
 
         #upload user to db
-        sqlInsert = "INSERT INTO tg_user (user_id, last_update) VALUES (%d, Now()::TIMESTAMP(0))" % (user_id)
+        sqlInsert = "INSERT INTO tg_user values({},0,NOW()::TIMESTAMP(0),1)".format(member.id)
+
+        # sqlInsert = "INSERT INTO tg_user (user_id, last_update) VALUES (%d, Now()::TIMESTAMP(0))" % (user_id)
         dbCursor.execute(sqlInsert)
 
         if("+852" in firstname):
