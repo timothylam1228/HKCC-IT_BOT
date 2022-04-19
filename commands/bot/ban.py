@@ -9,6 +9,7 @@ def checkUserExist(dbCursor, id):
     sqlSelect = "select * from tg_user where user_id = {}".format(id)
     dbCursor.execute(sqlSelect)
     user = dbCursor.fetchone()
+    print(id)
     if user is None:
         sqlInsertTable = "INSERT INTO tg_user values({},0,NOW()::TIMESTAMP(0),1)".format(id)
         dbCursor.execute(sqlInsertTable)
