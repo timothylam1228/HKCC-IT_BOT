@@ -11,10 +11,10 @@ def samgor(update, context):
             return
         f = open('public/samgor.json',)
         data = json.load(f)
-        randomIngredient = random.sample(range(25), number1)
-        randomSoupBase = random.sample(range(6), 1)
+        randomIngredient = random.sample(range(28), number1)
+        randomSoupBase = random.sample(range(7), 1)
         randomSpiciness = random.sample(range(10), 1)
-        randomAppetizers = random.sample(range(9), 1)
+        randomAppetizers = random.sample(range(10), 1)
         randomSnacksForOne = random.sample(range(6), 1)
         randomDrink = random.sample(range(15), 1)
         eattext = ''
