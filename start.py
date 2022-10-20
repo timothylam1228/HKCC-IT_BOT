@@ -1,7 +1,7 @@
 # coding=UTF-8
 
 
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
+from telegram.ext import PreCheckoutQueryHandler,Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from telegram import InlineKeyboardButton
 import os
 from dotenv import load_dotenv
@@ -58,10 +58,10 @@ def main():
     #Useless
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
-    # dp.add_handler(CommandHandler("ocampfee", payment, pass_args=True))
-    # dp.add_handler(MessageHandler(
-    #     Filters.successful_payment, successful_payment_callback))
-    # dp.add_handler(PreCheckoutQueryHandler(precheckout_callback))
+    dp.add_handler(CommandHandler("ocampfee", payment, pass_args=True))
+    dp.add_handler(MessageHandler(
+        Filters.successful_payment, successful_payment_callback))
+    dp.add_handler(PreCheckoutQueryHandler(precheckout_callback))
     # dp.add_handler(CommandHandler(
     #     "canteen", listCanteen, filters=~Filters.chat_type.groups))
 

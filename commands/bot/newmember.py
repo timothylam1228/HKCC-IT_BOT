@@ -3,7 +3,7 @@ from telegram.utils import helpers
 SO_COOL = 'hkcc-it'
 import psycopg2
 import os
-
+import time
 def newmember(update, context):
     """Send a message when the command /help is issued."""
     query = update.callback_query
@@ -20,8 +20,8 @@ def newmember(update, context):
 
     ogg_url = 'https://github.com/timothylam1228/CodeDeployGitHubDemo/raw/master/source/plato.ogg'
     for member in update.message.new_chat_members:
-        update.message.reply_text(text, reply_markup=keyboard)
-        context.bot.send_voice(chat_id=update.message.chat.id, voice=ogg_url)
+        message_delete = update.message.reply_text(text, reply_markup=keyboard)
+        message_delete2 = context.bot.send_voice(chat_id=update.message.chat.id, voice=ogg_url)
         firstname = member.first_name
         lastname = member.last_name
 
@@ -41,4 +41,8 @@ def newmember(update, context):
         conn.commit()
         dbCursor.close()
         conn.close()
-        return
+        break
+    #remove bot message
+    time.time.sleep(5)
+    context.bot.delete_message(chat_id=update.message.chat.id, message_id=message_delete.message_id)
+    context.bot.delete_message(chat_id=update.message.chat.id, message_id=message_delete2.message_id)

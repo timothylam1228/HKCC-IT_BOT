@@ -8,14 +8,14 @@ logger = logging.getLogger(__name__)
 
 
 def payment(update, context):
-    try:
+    print('payment')
 
+    try:
         chat_id = update.message.chat.id
         title = "HKCC OCAMP 費用"
         description = "HKCC OCAMP 費用"
         payload = '{}_{}'.format(chat_id, update.message.message_id)
         provider_token = "350862534:LIVE:YjYxZjNhMjNkNmY3"
-        start_parameter = "TEMP"
         currency = "HKD"
         # prices = [LabeledPrice("HKCC OCAMP 費用", priceFromUser*100)]
         prices = [LabeledPrice("HKCC OCAMP 費用", 10000)]
