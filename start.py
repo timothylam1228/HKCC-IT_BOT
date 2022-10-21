@@ -42,7 +42,7 @@ def main():
 
 
     #Bot
-    dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
+    #dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, newmember))
     dp.add_handler(CommandHandler('bam',ban, filters=Filters.chat_type.groups))
     dp.add_handler(CommandHandler('unbam',unban, filters=Filters.chat_type.groups))
     dp.add_handler(CommandHandler('bam_show',ban_show, filters=Filters.chat_type.groups))
