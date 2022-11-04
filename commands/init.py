@@ -22,6 +22,7 @@ from commands.bot.start import *
 from commands.bot.ban import *
 from commands.bot.unban import *
 from commands.bot.ban_show import *
+from commands.bot.message_id import *
 
 # Location (Useless)
 from commands.location.list_canteen import *

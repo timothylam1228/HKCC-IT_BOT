@@ -3,4 +3,4 @@ def pin9(update, context):
     f = open("public/pin.txt",encoding="utf8")
     temp = f.read()
     # update.message.reply_text(text='INFO'+temp)
-    context.bot.sendMessage(chat_id=chat_id, text=temp, parse_mode='HTML')
+    context.bot.sendMessage(reply_to_message_id='452451',chat_id=chat_id, text='.', parse_mode='HTML')

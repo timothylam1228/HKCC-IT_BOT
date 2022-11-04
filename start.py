@@ -6,20 +6,44 @@ from telegram import InlineKeyboardButton
 import os
 from dotenv import load_dotenv
 from commands.init import *
+from telegram.bot import Bot, BotCommand
+'''
+openbot - open the bot
+openday - remaining time b4 hell
+endday - remaining time to leave hell
+gpaday - most excited day
+pin9 - show pin message
+exam - exam {code} show exam date time
+week - now is week ?
+show_marks - show your marks
+check_temp - check today temperature
+samgor - today eat wt ho
+bam - ban message user when 5 users use this command 
+'''
 
 load_dotenv()
-
+commands = [
+('openbot', 'Open the bot'),
+('pin9', 'Pin message'),
+('bam', 'Ban user'),
+('samgor', 'Eat what'),
+('checkTemp', 'Check temperature'),
+('wantCat', 'Random cat'),
+('show_marks', 'Show your marks'),
+]
 def main():
     global update_id
     PORT = int(os.environ.get('PORT', 8443))
 
     if os.environ['APP_ENV'] == 'LOCAL':
         TOKEN = os.environ.get('LOCAL_TOKEN')
+        print(TOKEN)
     else:
         TOKEN = os.environ.get('TOKEN')
     updater = Updater(TOKEN, use_context=True)
     dp = updater.dispatcher
-
+    # bot = Bot(TOKEN)
+    # bot.set_my_commands(commands)
 
     #Date
     dp.add_handler(CommandHandler("openday", open_day))
@@ -53,6 +77,8 @@ def main():
     dp.add_handler(CommandHandler("show_dllm",show_dllm))
 
     dp.add_handler(CommandHandler("show_marks",show_marks))
+    dp.add_handler(CommandHandler("show_message_id",show_marks))
+
     dp.add_handler(MessageHandler(Filters.text, message_count))
 
     #Useless
@@ -91,18 +117,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+  
 
-
-'''
-openbot - open the bot
-openday - remaining time b4 hell
-endday - remaining time to leave hell
-gpaday - most excited day
-pin9 - show pin message
-exam - exam {code} show exam date time
-week - now is week ?
-show_marks - show your marks
-check_temp - check today temperature
-samgor - today eat wt ho
-bam - ban message user when 5 users use this command 
-'''
